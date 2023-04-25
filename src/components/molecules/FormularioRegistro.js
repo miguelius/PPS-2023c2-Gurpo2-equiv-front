@@ -12,7 +12,8 @@ import {
     InputLabel,
     MenuItem,
     Snackbar,
-    styled
+    styled,
+    Select
 } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
 import { postUsuarios } from '../../services/usuario_service';
@@ -20,6 +21,12 @@ import { postUsuarios } from '../../services/usuario_service';
 import { GridTop } from '../../GridTop';
 
 const FormularioRegistro = () => {
+    const [role, setRole] = useState('alumno');
+
+    const changeRole = (event) => {
+        setRole(event.target.value);
+    };
+
     const [formValue, setFormValue] = useState({
         dni: '',
         nombre: '',
@@ -27,7 +34,7 @@ const FormularioRegistro = () => {
         email: '',
         discord: '',
         telefono: '',
-        rol: '',
+        rol: role,
         password: ''
     });
 
@@ -60,6 +67,8 @@ const FormularioRegistro = () => {
             password
         );
 
+        console.log('response', response);
+        // rompe porq hay response.data.status en la respuesta
         if (response.data.status === 200) {
             alert('Registro exitoso!');
             window.location.href = '/';
@@ -264,15 +273,18 @@ const FormularioRegistro = () => {
                                 marginTop: '6px'
                             }}
                         >
-                            <StandardInput
-                                required
-                                name="rol"
-                                size="small"
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={role}
                                 label="Rol"
-                                variant="outlined"
-                                value={formValue.rol}
-                                onChange={handleChange}
-                            />
+                                onChange={changeRole}
+                            >
+                                <MenuItem value={'alumno'}>Alumno</MenuItem>
+                                <MenuItem value={'directivo'}>
+                                    Directivo
+                                </MenuItem>
+                            </Select>
                         </Grid>
 
                         <Grid
