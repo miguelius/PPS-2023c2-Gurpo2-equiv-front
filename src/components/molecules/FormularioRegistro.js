@@ -20,6 +20,8 @@ import { postUsuarios } from '../../services/usuario_service';
 
 import { GridTop } from '../../GridTop';
 
+import bcrypt from 'bcryptjs';
+
 const FormularioRegistro = () => {
     const [role, setRole] = useState('alumno');
 
@@ -56,6 +58,7 @@ const FormularioRegistro = () => {
             rol,
             password
         } = formValue;
+        const hashedPassword = bcrypt.hashSync(password, 10);
         const response = await postUsuarios(
             dni,
             nombre,
@@ -64,7 +67,7 @@ const FormularioRegistro = () => {
             discord,
             telefono,
             rol,
-            password
+            hashedPassword
         );
 
         console.log('response', response);

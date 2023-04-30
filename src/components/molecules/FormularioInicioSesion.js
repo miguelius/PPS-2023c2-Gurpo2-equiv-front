@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUsuarios } from '../../services/usuario_service';
 
+import bcrypt from 'bcryptjs';
+
 const FormularioInicioSesion = () => {
     const [dni, setDni] = useState(null);
     const [password, setPassword] = useState('');
@@ -30,27 +32,58 @@ const FormularioInicioSesion = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(usuarios);
+
+        // console.log(usuarios);
+        /*
         const usuario = usuarios.find(
             (usuario) => usuario.dni === dni && usuario.password === password
         );
-        console.log(usuario);
-        if (usuario) {
-            localStorage.setItem('dni', JSON.stringify(usuario.dni));
-            localStorage.setItem('nombre', JSON.stringify(usuario.nombre));
-            localStorage.setItem('apellido', JSON.stringify(usuario.apellido));
-            localStorage.setItem('email', JSON.stringify(usuario.email));
-            localStorage.setItem('discord', JSON.stringify(usuario.discord));
-            localStorage.setItem('telefono', JSON.stringify(usuario.telefono));
-            localStorage.setItem('rol', JSON.stringify(usuario.rol));
-            localStorage.setItem('password', JSON.stringify(usuario.password));
-            localStorage.setItem('id', JSON.stringify(usuario.id));
+*/
+        const usuario = usuarios.find((usuario) => usuario.dni === dni);
 
-            if (usuario.rol == 'alumno') {
-                window.location.href = '/usuario/equivalencias';
-            } else {
-                window.location.href = '/direccion/solicitudes';
-            }
+        // console.log(usuario);
+        if (usuario) {
+            bcrypt.compare(password, usuario.password, function (err, isMatch) {
+                if (err) {
+                    throw err;
+                } else if (!isMatch) {
+                    alert('Usuario o contraseña incorrectos');
+                } else {
+                    localStorage.setItem('dni', JSON.stringify(usuario.dni));
+                    localStorage.setItem(
+                        'nombre',
+                        JSON.stringify(usuario.nombre)
+                    );
+                    localStorage.setItem(
+                        'apellido',
+                        JSON.stringify(usuario.apellido)
+                    );
+                    localStorage.setItem(
+                        'email',
+                        JSON.stringify(usuario.email)
+                    );
+                    localStorage.setItem(
+                        'discord',
+                        JSON.stringify(usuario.discord)
+                    );
+                    localStorage.setItem(
+                        'telefono',
+                        JSON.stringify(usuario.telefono)
+                    );
+                    localStorage.setItem('rol', JSON.stringify(usuario.rol));
+                    localStorage.setItem(
+                        'password',
+                        JSON.stringify(usuario.password)
+                    );
+                    localStorage.setItem('id', JSON.stringify(usuario.id));
+
+                    if (usuario.rol == 'alumno') {
+                        window.location.href = '/usuario/equivalencias';
+                    } else {
+                        window.location.href = '/direccion/solicitudes';
+                    }
+                }
+            });
         } else {
             alert('Usuario o contraseña incorrectos');
         }
