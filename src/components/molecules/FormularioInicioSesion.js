@@ -113,9 +113,7 @@ const FormularioInicioSesion = () => {
                                 id="outlined-basic"
                                 label="DNI"
                                 variant="outlined"
-                                onChange={(e) =>
-                                    setDni(parseInt(e.target.value))
-                                }
+                                onChange={(e) => setDni(e.target.value)}
                                 value={dni}
                             />
                         </ContenedorInputs>
