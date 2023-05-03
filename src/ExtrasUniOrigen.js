@@ -18,6 +18,7 @@ import DatePicker from '@mui/lab/DatePicker';
 const esNotaCorrecta = (nota) => {
     return nota == null || (nota >= 4 && nota <= 10);
 };
+
 const cargaHorariaCorrecta = (valor) => {
     return valor <= 999;
 };
@@ -131,7 +132,11 @@ const ExtrasUniOrigen = ({
                         }
                         onChange={(event) => handleChangeArray(event, key2)}
                         helperText={
-                            'Debe ingresar un valor, no superior a 999.'
+                            cargaHorariaCorrecta(
+                                formValueArray.cargaHorariaTotal
+                            )
+                                ? undefined
+                                : 'Debe ingresar un valor, no superior a 999.'
                         }
                     />
                 </Grid>
