@@ -52,7 +52,7 @@ export async function postUsuarios(
         rol: rol,
         password: password
     };
-
+    console.log('DATOS que llegan', data);
     try {
         const apiResponse = await axios.post(
             `${config.apiUrl}/usuarios`,
@@ -61,8 +61,10 @@ export async function postUsuarios(
                 headers: { 'content-type': 'application/x-www-form-urlencoded' }
             }
         );
+        console.log('La respuesta de la api es:', apiResponse);
+        console.log('el codigo de funcion es', apiResponse.status);
 
-        return apiResponse.data;
+        return apiResponse;
     } catch (error) {
         console.log(error);
         throw new Error('Error al hacer la petición post');
