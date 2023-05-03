@@ -161,7 +161,7 @@ const FormularioRegistro = () => {
                 sm={12}
                 padding={{
                     xs: '20px 30px',
-                    sm: '20px 60px'
+                    sm: '20px 40px'
                 }}
                 sx={{
                     height: 'auto',
@@ -271,7 +271,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorEmail
-                                        ? 'Ingrese un correo electrónico válido.'
+                                        ? 'Ingrese un correo válido.'
                                         : ''
                                 }
                                 error={errorEmail}
@@ -399,7 +399,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorTelefono
-                                        ? 'Ingrese un número de teléfono válido de 8 a 10 dígitos.'
+                                        ? 'Minímo entre 8 a 10 dígitos.'
                                         : ''
                                 }
                                 error={errorTelefono}
@@ -442,7 +442,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorDiscord
-                                        ? 'Ingrese un Nombre de usuario de Discord válido.'
+                                        ? 'Ingrese su usuario de Discord.'
                                         : ''
                                 }
                                 error={errorDiscord}
@@ -509,7 +509,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorPassword
-                                        ? 'La contraseña debe tener al menos 8 caracteres'
+                                        ? 'Minímo de 8 caracteres'
                                         : ''
                                 }
                                 error={errorPassword}
@@ -529,6 +529,7 @@ const FormularioRegistro = () => {
                             sx={{
                                 borderTop: '1px solid #DADCE0',
                                 marginTop: '20px ',
+
                                 padding: '0px 40px',
                                 justifyContent: 'center'
                             }}
@@ -536,7 +537,7 @@ const FormularioRegistro = () => {
                             <BotonMUI
                                 buttoncontained
                                 variant="outlined"
-                                sx={{ margin: '10px 0px' }}
+                                sx={{ margin: '20px 0px' }}
                                 onClick={handleSubmit}
                                 type="submit"
                             >
@@ -554,7 +555,7 @@ const FormularioMain = styled(Grid)`
     width: 65%;
     max-width: 65%;
     height: 100%;
-    padding: 50px 0px;
+
     border-radius: 20px;
     background: #fff;
     display: flex;
