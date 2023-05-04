@@ -8,6 +8,8 @@ import { PageVerEquivalencia } from './components/organisms/Alumno/PageVerEquiva
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import PageRegistro from './components/organisms/Registro/PageRegistro';
+import SignUpForm from './components/organisms/Registro/PageRegistro';
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
@@ -46,6 +48,7 @@ function App() {
             {rol == null && (
                 <Router>
                     <Route path="/" exact component={PageIniciarSesion} />
+                    <Route path="/registro" exact component={SignUpForm} />
                 </Router>
             )}
 
