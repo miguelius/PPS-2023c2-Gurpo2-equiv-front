@@ -33,13 +33,16 @@ const FormularioInicioSesion = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // console.log(usuarios);
+        console.log(usuarios);
         /*
         const usuario = usuarios.find(
             (usuario) => usuario.dni === dni && usuario.password === password
         );
 */
-        const usuario = usuarios.find((usuario) => usuario.dni === dni);
+        console.log(dni);
+        const usuario = usuarios.find(
+            (usuario) => usuario.dni === parseInt(dni)
+        );
 
         // console.log(usuario);
         if (usuario) {
