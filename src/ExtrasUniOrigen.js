@@ -16,7 +16,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
 const esNotaCorrecta = (nota) => {
-    return nota == null || (nota >= 4 && nota <= 10);
+    return nota == '' || nota == null || (nota >= 4 && nota <= 10);
 };
 
 const cargaHorariaCorrecta = (valor) => {
@@ -165,7 +165,10 @@ const ExtrasUniOrigen = ({
                         type="number"
                         value={formValueArray.notaAprobacion}
                         error={!esNotaCorrecta(formValueArray.notaAprobacion)}
-                        onChange={(event) => handleChangeArray(event, key2)}
+                        onChange={(event) => {
+                            handleChangeArray(event, key2);
+                            console.log(formValueArray.notaAprobacion);
+                        }}
                         helperText={
                             esNotaCorrecta(formValueArray.notaAprobacion)
                                 ? undefined
