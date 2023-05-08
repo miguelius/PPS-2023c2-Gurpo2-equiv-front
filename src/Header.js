@@ -5,6 +5,7 @@ import {
     ThemeProvider,
     Grid,
     Avatar,
+    Tooltip,
     IconButton
 } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -16,14 +17,18 @@ import React from 'react';
 import md5 from 'md5';
 
 const dni = JSON.parse(localStorage.getItem('dni'));
+const nombre = JSON.parse(localStorage.getItem('nombre'));
+const apellido = JSON.parse(localStorage.getItem('apellido'));
 
 let stringConcat = '';
+let userName = '';
 
 if (dni) {
     stringConcat = 'https://gravatar.com/avatar/'.concat(
         md5(dni),
         '?s=30&d=retro&r=g'
     );
+    userName = nombre.concat(' ', apellido);
 }
 
 const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
@@ -88,12 +93,12 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                         alignContent={'center'}
                         sx={{ display: 'flex', alignItems: 'center' }}
                     >
-                        <img
-                            src={stringConcat}
-                            alt=""
-                            style={{ borderRadius: '100%' }}
-                            width={'32px'}
-                        />
+                        <Tooltip title={userName}>
+                            <Avatar
+                                src={stringConcat}
+                                sx={{ width: '32px', height: '32px' }}
+                            ></Avatar>
+                        </Tooltip>
 
                         <Grid item container sx={{ marginLeft: '40px' }}>
                             <Link to="/" style={{ textDecoration: 'none' }}>

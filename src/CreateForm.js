@@ -199,7 +199,10 @@ const CreateForm = () => {
                 instituto: 'Instituto de Tecnología e Ingeniería',
                 array: materias.map((item) => {
                     return {
-                        nota: item.notaAprobacion,
+                        nota:
+                            item.notaAprobacion == ''
+                                ? null
+                                : item.notaAprobacion,
                         carga_horaria: item.cargaHorariaTotal,
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
