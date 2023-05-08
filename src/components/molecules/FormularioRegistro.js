@@ -6,6 +6,8 @@ import { Grid, MenuItem, styled, Select, TextField } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
 import { postUsuarios } from '../../services/usuario_service';
 
+import { GridTop } from '../../GridTop';
+
 import bcrypt from 'bcryptjs';
 
 const FormularioRegistro = () => {
@@ -61,27 +63,6 @@ const FormularioRegistro = () => {
         ];
 
         let valid = true;
-        const {
-            dni,
-            nombre,
-            apellido,
-            email,
-            discord,
-            telefono,
-            rol,
-            password
-        } = formValue;
-        const hashedPassword = bcrypt.hashSync(password, 10);
-        const response = await postUsuarios(
-            dni,
-            nombre,
-            apellido,
-            email,
-            discord,
-            telefono,
-            rol,
-            hashedPassword
-        );
 
         fieldsToValidate.forEach(({ field, regex }) => {
             if (!validateField(formValue[field], regex)) {
@@ -109,7 +90,7 @@ const FormularioRegistro = () => {
                 rol,
                 password
             } = formValue;
-
+            const hashedPassword = bcrypt.hashSync(password, 10);
             const response = await postUsuarios(
                 dni,
                 nombre,
@@ -118,7 +99,7 @@ const FormularioRegistro = () => {
                 discord,
                 telefono,
                 rol,
-                password
+                hashedPassword
             );
 
             console.log('response', response.status);
