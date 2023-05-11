@@ -3,11 +3,22 @@ import { config } from '../config/config';
 import qs from 'qs';
 
 //revisar en estos dos casos si esta bien q sea apiResponse.data
-export async function getInsitutciones() {
-    const apiResponse = await axios.get(
-        `${config.apiUrl}/universidades_origenes/todas`
-    );
-    return apiResponse.data;
+export async function getInsitutciones({ limit, page }) {
+    try {
+        const apiResponse = await axios.get(
+            `${config.apiUrl}/universidades_origenes/todas`,
+            {
+                params: {
+                    limit: limit,
+                    page: page
+                }
+            }
+        );
+        return apiResponse.items;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al hacer la petición get');
+    }
 }
 
 export async function getInsitutcionesHabilitadas() {
