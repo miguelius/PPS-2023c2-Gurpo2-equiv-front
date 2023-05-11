@@ -6,8 +6,6 @@ import { Grid, MenuItem, styled, Select, TextField } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
 import { postUsuarios } from '../../services/usuario_service';
 
-import { GridTop } from '../../GridTop';
-
 import bcrypt from 'bcryptjs';
 
 const FormularioRegistro = () => {
@@ -56,8 +54,9 @@ const FormularioRegistro = () => {
                 field: 'password',
                 regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
             },
-            { field: 'nombre', regex: /^[a-zA-Z\s]*$/ },
-            { field: 'apellido', regex: /^[a-zA-Z\s]*$/ },
+            { field: 'nombre', regex: /^[\p{L}\s]+$/u },
+            { field: 'apellido', regex: /^[\p{L}\s]+$/u },
+
             { field: 'discord', regex: /^[a-zA-Z0-9#]+$/ },
             { field: 'telefono', regex: /^\d{10}$/ }
         ];
@@ -361,7 +360,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorApellido
-                                        ? 'Ingrese un apellido válido.'
+                                        ? 'Ingrese un Apellido válido.'
                                         : ''
                                 }
                                 error={errorApellido}
@@ -513,7 +512,7 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorPassword
-                                        ? 'Minímo de 8 caracteres'
+                                        ? 'Minímo de 8 caracteres y una letra en mayúscula.'
                                         : ''
                                 }
                                 error={errorPassword}
