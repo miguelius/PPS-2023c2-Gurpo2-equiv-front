@@ -19,6 +19,7 @@ import md5 from 'md5';
 const dni = JSON.parse(localStorage.getItem('dni'));
 const nombre = JSON.parse(localStorage.getItem('nombre'));
 const apellido = JSON.parse(localStorage.getItem('apellido'));
+const rol = JSON.parse(localStorage.getItem('rol'));
 
 let stringConcat = '';
 let userName = '';
@@ -32,6 +33,14 @@ if (dni) {
 }
 
 const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
+    let roleText = '';
+
+    if (rol === 'Alumno') {
+        roleText = '¡Hola, alumno!';
+    } else if (rol === 'Directivo') {
+        roleText = '¡Hola, directivo!';
+    }
+
     return (
         <AppBar position="static" sx={{ bgcolor: '#122C34' }}>
             <Toolbar color="#122C34">
@@ -89,6 +98,29 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
 
                     <Grid
                         item
+                        justifyContent={'flex-start'}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '0px 16px',
+                            marginTop: '2px'
+                        }}
+                    >
+                        {rol && (
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    color: '#ffffff'
+                                }}
+                            >
+                                ¡Hola, {rol}!
+                            </div>
+                        )}
+                    </Grid>
+
+                    <Grid
+                        item
                         justifyContent={'flex-end'}
                         alignContent={'center'}
                         sx={{ display: 'flex', alignItems: 'center' }}
@@ -127,28 +159,6 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                 >
                     <Grid item>
                         <Menu name={name} paginaPrincipal={paginaPrincipal} />
-                    </Grid>
-
-                    {/* <Grid
-                        item
-                        justifyContent={'center'}
-                        alignContent={'center'}
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <img
-                            src="https://unahur.edu.ar/wp-content/uploads/2021/03/UNAHUR-1.png"
-                            alt=""
-                            width={'30px'}
-                            height={'35px'}
-                        />
-                    </Grid> */}
-
-                    <Grid
-                        item
-                        justifyContent={'flex-end'}
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        {/* <img src={stringConcat} alt="" /> */}
                     </Grid>
                 </Grid>
 
