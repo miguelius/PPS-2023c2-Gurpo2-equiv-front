@@ -7,6 +7,7 @@ import { Formulario } from '../atoms/Formulario/Formulario';
 import { postUsuarios } from '../../services/usuario_service';
 
 import bcrypt from 'bcryptjs';
+import { toast } from 'react-toastify';
 
 const FormularioRegistro = () => {
     const [role, setRole] = useState('alumno');
@@ -42,6 +43,31 @@ const FormularioRegistro = () => {
 
     const validateField = (value, regex) => {
         return regex.test(value);
+    };
+
+    const notifyExito = () => {
+        toast.success('Registro creado con éxito', {
+            containerId: 'home',
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
+
+    const notifyError = () => {
+        toast.error('Debe completar todos los campos del formulario', {
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -104,12 +130,11 @@ const FormularioRegistro = () => {
             console.log('response', response.status);
 
             //Ver promesas
-            if (response.status == 200) {
-                alert('Registro exitoso!');
-                window.location.href = '/';
-            } else {
-                alert('Ocurrió un error. Inténtalo de nuevo más tarde.');
-            }
+            response.status === 200 ? notifyExito() : notifyError();
+        }
+
+        if (!valid) {
+            notifyError();
         }
     };
 
