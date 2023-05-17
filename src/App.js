@@ -10,6 +10,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import PageRegistro from './components/organisms/Registro/PageRegistro';
 import SignUpForm from './components/organisms/Registro/PageRegistro';
+import PageInstituciones from './components/organisms/Instituciones/PageInstituciones';
+import PageCrearInstituciones from './components/organisms/Instituciones/PageCrearInstitucion';
+import PageEditarInstituciones from './components/organisms/Instituciones/PageEditarInstitucion';
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
@@ -42,6 +45,18 @@ function App() {
                     <Route
                         path="/direccion/revision/:id"
                         component={PageRevision}
+                    />
+                    <Route
+                        path="/direccion/instituciones/todas"
+                        component={PageInstituciones}
+                    />
+                    <Route
+                        path="/direccion/instituciones/nuevaInstitucion"
+                        component={PageCrearInstituciones}
+                    />
+                    <Route
+                        path="/direccion/instituciones/editarInstitucion/:id"
+                        component={PageEditarInstituciones}
                     />
                 </Router>
             )}
