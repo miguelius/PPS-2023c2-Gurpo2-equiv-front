@@ -33,16 +33,11 @@ if (dni) {
 }
 
 const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
-    let roleText = '';
-
-    if (rol === 'Alumno') {
-        roleText = '¡Hola, alumno!';
-    } else if (rol === 'Directivo') {
-        roleText = '¡Hola, directivo!';
-    }
-
     return (
-        <AppBar position="static" sx={{ bgcolor: '#122C34' }}>
+        <AppBar
+            position="static"
+            sx={{ bgcolor: rol === 'directivo' ? '#2D7AC0' : '#122C34' }}
+        >
             <Toolbar color="#122C34">
                 <Grid xs={0.25} lg={1.5} />
 
