@@ -10,20 +10,14 @@ import bcrypt from 'bcryptjs';
 import { toast } from 'react-toastify';
 
 const FormularioRegistro = () => {
-    const [role, setRole] = useState('alumno');
-
-    const changeRole = (event) => {
-        setRole(event.target.value);
-    };
-
     const [formValue, setFormValue] = useState({
         dni: '',
         nombre: '',
         apellido: '',
         email: '',
         discord: '',
-        telefono: 0,
-        rol: role,
+        telefono: '',
+        rol: '',
         password: ''
     });
 
@@ -498,9 +492,9 @@ const FormularioRegistro = () => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={role}
+                                value={formValue.role}
                                 label="Rol"
-                                onChange={changeRole}
+                                onChange={handleChange}
                             >
                                 <MenuItem value={'alumno'}>Alumno</MenuItem>
                                 <MenuItem value={'directivo'}>

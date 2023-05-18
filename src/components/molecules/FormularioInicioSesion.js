@@ -83,7 +83,7 @@ const FormularioInicioSesion = () => {
                     if (usuario.rol == 'alumno') {
                         window.location.href = '/usuario/equivalencias';
                     } else {
-                        window.location.href = '/direccion/solicitudes';
+                        window.location.href = '/direccionDashboard';
                     }
                 }
             });
