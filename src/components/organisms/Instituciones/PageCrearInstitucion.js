@@ -11,14 +11,38 @@ import {
     ContainerCenterButton,
     ContainerTitle
 } from './InstitucionesStyled';
-//import { useNavigate } from "react-router-dom"; no funca porq es v5 la q esta instalado y funciona a partir de v6
+import { toast } from 'react-toastify';
+//import { useNavigate } from "react-router-dom"; //no funca porq es v5 la q esta instalado y funciona a partir de v6
 
 const PageCrearInstitucion = () => {
     const [nombre, setNombre] = useState('');
     const [localidad, setLocalidad] = useState('');
     const [sigla, setSigla] = useState('');
 
-    //const navigate = useNavigate();
+    const notifyExito = () => {
+        toast.success('Institución creada con éxito', {
+            containerId: 'home',
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
+
+    const notifyError = () => {
+        toast.error('Se produjo un error al intentar crear la institución', {
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -29,13 +53,10 @@ const PageCrearInstitucion = () => {
                 sigla
             );
             console.log(institucion);
-            /*
-            setTimeout(() => {
-                navigate("direccion/instituciones/todas");
-              }, 3000);
-             */
+            notifyExito();
         } catch (error) {
             console.log(error);
+            notifyError();
         }
     };
 

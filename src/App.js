@@ -13,6 +13,8 @@ import SignUpForm from './components/organisms/Registro/PageRegistro';
 import PageInstituciones from './components/organisms/Instituciones/PageInstituciones';
 import PageCrearInstituciones from './components/organisms/Instituciones/PageCrearInstitucion';
 import PageEditarInstituciones from './components/organisms/Instituciones/PageEditarInstitucion';
+import PageInstitucionDashboard from './components/organisms/Instituciones/PageInstitucionDashboard';
+import PageDireccionDashboard from './components/organisms/Direccion/PageDireccionDashboard';
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
@@ -47,16 +49,24 @@ function App() {
                         component={PageRevision}
                     />
                     <Route
-                        path="/direccion/instituciones/todas"
+                        path="/instituciones/todas"
                         component={PageInstituciones}
                     />
                     <Route
-                        path="/direccion/instituciones/nuevaInstitucion"
+                        path="/instituciones/crear"
                         component={PageCrearInstituciones}
                     />
                     <Route
-                        path="/direccion/instituciones/editarInstitucion/:id"
+                        path="/instituciones/editarInstitucion/:id"
                         component={PageEditarInstituciones}
+                    />
+                    <Route
+                        path="/direccion/instituciones"
+                        component={PageInstitucionDashboard}
+                    />
+                    <Route
+                        path="/direccionDashboard"
+                        component={PageDireccionDashboard}
                     />
                 </Router>
             )}

@@ -17,12 +17,65 @@ import {
 } from './InstitucionesStyled';
 import { useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
-
+import { toast } from 'react-toastify';
 const PageEditarInstitucion = () => {
     const [nombre, setNombre] = useState('');
     const [localidad, setLocalidad] = useState('');
     const [sigla, setSigla] = useState('');
     const { id } = useParams();
+
+    const notifyExito = () => {
+        toast.success('Institución editada con éxito', {
+            containerId: 'home',
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
+
+    const notifyExitoDisabled = () => {
+        toast.success('Institución deshabilitada con éxito', {
+            containerId: 'home',
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
+
+    const notifyError = () => {
+        toast.error('Se produjo un error al intentar editar la institución', {
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    };
+
+    const notifyErrorDisabled = () => {
+        toast.error(
+            'Se produjo un error al intentar deshabilitar la institución',
+            {
+                position: 'bottom-left',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined
+            }
+        );
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -34,8 +87,10 @@ const PageEditarInstitucion = () => {
                 id
             );
             console.log(institucion);
+            notifyExito();
         } catch (error) {
             console.log(error);
+            notifyError();
         }
     };
 
@@ -44,7 +99,9 @@ const PageEditarInstitucion = () => {
         try {
             const institucion = await disabledInstituciones(id);
             console.log(institucion);
+            notifyExitoDisabled();
         } catch (error) {
+            notifyErrorDisabled();
             console.log(error);
         }
     };
