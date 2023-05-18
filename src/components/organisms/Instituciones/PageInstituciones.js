@@ -145,7 +145,7 @@ const PageInstituciones = () => {
                                         )}
                                         <TableCell align="left">
                                             <Link
-                                                to={`/direccion/instituciones/editarInstitucion/${instituciones.id}`}
+                                                to={`/instituciones/editarInstitucion/${instituciones.id}`}
                                             >
                                                 <Button variant="contained">
                                                     Editar

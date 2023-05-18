@@ -7,7 +7,7 @@ import {
 } from '../../../services/institucionService';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Grid, styled, Typography, Button } from '@mui/material';
+import { Grid, Typography, Button } from '@mui/material';
 import { Header } from '../../../Header';
 import Image from 'mui-image';
 import {
