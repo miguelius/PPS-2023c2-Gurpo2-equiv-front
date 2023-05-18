@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -158,13 +159,11 @@ const PageInstituciones = () => {
                     </TableContainer>
                 </ContainerCenter>
                 <ContainerPagination>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        rowsPerPage={limit}
+                    <Pagination
+                        count={totalPages}
                         page={currentPage}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        onChange={handleChangePage}
+                        color="primary"
                     />
                 </ContainerPagination>
             </Grid>
