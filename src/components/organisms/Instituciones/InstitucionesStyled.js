@@ -26,7 +26,7 @@ const ContainerCenterButton = styled(Container)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
+    padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 `;
 

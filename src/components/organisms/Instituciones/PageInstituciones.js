@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -97,6 +98,12 @@ const PageInstituciones = () => {
                                         sx={{ color: '#F9F3EE' }}
                                         align="left"
                                     >
+                                        Estado
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{ color: '#F9F3EE' }}
+                                        align="left"
+                                    >
                                         Opciones
                                     </TableCell>
                                 </TableRow>
@@ -127,9 +134,18 @@ const PageInstituciones = () => {
                                         <TableCell align="left">
                                             {instituciones.sigla}
                                         </TableCell>
+                                        {instituciones.disabled === true ? (
+                                            <TableCell align="left">
+                                                Deshabilitada
+                                            </TableCell>
+                                        ) : (
+                                            <TableCell align="left">
+                                                Habilitada
+                                            </TableCell>
+                                        )}
                                         <TableCell align="left">
                                             <Link
-                                                to={`/direccion/instituciones/editarInstitucion/${instituciones.id}`}
+                                                to={`/instituciones/editarInstitucion/${instituciones.id}`}
                                             >
                                                 <Button variant="contained">
                                                     Editar
@@ -143,13 +159,11 @@ const PageInstituciones = () => {
                     </TableContainer>
                 </ContainerCenter>
                 <ContainerPagination>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        rowsPerPage={limit}
+                    <Pagination
+                        count={totalPages}
                         page={currentPage}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        onChange={handleChangePage}
+                        color="primary"
                     />
                 </ContainerPagination>
             </Grid>
