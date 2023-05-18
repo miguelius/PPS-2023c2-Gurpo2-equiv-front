@@ -17,7 +17,7 @@ const FormularioRegistro = () => {
         email: '',
         discord: '',
         telefono: '',
-        role: 'alumno',
+        rol: 'alumno',
         password: ''
     });
 
@@ -492,12 +492,12 @@ const FormularioRegistro = () => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={formValue.role}
+                                value={formValue.rol}
                                 label="Rol"
                                 onChange={(event) =>
                                     setFormValue({
                                         ...formValue,
-                                        role: event.target.value
+                                        rol: event.target.value
                                     })
                                 }
                             >
