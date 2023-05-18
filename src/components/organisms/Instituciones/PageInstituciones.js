@@ -97,6 +97,12 @@ const PageInstituciones = () => {
                                         sx={{ color: '#F9F3EE' }}
                                         align="left"
                                     >
+                                        Estado
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{ color: '#F9F3EE' }}
+                                        align="left"
+                                    >
                                         Opciones
                                     </TableCell>
                                 </TableRow>
@@ -127,6 +133,15 @@ const PageInstituciones = () => {
                                         <TableCell align="left">
                                             {instituciones.sigla}
                                         </TableCell>
+                                        {instituciones.disabled === true ? (
+                                            <TableCell align="left">
+                                                Deshabilitada
+                                            </TableCell>
+                                        ) : (
+                                            <TableCell align="left">
+                                                Habilitada
+                                            </TableCell>
+                                        )}
                                         <TableCell align="left">
                                             <Link
                                                 to={`/direccion/instituciones/editarInstitucion/${instituciones.id}`}
