@@ -17,7 +17,7 @@ const FormularioRegistro = () => {
         email: '',
         discord: '',
         telefono: '',
-        rol: '',
+        role: 'alumno',
         password: ''
     });
 
