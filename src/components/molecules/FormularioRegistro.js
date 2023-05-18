@@ -494,7 +494,12 @@ const FormularioRegistro = () => {
                                 id="demo-simple-select"
                                 value={formValue.role}
                                 label="Rol"
-                                onChange={handleChange}
+                                onChange={(event) =>
+                                    setFormValue({
+                                        ...formValue,
+                                        role: event.target.value
+                                    })
+                                }
                             >
                                 <MenuItem value={'alumno'}>Alumno</MenuItem>
                                 <MenuItem value={'directivo'}>
