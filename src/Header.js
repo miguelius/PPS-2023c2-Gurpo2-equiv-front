@@ -1,16 +1,15 @@
 import {
     AppBar,
     Toolbar,
-    Button,
-    ThemeProvider,
     Grid,
     Avatar,
     Tooltip,
-    IconButton
+    Popover,
+    Typography,
+    Box
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { createTheme } from '@mui/material/styles';
-import { AccessAlarm } from '@mui/icons-material';
+
 import { BotonMUI } from './components/atoms/Button/BotonMUI';
 import { Menu } from '../src/components/molecules/Menu';
 import React from 'react';
@@ -20,6 +19,8 @@ const dni = JSON.parse(localStorage.getItem('dni'));
 const nombre = JSON.parse(localStorage.getItem('nombre'));
 const apellido = JSON.parse(localStorage.getItem('apellido'));
 const rol = JSON.parse(localStorage.getItem('rol'));
+const discord = JSON.parse(localStorage.getItem('discord'));
+const email = JSON.parse(localStorage.getItem('email'));
 
 let stringConcat = '';
 let userName = '';
@@ -33,6 +34,18 @@ if (dni) {
 }
 
 const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <AppBar
             position="static"
@@ -71,9 +84,92 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                         </Grid>
 
                         <Grid md={5}>
-                            <BotonMUI variant="text" sx={{ width: '130px' }}>
+                            <BotonMUI
+                                aria-describedby={id}
+                                variant="text"
+                                sx={{
+                                    width: '130px',
+                                    backgroundColor: `${botonSeleccionado}`
+                                }}
+                                onClick={handleClick}
+                            >
                                 Perfil
                             </BotonMUI>
+                            <Popover
+                                id={id}
+                                open={open}
+                                anchorEl={anchorEl}
+                                onClose={handleClose}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left'
+                                }}
+                            >
+                                <Box sx={{ width: 230 }}>
+                                    <Grid
+                                        container
+                                        direction="column"
+                                        spacing={1}
+                                        sx={{ p: 2 }}
+                                    >
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    color: 'black'
+                                                }}
+                                            >
+                                                Nombre:
+                                            </Typography>
+                                            <Typography>{nombre}</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    color: 'black'
+                                                }}
+                                            >
+                                                Apellido:
+                                            </Typography>
+                                            <Typography>{apellido}</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    color: 'black'
+                                                }}
+                                            >
+                                                DNI:
+                                            </Typography>
+                                            <Typography>{dni}</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    color: 'black'
+                                                }}
+                                            >
+                                                Email:
+                                            </Typography>
+                                            <Typography>{email}</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    color: 'black'
+                                                }}
+                                            >
+                                                Discord:
+                                            </Typography>
+                                            <Typography>{discord}</Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Popover>
                         </Grid>
                     </Grid>
 
