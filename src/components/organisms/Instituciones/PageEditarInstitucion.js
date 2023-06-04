@@ -18,12 +18,14 @@ import {
 import { useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+
 const PageEditarInstitucion = () => {
     const [nombre, setNombre] = useState('');
     const [localidad, setLocalidad] = useState('');
     const [sigla, setSigla] = useState('');
     const { id } = useParams();
-
+    const history = useHistory();
     const notifyExito = () => {
         toast.success('Institución editada con éxito', {
             containerId: 'home',
@@ -88,6 +90,9 @@ const PageEditarInstitucion = () => {
             );
             console.log(institucion);
             notifyExito();
+            setTimeout(() => {
+                history.push('/direccion/instituciones');
+            }, 5500);
         } catch (error) {
             console.log(error);
             notifyError();
