@@ -13,12 +13,14 @@ import {
 } from './InstitucionesStyled';
 import { toast } from 'react-toastify';
 //import { useNavigate } from "react-router-dom"; //no funca porq es v5 la q esta instalado y funciona a partir de v6
+import { useHistory } from 'react-router-dom';
 
 const PageCrearInstitucion = () => {
     const [nombre, setNombre] = useState('');
     const [localidad, setLocalidad] = useState('');
     const [sigla, setSigla] = useState('');
 
+    const history = useHistory();
     const notifyExito = () => {
         toast.success('Institución creada con éxito', {
             containerId: 'home',
@@ -54,6 +56,9 @@ const PageCrearInstitucion = () => {
             );
             console.log(institucion);
             notifyExito();
+            setTimeout(() => {
+                history.push('/direccion/instituciones');
+            }, 5500);
         } catch (error) {
             console.log(error);
             notifyError();
