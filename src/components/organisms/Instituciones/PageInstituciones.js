@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getInsitutciones } from '../../../services/institucionService';
 import { ContainerTitle } from './InstitucionesStyled';
 import { ContainerCenter, ContainerPagination } from './InstitucionesStyled';
-import { Grid, Button, Container } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { Header } from '../../../Header';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
