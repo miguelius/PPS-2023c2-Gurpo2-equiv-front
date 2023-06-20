@@ -46,6 +46,10 @@ const PageCrearInstitucion = () => {
         });
     };
 
+    const handleBack = () => {
+        history.push('/direccion/instituciones');
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -139,6 +143,17 @@ const PageCrearInstitucion = () => {
                                 variant="contained"
                             >
                                 Crear Institución
+                            </Button>
+                        </ContainerCenterButton>
+                        <ContainerCenterButton>
+                            <Button
+                                size="large"
+                                fullWidth
+                                onClick={handleBack}
+                                variant="contained"
+                                color="secondary"
+                            >
+                                Volver a Dashboard
                             </Button>
                         </ContainerCenterButton>
                     </Box>

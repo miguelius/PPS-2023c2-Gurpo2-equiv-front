@@ -79,6 +79,10 @@ const PageEditarInstitucion = () => {
         );
     };
 
+    const handleBack = () => {
+        history.push('/instituciones/todas');
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -226,6 +230,17 @@ const PageEditarInstitucion = () => {
                                     variant="contained"
                                 >
                                     Deshabilitar Institución
+                                </Button>
+                            </ContainerCenterButton>
+                            <ContainerCenterButton>
+                                <Button
+                                    size="large"
+                                    fullWidth
+                                    onClick={handleBack}
+                                    variant="contained"
+                                    color="secondary"
+                                >
+                                    Volver a Instituciones
                                 </Button>
                             </ContainerCenterButton>
                         </Grid>
