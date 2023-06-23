@@ -1,13 +1,12 @@
 import React from 'react';
 import cx from 'clsx';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Divider, Grid, Typography } from '@mui/material';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import MensajesStyle from './MensajesStyle.js';
 import AvatarIcon from '../AvatarIcon.jsx';
 import { Fragment } from 'react';
-import { red } from '@mui/material/colors';
+import { cyan } from '@mui/material/colors';
 
 const Mensajes = withStyles(MensajesStyle)((props) => {
     const { classes, mensajes, usuario_id } = props;
@@ -21,169 +20,153 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
             ? classes[`${sidePorUsuario(mensaje)}Last`]
             : '';
 
-    function convertUTCtoLocalTime(utcDatetimeString) {
+    const horaMensaje = (utcDatetimeString) => {
         const date = new Date(utcDatetimeString);
-        return (
-            date.toLocaleDateString() +
-            ' - ' +
-            date.toLocaleTimeString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            })
-        );
-    }
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
+
+    const fechaMensaje = (utcDatetimeString) => {
+        const date = new Date(utcDatetimeString);
+        return date.toLocaleDateString();
+    };
 
     const sidePorUsuario = (mensaje) => {
         return mensaje.id_remitente === usuario_id ? 'right' : 'left';
     };
 
-    const mensajeUnico = (index) => {
-        return (
-            (index === 0 ||
-                mensajes[index].id_remitente !==
-                    mensajes[index - 1].id_remitente) &&
-            (index === mensajes.length - 1 ||
-                mensajes[index].id_remitente !==
-                    mensajes[index + 1].id_remitente)
-        );
+    const handleFecha = (index, mensaje) => {
+        if (
+            index === 0 ||
+            fechaMensaje(mensaje.createdAt) !==
+                fechaMensaje(mensajes[index - 1].createdAt)
+        ) {
+            return (
+                <Fragment>
+                    <Grid item xs={12}>
+                        <Divider>
+                            <Typography variant="body2" color="textSecondary">
+                                {fechaMensaje(mensaje.createdAt)}
+                            </Typography>
+                        </Divider>
+                    </Grid>
+                </Fragment>
+            );
+        }
     };
 
     return (
         <Fragment>
-            <Grid container spacing={0}>
+            <Grid container>
                 {mensajes.map((mensaje, i) => {
-                    if (sidePorUsuario(mensaje) === 'left') {
-                        if (
-                            primerUltimoMensaje(i, mensaje) ===
-                            classes.leftFirst
-                        ) {
-                            return (
-                                <Grid
-                                    key={mensaje.id || i}
-                                    container
-                                    item
-                                    className={
-                                        classes[`${sidePorUsuario(mensaje)}Row`]
-                                    }
-                                >
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            variant="body2"
-                                            className={cx(
-                                                classes[
-                                                    `${sidePorUsuario(
-                                                        mensaje
-                                                    )}Name`
-                                                ]
-                                            )}
-                                        >
-                                            {mensaje.Usuario.nombre.trim() +
-                                                ' ' +
-                                                mensaje.Usuario.apellido.trim()}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={1}>
-                                        <AvatarIcon
-                                            info={[
-                                                mensaje.Usuario.nombre.trim() +
-                                                    ' ' +
-                                                    mensaje.Usuario.apellido.trim()
-                                            ]}
-                                        />
-                                    </Grid>
-
-                                    <Grid item xs={11}>
-                                        <Typography
-                                            align={'left'}
-                                            className={cx(
-                                                classes.msg,
-                                                classes[
-                                                    `${sidePorUsuario(mensaje)}`
-                                                ],
-                                                primerUltimoMensaje(i, mensaje)
-                                            )}
-                                        >
-                                            {mensaje.texto}
-                                        </Typography>
-                                        {mensajeUnico(i) && (
+                    return (
+                        <Fragment key={mensaje.id || i}>
+                            {handleFecha(i, mensaje)}
+                            {sidePorUsuario(mensaje) === 'left' ? (
+                                <Grid key={mensaje.id || i} container item>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sx={{
+                                            paddingLeft: 7
+                                        }}
+                                    >
+                                        {primerUltimoMensaje(i, mensaje) ===
+                                            classes.leftFirst && (
                                             <Typography
                                                 variant="body2"
-                                                color="textSecondary"
-                                                className={cx(
-                                                    classes[
-                                                        `${sidePorUsuario(
-                                                            mensaje
-                                                        )}Time`
-                                                    ]
-                                                )}
+                                                sx={{
+                                                    color: cyan[600],
+                                                    fontWeight: 'bold',
+                                                    paddingBottom: '0.2rem'
+                                                }}
                                             >
-                                                {convertUTCtoLocalTime(
-                                                    mensaje.createdAt
-                                                )}
+                                                {mensaje.Usuario.nombre.trim() +
+                                                    ' ' +
+                                                    mensaje.Usuario.apellido.trim()}
                                             </Typography>
                                         )}
                                     </Grid>
-                                </Grid>
-                            );
-                        } else if (
-                            primerUltimoMensaje(i, mensaje) === classes.leftLast
-                        ) {
-                            return (
-                                <Grid
-                                    key={mensaje.id || i}
-                                    container
-                                    item
-                                    className={
-                                        classes[`${sidePorUsuario(mensaje)}Row`]
-                                    }
-                                >
-                                    <Grid item xs={1}></Grid>
-                                    <Grid item xs={11}>
-                                        <Typography
-                                            align={'left'}
-                                            className={cx(
-                                                classes.msg,
-                                                classes[
-                                                    `${sidePorUsuario(mensaje)}`
-                                                ],
-                                                primerUltimoMensaje(i, mensaje)
-                                            )}
-                                        >
-                                            {mensaje.texto}
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            className={cx(
-                                                classes[
-                                                    `${sidePorUsuario(
+                                    <Grid container item xs={12}>
+                                        {primerUltimoMensaje(i, mensaje) ===
+                                            classes.leftFirst && (
+                                            <AvatarIcon
+                                                info={[
+                                                    mensaje.Usuario.nombre.trim() +
+                                                        ' ' +
+                                                        mensaje.Usuario.apellido.trim()
+                                                ]}
+                                            />
+                                        )}
+                                        <Grid
+                                            item
+                                            xs={9}
+                                            display="flex"
+                                            justifyContent="flex-start"
+                                            sx={{
+                                                paddingLeft:
+                                                    primerUltimoMensaje(
+                                                        i,
                                                         mensaje
-                                                    )}Time`
-                                                ]
-                                            )}
+                                                    ) === classes.leftFirst
+                                                        ? 1
+                                                        : 6,
+                                                paddingBottom:
+                                                    primerUltimoMensaje(
+                                                        i,
+                                                        mensaje
+                                                    ) === classes.leftLast
+                                                        ? 2
+                                                        : 0
+                                            }}
                                         >
-                                            {convertUTCtoLocalTime(
-                                                mensaje.createdAt
-                                            )}
-                                        </Typography>
+                                            <Typography
+                                                align={'left'}
+                                                className={cx(
+                                                    classes.msg,
+                                                    classes[
+                                                        `${sidePorUsuario(
+                                                            mensaje
+                                                        )}`
+                                                    ],
+                                                    primerUltimoMensaje(
+                                                        i,
+                                                        mensaje
+                                                    )
+                                                )}
+                                            >
+                                                {mensaje.texto}
+                                                <Typography
+                                                    variant="caption"
+                                                    color="textSecondary"
+                                                    sx={{
+                                                        fontSize: '0.7rem',
+                                                        ml: 1
+                                                    }}
+                                                >
+                                                    {horaMensaje(
+                                                        mensaje.createdAt
+                                                    )}
+                                                </Typography>
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                            );
-                        } else
-                            return (
+                            ) : (
                                 <Grid
                                     key={mensaje.id || i}
-                                    item
                                     container
-                                    className={
-                                        classes[`${sidePorUsuario(mensaje)}Row`]
-                                    }
+                                    item
+                                    justifyContent="flex-end"
                                 >
-                                    <Grid item xs={1}></Grid>
-                                    <Grid item xs={11}>
+                                    <Grid
+                                        item
+                                        xs={10}
+                                        display="flex"
+                                        justifyContent="flex-end"
+                                    >
                                         <Typography
-                                            align={'left'}
                                             className={cx(
                                                 classes.msg,
                                                 classes[
@@ -193,81 +176,22 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                             )}
                                         >
                                             {mensaje.texto}
+                                            <Typography
+                                                variant="caption"
+                                                color="#7986cb"
+                                                sx={{
+                                                    fontSize: '0.7rem',
+                                                    ml: 1
+                                                }}
+                                            >
+                                                {horaMensaje(mensaje.createdAt)}
+                                            </Typography>
                                         </Typography>
                                     </Grid>
                                 </Grid>
-                            );
-                    }
-                    if (primerUltimoMensaje(i, mensaje) === classes.rightLast) {
-                        return (
-                            <Grid
-                                key={mensaje.id || i}
-                                item
-                                xs={12}
-                                className={
-                                    classes[`${sidePorUsuario(mensaje)}Row`]
-                                }
-                            >
-                                <Typography
-                                    align={'right'}
-                                    className={cx(
-                                        classes.msg,
-                                        classes[`${sidePorUsuario(mensaje)}`],
-                                        primerUltimoMensaje(i, mensaje)
-                                    )}
-                                >
-                                    {mensaje.texto}
-                                </Typography>
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    className={cx(
-                                        classes[
-                                            `${sidePorUsuario(mensaje)}Time`
-                                        ]
-                                    )}
-                                >
-                                    {convertUTCtoLocalTime(mensaje.createdAt)}
-                                </Typography>
-                            </Grid>
-                        );
-                    } else
-                        return (
-                            <Grid
-                                key={mensaje.id || i}
-                                item
-                                xs={12}
-                                className={
-                                    classes[`${sidePorUsuario(mensaje)}Row`]
-                                }
-                            >
-                                <Typography
-                                    align={'right'}
-                                    className={cx(
-                                        classes.msg,
-                                        classes[`${sidePorUsuario(mensaje)}`],
-                                        primerUltimoMensaje(i, mensaje)
-                                    )}
-                                >
-                                    {mensaje.texto}
-                                </Typography>
-                                {mensajeUnico(i) && (
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        className={cx(
-                                            classes[
-                                                `${sidePorUsuario(mensaje)}Time`
-                                            ]
-                                        )}
-                                    >
-                                        {convertUTCtoLocalTime(
-                                            mensaje.createdAt
-                                        )}
-                                    </Typography>
-                                )}
-                            </Grid>
-                        );
+                            )}
+                        </Fragment>
+                    );
                 })}
             </Grid>
         </Fragment>
