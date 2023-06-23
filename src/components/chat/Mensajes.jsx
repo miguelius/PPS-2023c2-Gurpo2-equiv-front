@@ -37,7 +37,22 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
     };
 
     const handleFecha = (index, mensaje) => {
-        if (
+        index === 0 ||
+        fechaMensaje(mensaje.createdAt) !==
+            fechaMensaje(mensajes[index - 1].createdAt) ? (
+            <Fragment>
+                <Grid item xs={12}>
+                    <Divider>
+                        <Typography variant="body2" color="textSecondary">
+                            {fechaMensaje(mensaje.createdAt)}
+                        </Typography>
+                    </Divider>
+                </Grid>
+            </Fragment>
+        ) : null;
+
+        {
+            /*        if (
             index === 0 ||
             fechaMensaje(mensaje.createdAt) !==
                 fechaMensaje(mensajes[index - 1].createdAt)
@@ -53,6 +68,7 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                     </Grid>
                 </Fragment>
             );
+        } */
         }
     };
 
