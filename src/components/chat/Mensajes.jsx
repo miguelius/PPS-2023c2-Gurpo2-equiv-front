@@ -37,26 +37,8 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
     };
 
     const handleFecha = (index, mensaje) => {
-        index === 0 ||
-        fechaMensaje(mensaje.createdAt) !==
-            fechaMensaje(mensajes[index - 1].createdAt) ? (
-            <Fragment>
-                <Grid item xs={12}>
-                    <Divider>
-                        <Typography variant="body2" color="textSecondary">
-                            {fechaMensaje(mensaje.createdAt)}
-                        </Typography>
-                    </Divider>
-                </Grid>
-            </Fragment>
-        ) : null;
-
-        {
-            /*        if (
-            index === 0 ||
-            fechaMensaje(mensaje.createdAt) !==
-                fechaMensaje(mensajes[index - 1].createdAt)
-        ) {
+        if (index === 0 ||
+            fechaMensaje(mensaje.createdAt) !== fechaMensaje(mensajes[index - 1].createdAt)){
             return (
                 <Fragment>
                     <Grid item xs={12}>
@@ -68,8 +50,7 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                     </Grid>
                 </Fragment>
             );
-        } */
-        }
+        } 
     };
 
     return (
@@ -100,7 +81,21 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                             >
                                                 {mensaje.Usuario.nombre.trim() +
                                                     ' ' +
-                                                    mensaje.Usuario.apellido.trim()}
+                                                    mensaje.Usuario.apellido.trim() 
+                                                }
+                                                    <Typography
+                                                            variant="caption"
+                                                            color= "textSecondary"
+                                                            sx={{
+                                                                fontSize:"13px"
+                                                            }}
+                                                    >
+                                                            {
+                                                            ' - ' + 
+                                                            mensaje.Usuario.rol[0].toUpperCase().trim() +
+                                                            mensaje.Usuario.rol.substring(1).trim()
+                                                            }
+                                                    </Typography>
                                             </Typography>
                                         )}
                                     </Grid>

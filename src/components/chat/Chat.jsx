@@ -32,10 +32,15 @@ const Chat = (props) => {
 
     useEffect(() => {
         getMensajes(id).then((rpta) => {
-            setMensajes(rpta.data);
-        });
-    }, []);
-
+            if(Array.isArray(rpta.data) && rpta.data.length > 0) {
+                setMensajes(rpta.data);
+              }
+            })
+            .catch((error) => {
+              console.log('Error al obtener los mensajes:', error);
+            });
+        }, []);
+    
     const handleChange = (e) => {
         setMensaje(e.target.value);
     };
