@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getInsitutciones } from '../../../services/institucionService';
 import { ContainerTitle } from './InstitucionesStyled';
 import { ContainerCenter, ContainerPagination } from './InstitucionesStyled';
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, IconButton } from '@mui/material';
 import { Header } from '../../../Header';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,6 +16,7 @@ import TablePagination from '@mui/material/TablePagination';
 import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PageInstituciones = () => {
     const [listaInstituciones, setListaInstituciones] = useState([]);

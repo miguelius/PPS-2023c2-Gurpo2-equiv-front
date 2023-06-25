@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react';
 import { postInstituciones } from '../../../services/institucionService';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Grid, styled, Typography, Button } from '@mui/material';
+import {
+    Container,
+    Grid,
+    styled,
+    Typography,
+    Button,
+    IconButton
+} from '@mui/material';
 import { Header } from '../../../Header';
 import Image from 'mui-image';
 import {
@@ -14,6 +21,8 @@ import {
 import { toast } from 'react-toastify';
 //import { useNavigate } from "react-router-dom"; //no funca porq es v5 la q esta instalado y funciona a partir de v6
 import { useHistory } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 
 const PageCrearInstitucion = () => {
     const [nombre, setNombre] = useState('');
@@ -77,6 +86,11 @@ const PageCrearInstitucion = () => {
 
             <ContainerFlexDirection>
                 <Grid container spacing={2} xs={6}>
+                    <Link to="/direccion/instituciones">
+                        <IconButton sx={{ padding: 0 }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Link>
                     <Box
                         component="form"
                         noValidate

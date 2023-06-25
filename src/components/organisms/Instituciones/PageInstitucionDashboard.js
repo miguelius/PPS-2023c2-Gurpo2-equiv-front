@@ -1,8 +1,11 @@
 import { React } from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, IconButton, Typography } from '@mui/material';
 import { Header } from '../../../Header';
 import { ContainerTitle } from './InstitucionesStyled';
 import DashboardCard from '../../atoms/DashboardCard/DashboardInstitucionCard';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 const InstitucionesDashboard = () => {
     return (
         <>
@@ -11,6 +14,11 @@ const InstitucionesDashboard = () => {
             </Grid>
             <Container sx={{ padding: '2rem' }}>
                 <Grid container spacing={2} xs={12}>
+                    <Link to="/direccionDashboard">
+                        <IconButton sx={{ padding: 0 }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Link>
                     <ContainerTitle>
                         <Typography variant="h3" component="h1">
                             Menú de Instituciones
