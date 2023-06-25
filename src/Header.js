@@ -66,22 +66,24 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                         alignContent={'center'}
                         sx={{ display: 'flex', alignItems: 'center' }}
                     >
-                        <Grid md={5} sx={{ marginRight: '40px' }}>
-                            <Link
-                                to={'/usuario/equivalencias/'}
-                                style={{ textDecoration: 'none' }}
-                            >
-                                <BotonMUI
-                                    variant="text"
-                                    sx={{
-                                        width: '150px',
-                                        backgroundColor: `${botonSeleccionado}`
-                                    }}
+                        {rol === 'alumno' && ( // Mostrar solo si el rol es "alumno"
+                            <Grid md={5} sx={{ marginRight: '40px' }}>
+                                <Link
+                                    to={'/usuario/equivalencias/'}
+                                    style={{ textDecoration: 'none' }}
                                 >
-                                    Mis equivalencias
-                                </BotonMUI>
-                            </Link>
-                        </Grid>
+                                    <BotonMUI
+                                        variant="text"
+                                        sx={{
+                                            width: '150px',
+                                            backgroundColor: `${botonSeleccionado}`
+                                        }}
+                                    >
+                                        Mis equivalencias
+                                    </BotonMUI>
+                                </Link>
+                            </Grid>
+                        )}
 
                         <Grid md={5}>
                             <BotonMUI
