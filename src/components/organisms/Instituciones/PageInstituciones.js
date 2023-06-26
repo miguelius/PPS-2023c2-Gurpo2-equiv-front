@@ -60,6 +60,16 @@ const PageInstituciones = () => {
             </Grid>
 
             <Grid container spacing={1} xs={12}>
+                <ContainerTitle
+                    sx={{ paddingTop: '2rem', paddingBottom: '0.5rem' }}
+                >
+                    <Link to="/instituciones/todas">
+                        <IconButton sx={{ padding: 0 }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Link>
+                </ContainerTitle>
+
                 <ContainerTitle sx={{ paddingTop: '2rem' }}>
                     <Typography variant="h3" component="h1">
                         Instituciones registradas

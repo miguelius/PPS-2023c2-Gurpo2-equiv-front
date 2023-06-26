@@ -19,7 +19,6 @@ import {
     ContainerTitle
 } from './InstitucionesStyled';
 import { toast } from 'react-toastify';
-//import { useNavigate } from "react-router-dom"; //no funca porq es v5 la q esta instalado y funciona a partir de v6
 import { useHistory } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
@@ -86,17 +85,17 @@ const PageCrearInstitucion = () => {
 
             <ContainerFlexDirection>
                 <Grid container spacing={2} xs={6}>
-                    <Link to="/direccion/instituciones">
-                        <IconButton sx={{ padding: 0 }}>
-                            <ArrowBackIcon />
-                        </IconButton>
-                    </Link>
                     <Box
                         component="form"
                         noValidate
                         autoComplete="off"
                         sx={{ padding: '2rem', width: '100%' }}
                     >
+                        <Link to="/direccion/instituciones">
+                            <IconButton sx={{ padding: 0 }}>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        </Link>
                         <ContainerTitle>
                             <Typography variant="h3" component="h1">
                                 Crear Institución
@@ -157,17 +156,6 @@ const PageCrearInstitucion = () => {
                                 variant="contained"
                             >
                                 Crear Institución
-                            </Button>
-                        </ContainerCenterButton>
-                        <ContainerCenterButton>
-                            <Button
-                                size="large"
-                                fullWidth
-                                onClick={handleBack}
-                                variant="contained"
-                                color="secondary"
-                            >
-                                Volver a Dashboard
                             </Button>
                         </ContainerCenterButton>
                     </Box>
