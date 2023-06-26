@@ -107,13 +107,6 @@ export default function Menu({ name, paginaPrincipal }) {
                             localStorage.clear();
                         }}
                     >
-                        {/* <ListItemIcon>
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
-                                </ListItemIcon> */}
                         <ListItemText primary="Cerrar sesión" />
                     </ListItemButton>
                 </ListItem>

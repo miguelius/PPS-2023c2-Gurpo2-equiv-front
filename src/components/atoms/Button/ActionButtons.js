@@ -14,10 +14,6 @@ const ActionButtons = (color) => {
             <IconButton aria-label="see" color={color.color}>
                 <VisibilityIcon />
             </IconButton>
-
-            {/* <IconButton aria-label="delete" sx={{ color: '#E74924' }}>
-                <DeleteIcon />
-            </IconButton> */}
         </Grid>
     );
 };

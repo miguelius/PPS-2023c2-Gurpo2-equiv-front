@@ -1,11 +1,9 @@
 import { Grid } from '@mui/material';
 import { GridTop } from '../../../GridTop';
 import { Titulos } from '../../atoms/Title/Titulos';
-import { BotonMUI } from '../../atoms/Button/BotonMUI';
 import StickyHeadTable from '../../../TableAlumno';
 import React from 'react';
 import { Header } from '../../molecules/Header';
-// import { Link } from 'react-router-dom';
 
 const PagePerfil = () => {
     return (

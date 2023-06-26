@@ -391,12 +391,22 @@ const CreateForm = () => {
                     </BotonMUI>
                 </Grid>
             </GridTop>
-            <OuterFormButtons
-                handleSubmit={handleSubmit}
-                path={'/usuario/equivalencias'}
-                titulo={'Descartar formulario'}
-                mensaje={'¿Está seguro/a de que desea descartar el formulario?'}
-            />
+            <Grid
+                container
+                xs={11.5}
+                md={7}
+                justifyContent="space-between"
+                marginTop="1rem"
+            >
+                <OuterFormButtons
+                    handleSubmit={handleSubmit}
+                    path={'/usuario/equivalencias'}
+                    titulo={'Descartar formulario'}
+                    mensaje={
+                        '¿Está seguro/a de que desea descartar el formulario?'
+                    }
+                />
+            </Grid>
         </>
     );
 };

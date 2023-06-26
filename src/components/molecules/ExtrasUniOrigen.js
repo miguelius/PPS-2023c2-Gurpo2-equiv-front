@@ -45,18 +45,6 @@ const ExtrasUniOrigen = ({
                 }}
             >
                 <Grid item container xs={5.6}>
-                    {/* <StandardInput
-                        key={formValueArray.key}
-                        required
-                        name="anioAprobacion"
-                        size="small"
-                        label="Año aprobación"
-                        variant="outlined"
-                        type="number"
-                        value={formValueArray.anioAprobacion}
-                        onChange={(event) => handleChangeArray(event, key2)}
-                    /> */}
-
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             views={['year']}

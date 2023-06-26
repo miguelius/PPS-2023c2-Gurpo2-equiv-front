@@ -14,10 +14,3 @@ export async function getEquivalenciaUsuario(id) {
     );
     return apiResponse.data;
 }
-
-// export async function postEquivalencia() {
-//     const apiResponse = await axios.post(
-//         `${config.apiUrl}/equivalencias/general`
-//     );
-//     return apiResponse.data;
-// }

@@ -1,4 +1,4 @@
-import { Grid, Button, Icon, TextField, Typography } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Header } from '../../molecules/Header';
 import { Titulos } from '../../atoms/Title/Titulos';
@@ -12,14 +12,12 @@ import TableRow from '@mui/material/TableRow';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
 import { StandardInput } from '../../atoms/Input/InputMUI';
 import { OuterFormButtons } from '../../molecules/OuterFormButtons';
-import FormControl from '@mui/material/FormControl';
 import { getEquivalencia } from '../../../services/revision';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../../config/config';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import { Chat } from '../../molecules/Chat';
 import { Item } from '../../atoms/Item/Item';
@@ -86,15 +84,12 @@ const PageRevision = ({ rol }) => {
             draggable: true,
             progress: undefined
         });
-        // Esperar 5 segundos
         setTimeout(() => {
             window.location = '/direccion/solicitudes';
         }, 1000);
     };
 
-    // Modificar
     const handleSubmit = async () => {
-        // TODO: Las equivalencias se tienen que cambiar de a varias, no de a una sola
         formValue.materias.forEach(async (materia) => {
             const equivalencia = {
                 estado: materia.estado
@@ -181,7 +176,6 @@ const PageRevision = ({ rol }) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     autoWidth="true"
-                    //align="center"
                     onChange={(event) => cambiarEstado(event, materia.id)}
                     defaultValue="pendiente"
                     value={materia.estado}
@@ -481,15 +475,7 @@ const PageRevision = ({ rol }) => {
                                                             }}
                                                             marginTop="1rem"
                                                             alignItems="flex-start"
-                                                            //justifyContent='flex-start'
-                                                            // direction='row'
                                                         >
-                                                            {
-                                                                //<FormControl
-                                                                //fullWidth
-                                                                //>
-                                                                //</FormControl>
-                                                            }
                                                             {renderStatus(
                                                                 materia
                                                             )}
@@ -811,7 +797,12 @@ const PageRevision = ({ rol }) => {
                     </Grid>
                 </Grid>
                 {/* Footer */}
-                <Grid item container xs={12}>
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    lg={8.9}
+                    marginTop="1rem"
+                >
                     {rol === 'directivo' ? (
                         <OuterFormButtons
                             handleSubmit={handleSubmit}
@@ -823,7 +814,7 @@ const PageRevision = ({ rol }) => {
                             revision={true}
                         />
                     ) : (
-                        <Grid item container xs={1} lg={1} marginTop="20px">
+                        <Grid item container xs={1} lg={1}>
                             <Link
                                 to={'/usuario/equivalencias/'}
                                 style={{

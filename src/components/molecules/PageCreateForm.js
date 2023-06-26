@@ -4,7 +4,6 @@ import { GridTop } from '../atoms/GridTop';
 import { Titulos } from '../atoms/Title/Titulos';
 import { CreateForm } from './CreateForm';
 import React from 'react';
-import { OuterFormButtons } from './OuterFormButtons';
 
 const PageCreateForm = () => {
     return (
@@ -44,8 +43,6 @@ const PageCreateForm = () => {
                 </GridTop>
 
                 <CreateForm />
-
-                {/* <OuterFormButtons /> */}
             </Grid>
         </Grid>
     );
