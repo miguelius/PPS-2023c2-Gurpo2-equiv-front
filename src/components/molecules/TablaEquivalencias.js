@@ -14,7 +14,7 @@ import {
 } from '../../services/equivalencia_service';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { ActionButtons } from '../atoms/Button/ActionButtons';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 
@@ -22,7 +22,7 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState([]);
-    console.log(rol);
+    //console.log(rol);
     const getColumns = () => {
         if (rol === 'directivo') {
             return [
@@ -184,7 +184,7 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
                     arrayItem.id,
                     arrayItem.Materias_solicitadas
                 );
-                console.log(status);
+                //console.log(status);
                 array.push(
                     createData(
                         filterNameMat(arrayItem.Materias_solicitadas),

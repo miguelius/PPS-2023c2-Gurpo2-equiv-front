@@ -167,14 +167,14 @@ const PageEquivalencias = ({ rol }) => {
                                     variant="outlined"
                                     placeholder="Buscar"
                                     sx={{ width: '220px' }}
-                                    onFocus={(e) => {
+                                    onFocus={() => {
                                         iconSearch.current.style.display =
                                             'none';
 
                                         inputSearch.current.style.margin =
                                             '6px 20px';
                                     }}
-                                    onBlur={(e) => {
+                                    onBlur={() => {
                                         iconSearch.current.style.display =
                                             'block';
 
@@ -211,7 +211,8 @@ const PageEquivalencias = ({ rol }) => {
                     container
                     blanco="+true"
                     xs={11.5}
-                    md={7}
+                    md={9}
+                    lg={7}
                     sx={{
                         height: 'auto',
                         borderTopLeftRadius: '0px',
