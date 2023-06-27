@@ -164,7 +164,7 @@ const ExtrasUniOrigen = ({
             >
                 <Grid item container xs={12}>
                     <Titulos
-                        titulolabel
+                        titulolabel="true"
                         variant="h3"
                         fontSize={{
                             xs: '14px',
@@ -184,7 +184,7 @@ const ExtrasUniOrigen = ({
                             sx={{
                                 marginRight: '12px'
                             }}
-                            buttonupload
+                            buttonupload="true"
                             variant="outlined"
                             component="span"
                         >

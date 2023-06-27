@@ -139,7 +139,7 @@ const BotonMUI = styled(Button)`
             }
         `}
         ${(props) =>
-        props.buttoncontainedsmallFinalizar &&
+        props.buttoncontainedsmallfinalizar &&
         css`
             width: 110px;
             height: 40px;

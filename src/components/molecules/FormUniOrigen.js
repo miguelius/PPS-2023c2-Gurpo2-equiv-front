@@ -41,7 +41,7 @@ const FormUniOrigen = ({
                         marginTop: '6px'
                     }}
                 >
-                    <Titulos titulolabel component="h2">
+                    <Titulos titulolabel="true" component="h2">
                         Datos Universidad Origen
                     </Titulos>
                 </Grid>

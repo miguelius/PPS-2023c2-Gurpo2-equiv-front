@@ -24,12 +24,11 @@ const FormUnahur = ({
                 container
                 direction="column"
                 alignItems="flex-start"
-                fullwide
                 sx={{
                     marginTop: '6px'
                 }}
             >
-                <Titulos titulolabel component="h2">
+                <Titulos titulolabel="true" component="h2">
                     Datos Universidad Nacional de Hurlingham
                 </Titulos>
             </Grid>
@@ -45,7 +44,6 @@ const FormUnahur = ({
                 <Grid
                     item
                     container
-                    direction="raw"
                     alignItems="flex-start"
                     md={12}
                     lg={6}
@@ -81,18 +79,19 @@ const FormUnahur = ({
                                 key={formValue.carreras}
                                 label="Carreras UNAHUR"
                                 name="carreraUnahur"
-                                value={'' || formValue.carreras}
+                                value={' ' || formValue.carreras}
                             />
                         )}
                     />
                 </Grid>
-                <Grid md={12} xs={12} marginTop="30px">
-                    <Titulos titulolabel component="h2">
+                <Grid item md={12} xs={12} marginTop="30px">
+                    <Titulos titulolabel="true" component="h2">
                         Materias solicitadas
                     </Titulos>
                 </Grid>
                 <Grid
                     container
+                    item
                     xs={12}
                     justifyContent="space-between"
                     alignItems="flex-start"
@@ -100,7 +99,6 @@ const FormUnahur = ({
                     {materias.map((materia) => {
                         return (
                             <Box
-                                item
                                 sx={{
                                     marginTop: '6px',
                                     width: '45%'
@@ -117,7 +115,7 @@ const FormUnahur = ({
                                         size="small"
                                         label="Materia solicitada UNAHUR"
                                         variant="outlined"
-                                        value={materia.materiaUnahur || ''}
+                                        value={materia.materiaUnahur}
                                         onChange={(event) =>
                                             handleChangeMateriaUnaHur(
                                                 event,

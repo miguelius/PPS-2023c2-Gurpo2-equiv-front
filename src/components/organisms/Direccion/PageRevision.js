@@ -152,8 +152,6 @@ const PageRevision = ({ rol }) => {
             salida = (
                 <Button
                     variant="contained"
-                    disableRipple="false"
-                    disableElevation="false"
                     fullWidth
                     sx={{
                         pointerEvents: 'none',
@@ -257,7 +255,7 @@ const PageRevision = ({ rol }) => {
     return (
         <Box sx={{ flexGrow: 1, width: '100vw', height: '100vh' }}>
             {/*Header de perfil*/}
-            <Grid container xs={12}>
+            <Grid container item xs={12}>
                 <Header
                     item
                     name="Equivalencias"
@@ -271,7 +269,7 @@ const PageRevision = ({ rol }) => {
                 <Grid item lg={12}>
                     <Titulos
                         component="h2"
-                        titulogrande
+                        titulogrande="true"
                         sx={{
                             textAlign: {
                                 xs: 'center',
@@ -392,8 +390,7 @@ const PageRevision = ({ rol }) => {
                                         }}
                                     >
                                         <Titulos
-                                            item
-                                            titulolabel
+                                            titulolabel="true"
                                             sx={{
                                                 textAlign: {
                                                     lg: 'left'
@@ -419,8 +416,7 @@ const PageRevision = ({ rol }) => {
                                         }}
                                     >
                                         <Titulos
-                                            item
-                                            titulolabel
+                                            titulolabel="true"
                                             textAlign="left"
                                         >
                                             Estado
@@ -435,6 +431,7 @@ const PageRevision = ({ rol }) => {
                                                     <>
                                                         {/*Equivalencias solicitadas*/}
                                                         <Grid
+                                                            item
                                                             lg={10}
                                                             xs={12}
                                                             sx={{
@@ -463,6 +460,7 @@ const PageRevision = ({ rol }) => {
                                                         {/*Estados*/}
                                                         <Grid
                                                             container
+                                                            item
                                                             lg={2}
                                                             xs={12}
                                                             sx={{
@@ -504,8 +502,7 @@ const PageRevision = ({ rol }) => {
                                         }}
                                     >
                                         <Titulos
-                                            item
-                                            titulolabel
+                                            titulolabel="true"
                                             sx={{
                                                 textAlign: {
                                                     lg: 'left'
@@ -750,7 +747,7 @@ const PageRevision = ({ rol }) => {
                                                                             }}
                                                                         >
                                                                             <Titulos
-                                                                                titulolabel
+                                                                                titulolabel="true"
                                                                                 variant="h5"
                                                                                 fontSize={{
                                                                                     xs:
@@ -765,7 +762,7 @@ const PageRevision = ({ rol }) => {
                                                                             </Titulos>
                                                                             <label htmlFor="contained-button-file">
                                                                                 <BotonMUI
-                                                                                    buttondownload
+                                                                                    buttondownload="true"
                                                                                     variant="outlined"
                                                                                 >
                                                                                     Descargar
@@ -798,6 +795,7 @@ const PageRevision = ({ rol }) => {
                 </Grid>
                 {/* Footer */}
                 <Grid
+                    item
                     container
                     justifyContent="space-between"
                     lg={8.9}

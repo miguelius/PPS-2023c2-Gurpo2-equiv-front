@@ -137,8 +137,6 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
             <Button
                 color={color}
                 variant="contained"
-                disableRipple="false"
-                disableElevation="false"
                 fullWidth
                 endIcon={renderNotify(materias)}
                 sx={{

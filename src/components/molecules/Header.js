@@ -30,10 +30,11 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
     return (
         <AppBar position="static" sx={{ bgcolor: '#122C34' }}>
             <Toolbar color="#122C34">
-                <Grid xs={0.25} lg={1.5} />
+                <Grid item xs={0.25} lg={1.5} />
 
                 <Grid
                     container
+                    item
                     lg={9}
                     justifyContent="space-between"
                     sx={{ display: { xs: 'none', md: 'flex' } }}
@@ -44,7 +45,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                         alignContent={'center'}
                         sx={{ display: 'flex', alignItems: 'center' }}
                     >
-                        <Grid md={5} sx={{ marginRight: '40px' }}>
+                        <Grid item md={5} sx={{ marginRight: '40px' }}>
                             <Link
                                 to={'/usuario/equivalencias/'}
                                 style={{ textDecoration: 'none' }}
@@ -61,7 +62,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                             </Link>
                         </Grid>
 
-                        <Grid md={5}>
+                        <Grid item md={5}>
                             <BotonMUI variant="text" sx={{ width: '130px' }}>
                                 Perfil
                             </BotonMUI>
@@ -102,6 +103,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                 {/* Mobile */}
                 <Grid
                     container
+                    item
                     justifyContent="space-between"
                     xs={11.5}
                     sx={{ display: { xs: 'flex', md: 'none' } }}
@@ -111,7 +113,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                     </Grid>
                 </Grid>
 
-                <Grid xs={0.25} lg={1.5} />
+                <Grid item xs={0.25} lg={1.5} />
             </Toolbar>
         </AppBar>
     );

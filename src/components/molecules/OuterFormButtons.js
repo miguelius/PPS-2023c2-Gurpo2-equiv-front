@@ -37,7 +37,7 @@ const OuterFormButtons = ({ handleSubmit, path, titulo, mensaje }) => {
             </BotonMUI>
 
             <BotonMUI
-                buttoncontainedsmallFinalizar="+true"
+                buttoncontainedsmallfinalizar="+true"
                 onClick={handleSubmit}
                 sx={{
                     width: {

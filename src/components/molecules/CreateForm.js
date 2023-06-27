@@ -393,6 +393,7 @@ const CreateForm = () => {
             </GridTop>
             <Grid
                 container
+                item
                 xs={11.5}
                 md={7}
                 justifyContent="space-between"
