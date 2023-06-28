@@ -3,7 +3,7 @@ import { PageCreateForm } from './PageCreateForm';
 import { PageRevision } from './components/organisms/Direccion/PageRevision';
 import { PageMyForm } from './PageMyForm';
 import { PagePerfil } from './components/organisms/Alumno/PagePerfil';
-import { PageCRUDCarreras } from './components/PageCRUDCarreras';
+import { PageCRUDCarreras } from './components/carreras/PageCRUDCarreras';
 import { PageDireccion } from './components/organisms/Direccion/PageDireccion';
 import { PageVerEquivalencia } from './components/organisms/Alumno/PageVerEquivalencia';
 import React from 'react';

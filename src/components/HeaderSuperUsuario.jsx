@@ -11,6 +11,7 @@ const HeaderSuperUsuario = () => {
                 <Grid xs={0.25} lg={1.5} />
 
                 <Grid
+                    item
                     container
                     lg={9}
                     justifyContent="space-between"
