@@ -92,36 +92,39 @@ export default function StickyHeadTable({ searchQuery }) {
             let array = [];
 
             equivalenciaData.forEach(function (arrayItem) {
-                let d = new Date(arrayItem.Carrera.Equivalencia[0].createdAt); //tengo que traer solicitantes
-                let dateTime =
-                    // d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
-                    d.getDate() +
-                    '/' +
-                    (d.getMonth() + 1) +
-                    '/' +
-                    d.getFullYear() +
-                    ' - ' +
-                    d.getHours() +
-                    ':' +
-                    horaConCero(d.getMinutes());
-                console.log('array item: ', arrayItem.Usuario);
-                console.log('Equiv:', obtainedEquivalenciaData);
+                arrayItem.Carrera.Equivalencia.forEach(function (
+                    itemEquivalencia
+                ) {
+                    let d = new Date(itemEquivalencia.createdAt); //tengo que traer solicitantes
+                    let dateTime =
+                        // d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
+                        d.getDate() +
+                        '/' +
+                        (d.getMonth() + 1) +
+                        '/' +
+                        d.getFullYear() +
+                        ' - ' +
+                        d.getHours() +
+                        ':' +
+                        horaConCero(d.getMinutes());
+                    console.log('array item: ', arrayItem.Usuario);
+                    console.log('Equiv:', obtainedEquivalenciaData);
 
-                console.log(arrayItem.Carrera.Equivalencia[0].Usuario.nombre);
-                array.push(
-                    createData(
-                        //solicitante, dni, materia, id, dateTime, carrera
-                        arrayItem.Carrera.Equivalencia[0].Usuario.nombre +
-                            ' ' +
-                            arrayItem.Carrera.Equivalencia[0].Usuario.apellido,
-                        arrayItem.Carrera.Equivalencia[0].Usuario.dni,
-                        arrayItem.Carrera.Equivalencia[0]
-                            .Materias_solicitadas[0].nombre,
-                        arrayItem.Carrera.Equivalencia[0].id,
-                        dateTime,
-                        arrayItem.Carrera.nombre_carrera
-                    )
-                );
+                    console.log(itemEquivalencia.Usuario.nombre);
+                    array.push(
+                        createData(
+                            //solicitante, dni, materia, id, dateTime, carrera
+                            itemEquivalencia.Usuario.nombre +
+                                ' ' +
+                                itemEquivalencia.Usuario.apellido,
+                            itemEquivalencia.Usuario.dni,
+                            itemEquivalencia.Materias_solicitadas[0].nombre,
+                            itemEquivalencia.id,
+                            dateTime,
+                            arrayItem.Carrera.nombre_carrera
+                        )
+                    );
+                });
                 console.log(arrayItem.id, 'array');
                 const dataFilter = array.filter(
                     (d) =>

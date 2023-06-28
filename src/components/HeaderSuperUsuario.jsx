@@ -53,6 +53,19 @@ const HeaderSuperUsuario = () => {
                                 </BotonMUI>
                             </Link>
                         </Grid>
+                        <Grid md={7}>
+                            <Link
+                                to={'/superusuario/carreras'}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <BotonMUI
+                                    variant="text"
+                                    sx={{ width: '130px' }}
+                                >
+                                    Carreras
+                                </BotonMUI>
+                            </Link>
+                        </Grid>
                     </Grid>
 
                     <Grid
