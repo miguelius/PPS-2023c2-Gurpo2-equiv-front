@@ -96,7 +96,7 @@ const PageRevision = () => {
 
             setRows(arrayData);
 
-            console.log('Hola' + equiv);
+            //console.log('Hola' + equiv.instituto);
             console.log('obtainedusuario:', obtainedUsuarioData.Usuario.nombre);
         };
 
@@ -121,12 +121,12 @@ const PageRevision = () => {
 
             setFormValue({
                 observaciones: obtainedEquivalenciaData.observaciones,
-                estado: obtainedEquivalenciaData.estado
+                estado: obtainedEquivalenciaData.estado,
+                instituto: obtainedEquivalenciaData.instituto
             });
 
             console.log(obtainedEquivalenciaData);
-
-            console.log('Hola' + arrayData.nombre_materia);
+            //console.log('Hola' + arrayData.nombre_materia);
         };
 
         fetchEquivalenciaData();
@@ -153,10 +153,11 @@ const PageRevision = () => {
     const handleSubmit = async () => {
         const equivalencia = {
             observaciones: formValue.observaciones,
-            estado: formValue.estado
+            estado: formValue.estado,
+            instituto: formValue.instituto,
+            email: rows[0].email,
+            solicitante: rows[0].solicitante
         };
-
-        console.log(equivalencia);
 
         const res = await axios
             .put(`${config.apiUrl}/equivalencias/` + id, equivalencia)
