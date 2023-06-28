@@ -29,6 +29,7 @@
     "mui-datatables": "^4.2.2",
     "mui-image": "^1.0.7",
     "nanoid": "^3.3.2",
+    "nodemailer": "^6.9.2",
     "prop-types": "^15.8.1",
     "qs": "^6.11.1",
     "react": "^17.0.1",
