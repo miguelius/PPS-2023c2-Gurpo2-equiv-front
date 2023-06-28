@@ -37,6 +37,9 @@ const PageCRUDCarreras = () => {
     };
 
     const [carreras, setCarreras] = useState([]);
+    const [openAgregar, setOpenAgregar] = useState(false);
+    const [openEditar, setOpenEditar] = useState(false);
+    const [openEliminar, setOpenEliminar] = useState(false);
 
     const columns = [
         {
@@ -88,7 +91,7 @@ const PageCRUDCarreras = () => {
             setCarreras(carreras_input.data);
         };
         fetchCarreras();
-    }, [carreras]);
+    }, [openAgregar, openEditar, openEliminar]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -110,10 +113,6 @@ const PageCRUDCarreras = () => {
             carrera.updatedAt
         )
     );
-
-    const [openAgregar, setOpenAgregar] = useState(false);
-    const [openEditar, setOpenEditar] = useState(false);
-    const [openEliminar, setOpenEliminar] = useState(false);
 
     const handleOpenAgregar = () => {
         setOpenAgregar(true);
