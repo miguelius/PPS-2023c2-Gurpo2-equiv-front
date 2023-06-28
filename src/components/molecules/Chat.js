@@ -26,7 +26,6 @@ const Chat = ({ observaciones }) => {
         }
     ];
 
-    // TODO: Arreglar funcionamiento del chat
     const chat = (event) => {};
 
     return (

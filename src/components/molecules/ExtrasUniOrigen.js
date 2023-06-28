@@ -15,12 +15,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-const ExtrasUniOrigen = ({
-    formValue,
-    handleChangeArray,
-    formValueArray,
-    key2
-}) => {
+const ExtrasUniOrigen = ({ handleChangeArray, formValueArray, key2 }) => {
     const [value, setValue] = useState(new Date());
 
     return (

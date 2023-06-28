@@ -1,10 +1,8 @@
 import { Grid, Button } from '@mui/material';
 import React from 'react';
 import { Titulos } from '../atoms/Title/Titulos';
-import { BotonMUI } from '../atoms/Button/BotonMUI';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { color } from '@mui/system';
 
 const TituloUniOrigen = () => {
     return (

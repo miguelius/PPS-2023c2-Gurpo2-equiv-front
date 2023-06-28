@@ -1,12 +1,4 @@
-import {
-    AppBar,
-    Toolbar,
-    Button,
-    ThemeProvider,
-    Grid,
-    Avatar,
-    IconButton
-} from '@mui/material';
+import { AppBar, Toolbar, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { AccessAlarm } from '@mui/icons-material';

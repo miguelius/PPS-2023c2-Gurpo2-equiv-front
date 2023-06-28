@@ -9,7 +9,6 @@ import { InputMUI, ContenedorInputs } from '../atoms/Input/InputMUI';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid, styled } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUsuarios } from '../../services/usuario_service';
 

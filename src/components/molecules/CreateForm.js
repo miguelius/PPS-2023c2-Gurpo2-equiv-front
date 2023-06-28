@@ -72,7 +72,6 @@ const CreateForm = () => {
         }
     ]);
 
-    //Cambiarlo a un string que no sea un obj.
     const [formValue, setformValue] = useState({
         carreraUnahur: ''
     });
@@ -140,7 +139,7 @@ const CreateForm = () => {
         //console.log('Agregar Materias: ', materias);
     };
 
-    //MateriasUnahur funtions
+    //Materias Unahur functions
     const addMateriaUnahur = () => {
         setMateriasUnahur((materiasUnahur) => [
             ...materiasUnahur,
@@ -200,7 +199,6 @@ const CreateForm = () => {
 
         if (usuarioId) {
             equivalencia = {
-                //Ver que onda con el nombre si no se envia explota.
                 nombre: 'Equivalencia',
                 materiaSolicitada: materiasUnahur.map((item) => {
                     return {
@@ -344,7 +342,6 @@ const CreateForm = () => {
                                         onClick={() => {
                                             if (handleEliminar) {
                                                 setMaterias(() =>
-                                                    //Se eliminó el parámetro materias en setMaterias
                                                     materias.filter(
                                                         (x) =>
                                                             x.key !==

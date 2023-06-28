@@ -1,7 +1,6 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
 import { StandardInput, AutocompleteInput } from '../atoms/Input/InputMUI';
-import { nanoid } from 'nanoid';
 
 const MateriaUniOrigen = ({
     formValue,
