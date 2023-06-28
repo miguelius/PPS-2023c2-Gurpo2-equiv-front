@@ -31,16 +31,17 @@ const Chat = (props) => {
     }, [mensajes]);
 
     useEffect(() => {
-        getMensajes(id).then((rpta) => {
-            if(Array.isArray(rpta.data) && rpta.data.length > 0) {
-                setMensajes(rpta.data);
-              }
+        getMensajes(id)
+            .then((rpta) => {
+                if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                    setMensajes(rpta.data);
+                }
             })
             .catch((error) => {
-              console.log('Error al obtener los mensajes:', error);
+                console.log('Error al obtener los mensajes:', error);
             });
-        }, []);
-    
+    }, [id]);
+
     const handleChange = (e) => {
         setMensaje(e.target.value);
     };
@@ -114,17 +115,20 @@ const Chat = (props) => {
                                     <IconButton
                                         onClick={handleSubmit}
                                         color="primary"
-                                        size="large"
-                                        edge="end"
+                                        size="medium"
                                         sx={{
-                                            ':hover': {
+                                            transition: 'all 0.3s ease',
+                                            '&:hover': {
                                                 backgroundColor: 'primary.main',
                                                 color: 'white',
-                                                transform: 'scale(1.1)',
-                                                transition: 'all 0.3s ease',
                                                 cursor: 'pointer',
-                                                padding: 1,
-                                                margin: '0px 2px 0px 2px'
+                                                transform: 'scale(1.1)'
+                                            },
+                                            '&:hover:not(:hover)': {
+                                                backgroundColor: 'primary.main',
+                                                color: 'white',
+                                                cursor: 'pointer',
+                                                transform: 'scale(1)'
                                             }
                                         }}
                                     >

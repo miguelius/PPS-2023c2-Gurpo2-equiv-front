@@ -1,9 +1,8 @@
-import { Grid, TextareaAutosize } from '@mui/material';
+import { Collapse, Grid } from '@mui/material';
 import React, { useState, useMemo, useEffect } from 'react';
 import { Titulos } from '../../atoms/Title/Titulos';
 import { GridTop } from '../../../GridTop';
 import Paper from '@mui/material/Paper';
-import { getCarrera } from '../../../services/carrera_service';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,7 +10,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import { TextField } from '@mui/material';
 import { StandardInput } from '../../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -829,10 +827,14 @@ const PageRevision = () => {
                                         alignItems="center"
                                         sm={12}
                                         sx={{
-                                            marginTop: '20px'
+                                            '& > :not(style)': {
+                                                width: '100%'
+                                            }
                                         }}
                                     >
-                                        {mostrarChat ? <Chat id={id} /> : <></>}
+                                        <Collapse in={mostrarChat}>
+                                            <Chat id={id} />
+                                        </Collapse>
                                     </Grid>
 
                                     {/*<TextField

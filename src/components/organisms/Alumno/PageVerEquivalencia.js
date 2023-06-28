@@ -1,9 +1,8 @@
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, Collapse } from '@mui/material';
 import React, { useState, useMemo, useEffect, Fragment } from 'react';
 import { Header } from '../../../Header';
 import { Titulos } from '../../atoms/Title/Titulos';
 import { GridTop } from '../../../GridTop';
-import { getCarrera } from '../../../services/carrera_service';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,7 +11,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import { TextField } from '@mui/material';
 import { StandardInput } from '../../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -804,10 +802,14 @@ const PageVerEquivalencia = () => {
                                 alignItems="center"
                                 sm={12}
                                 sx={{
-                                    marginTop: '20px'
+                                    '& > :not(style)': {
+                                        width: '100%'
+                                    }
                                 }}
                             >
-                                {mostrarChat ? <Chat id={id} /> : <></>}
+                                <Collapse in={mostrarChat}>
+                                    <Chat id={id} />
+                                </Collapse>{' '}
                             </Grid>
 
                             {/* <Grid

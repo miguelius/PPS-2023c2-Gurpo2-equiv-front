@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'clsx';
-import { Divider, Grid, Typography } from '@mui/material';
+import {
+    Divider,
+    Grid,
+    IconButton,
+    Menu,
+    MenuItem,
+    Typography
+} from '@mui/material';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import MensajesStyle from './MensajesStyle.js';
 import AvatarIcon from '../AvatarIcon.jsx';
 import { Fragment } from 'react';
 import { cyan } from '@mui/material/colors';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Mensajes = withStyles(MensajesStyle)((props) => {
     const { classes, mensajes, usuario_id } = props;
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [hoveredMessage, setHoveredMessage] = useState(null);
 
     const primerUltimoMensaje = (index, mensaje) =>
         index === 0 ||
@@ -37,20 +47,37 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
     };
 
     const handleFecha = (index, mensaje) => {
-        if (index === 0 ||
-            fechaMensaje(mensaje.createdAt) !== fechaMensaje(mensajes[index - 1].createdAt)){
-            return (
-                <Fragment>
-                    <Grid item xs={12}>
-                        <Divider>
-                            <Typography variant="body2" color="textSecondary">
-                                {fechaMensaje(mensaje.createdAt)}
-                            </Typography>
-                        </Divider>
-                    </Grid>
-                </Fragment>
-            );
-        } 
+        return index === 0 ||
+            fechaMensaje(mensaje.createdAt) !==
+                fechaMensaje(mensajes[index - 1].createdAt) ? (
+            <Fragment>
+                <Grid item xs={12}>
+                    <Divider>
+                        <Typography variant="body2" color="textSecondary">
+                            {fechaMensaje(mensaje.createdAt)}
+                        </Typography>
+                    </Divider>
+                </Grid>
+            </Fragment>
+        ) : (
+            ''
+        );
+    };
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleMouseEnter = (index) => {
+        setHoveredMessage(index);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredMessage(null);
     };
 
     return (
@@ -81,21 +108,22 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                             >
                                                 {mensaje.Usuario.nombre.trim() +
                                                     ' ' +
-                                                    mensaje.Usuario.apellido.trim() 
-                                                }
-                                                    <Typography
-                                                            variant="caption"
-                                                            color= "textSecondary"
-                                                            sx={{
-                                                                fontSize:"13px"
-                                                            }}
-                                                    >
-                                                            {
-                                                            ' - ' + 
-                                                            mensaje.Usuario.rol[0].toUpperCase().trim() +
-                                                            mensaje.Usuario.rol.substring(1).trim()
-                                                            }
-                                                    </Typography>
+                                                    mensaje.Usuario.apellido.trim()}
+                                                <Typography
+                                                    variant="caption"
+                                                    color="textSecondary"
+                                                    sx={{
+                                                        fontSize: '13px'
+                                                    }}
+                                                >
+                                                    {' - ' +
+                                                        mensaje.Usuario.rol[0]
+                                                            .toUpperCase()
+                                                            .trim() +
+                                                        mensaje.Usuario.rol
+                                                            .substring(1)
+                                                            .trim()}
+                                                </Typography>
                                             </Typography>
                                         )}
                                     </Grid>
@@ -176,6 +204,20 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                         xs={10}
                                         display="flex"
                                         justifyContent="flex-end"
+                                        sx={{
+                                            paddingBottom:
+                                                primerUltimoMensaje(
+                                                    i,
+                                                    mensaje
+                                                ) === classes.rightLast
+                                                    ? 2
+                                                    : 0,
+                                            position: 'relative'
+                                        }}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(mensaje.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
                                     >
                                         <Typography
                                             className={cx(
@@ -197,6 +239,70 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                             >
                                                 {horaMensaje(mensaje.createdAt)}
                                             </Typography>
+                                            {hoveredMessage === mensaje.id && (
+                                                <IconButton
+                                                    onClick={(event) =>
+                                                        handleMenuOpen(
+                                                            event,
+                                                            mensaje.id
+                                                        )
+                                                    }
+                                                    sx={{
+                                                        padding: 0,
+                                                        backgroundColor:
+                                                            '#3f51b5',
+                                                        visibility: 'visible',
+                                                        position: 'absolute',
+                                                        right: 4,
+                                                        top: 2,
+                                                        rounded: '100%',
+                                                        '&:hover': {
+                                                            backgroundColor:
+                                                                '#3f51b5'
+                                                        }
+                                                    }}
+                                                >
+                                                    <ExpandMoreIcon />
+                                                </IconButton>
+                                            )}
+                                            <Menu
+                                                anchorEl={anchorEl}
+                                                open={
+                                                    Boolean(anchorEl) &&
+                                                    hoveredMessage ===
+                                                        mensaje.id
+                                                }
+                                                onClose={handleMenuClose}
+                                                PaperProps={{
+                                                    sx: {
+                                                        overflow: 'visible',
+                                                        mt: -1,
+                                                        ml: -1,
+                                                        width: 'auto',
+                                                        borderRadius: 1,
+                                                        boxShadow: 3
+                                                    }
+                                                }}
+                                                transformOrigin={{
+                                                    horizontal: 'right',
+                                                    vertical: 'bottom'
+                                                }}
+                                                anchorOrigin={{
+                                                    horizontal: 'right',
+                                                    vertical: 'top'
+                                                }}
+                                            >
+                                                <MenuItem
+                                                    onClick={handleMenuClose}
+                                                >
+                                                    Editar
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={handleMenuClose}
+                                                >
+                                                    Eliminar
+                                                </MenuItem>
+                                            </Menu>
                                         </Typography>
                                     </Grid>
                                 </Grid>
