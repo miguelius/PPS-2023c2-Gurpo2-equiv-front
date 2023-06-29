@@ -1,10 +1,6 @@
 import * as React from 'react';
 import Mensajes from './Mensajes.jsx';
-import {
-    getMensajes,
-    enviarMensaje,
-    updateMensaje
-} from '../../services/mensajes_service.js';
+import { getMensajes, enviarMensaje } from '../../services/mensajes_service.js';
 import {
     Grid,
     IconButton,
@@ -55,17 +51,6 @@ const Chat = (props) => {
         enviarMensaje(objMensaje).then((rpta) => {
             setMensajes([...mensajes, rpta.data]);
             setMensaje('');
-        });
-    };
-
-    const handleUpdate = (id) => {
-        let objMensaje = {
-            id: id,
-            texto: mensaje_input
-        };
-        updateMensaje(objMensaje);
-        getMensajes(id).then((rpta) => {
-            setMensajes(rpta.data);
         });
     };
 

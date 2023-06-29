@@ -30,8 +30,14 @@ export async function updateCarrera(carrera) {
 }
 
 export async function deleteCarrera(carrera) {
-    const apiResponse = await axios.delete(
-        `${config.apiUrl}/carreras/` + carrera.id
+    const apiResponse = await axios.put(
+        `${config.apiUrl}/carreras/eliminar`,
+        carrera,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
     );
     return apiResponse.data;
 }
