@@ -151,8 +151,7 @@ const PageCRUDCarreras = () => {
     const handleDelete = (e) => {
         e.preventDefault();
         let objCarrera = {
-            id: carreraSeleccionada.id,
-            activo: 0
+            id: carreraSeleccionada.id
         };
         setOpenEliminar(false);
         deleteCarrera(objCarrera).then((rpta) => {
