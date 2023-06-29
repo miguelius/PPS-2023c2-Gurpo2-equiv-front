@@ -63,7 +63,7 @@ const PageInstituciones = () => {
                 <ContainerTitle
                     sx={{ paddingTop: '2rem', paddingBottom: '0.5rem' }}
                 >
-                    <Link to="/instituciones/todas">
+                    <Link to="/direccion/instituciones">
                         <IconButton sx={{ padding: 0 }}>
                             <ArrowBackIcon />
                         </IconButton>
