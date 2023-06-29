@@ -89,7 +89,7 @@ const PageCRUDCarreras = () => {
             setCarreras(carreras_input.data);
         };
         fetchCarreras();
-    }, [carreras]);
+    }, []);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -155,17 +155,12 @@ const PageCRUDCarreras = () => {
     const handleDelete = (e) => {
         e.preventDefault();
         let objCarrera = {
-            id: carreraSeleccionada.id
+            id: carreraSeleccionada.id,
+            activo: 0
         };
         setOpenEliminar(false)
         deleteCarrera(objCarrera).then((rpta) => {
             console.log(rpta, 'delete');
-            if (rpta.status === 200) {
-                console.log(rpta);
-            }
-            else if (rpta.status === 409) {
-                console.log(rpta.data.message)
-            }
         });
     };
 
