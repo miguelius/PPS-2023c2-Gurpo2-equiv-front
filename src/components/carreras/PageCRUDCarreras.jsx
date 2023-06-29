@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Box,
-    Grid,
-    IconButton,
-    Modal,
-    Button
-} from '@mui/material';
+import { Grid, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Paper from '@mui/material/Paper';
@@ -15,29 +9,37 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {
-    StandardInput
-} from '../atoms/Input/InputMUI';
 import { GridTop } from '../../GridTop';
 import { Titulos } from '../atoms/Title/Titulos';
 import { HeaderSuperUsuario } from '../HeaderSuperUsuario';
-import { getCarreras, createCarrera, updateCarrera, deleteCarrera } from '../../services/carrera_service';
-import { ModalEliminarCarrera, ModalEditarCarrera, ModalAgregarCarrera} from './Modals';
-
+import {
+    getCarreras,
+    createCarrera,
+    updateCarrera,
+    deleteCarrera
+} from '../../services/carrera_service';
+import {
+    ModalEliminarCarrera,
+    ModalEditarCarrera,
+    ModalAgregarCarrera
+} from './Modals';
 
 const PageCRUDCarreras = () => {
     const [carreraSeleccionada, setCarreraSeleccionada] = useState({
         nombre_carrera: '',
         nombre_instituto: '',
         id: ''
-    })
+    });
 
     const seleccionarCarrera = (carrera, caso) => {
         setCarreraSeleccionada(carrera);
-        (caso === 'Editar') ? handleOpenEditar() : handleOpenEliminar()
-    }
+        caso === 'Editar' ? handleOpenEditar() : handleOpenEliminar();
+    };
 
     const [carreras, setCarreras] = useState([]);
+    const [openAgregar, setOpenAgregar] = useState(false);
+    const [openEditar, setOpenEditar] = useState(false);
+    const [openEliminar, setOpenEliminar] = useState(false);
 
     const columns = [
         {
@@ -89,15 +91,15 @@ const PageCRUDCarreras = () => {
             setCarreras(carreras_input.data);
         };
         fetchCarreras();
-    }, []);
+    }, [openAgregar, openEditar, openEliminar]);
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setCarreraSeleccionada(prevState => ({
+        setCarreraSeleccionada((prevState) => ({
             ...prevState,
             [name]: value
-        }))
-    }
+        }));
+    };
 
     function createData(id, nombre_carrera, nombre_instituto, updatedAt) {
         return { id, nombre_carrera, nombre_instituto, updatedAt };
@@ -111,11 +113,6 @@ const PageCRUDCarreras = () => {
             carrera.updatedAt
         )
     );
-
-
-    const [openAgregar, setOpenAgregar] = useState(false);
-    const [openEditar, setOpenEditar] = useState(false);
-    const [openEliminar, setOpenEliminar] = useState(false);
 
     const handleOpenAgregar = () => {
         setOpenAgregar(true);
@@ -136,7 +133,6 @@ const PageCRUDCarreras = () => {
         setOpenEliminar(false);
     };
 
-
     const handleUpdate = (e) => {
         e.preventDefault();
         let objCarrera = {
@@ -145,7 +141,7 @@ const PageCRUDCarreras = () => {
             nombre_instituto: carreraSeleccionada.nombre_instituto
         };
         console.log(objCarrera);
-        setOpenEditar(false)
+        setOpenEditar(false);
 
         updateCarrera(objCarrera).then((rpta) => {
             console.log(rpta);
@@ -158,12 +154,11 @@ const PageCRUDCarreras = () => {
             id: carreraSeleccionada.id,
             activo: 0
         };
-        setOpenEliminar(false)
+        setOpenEliminar(false);
         deleteCarrera(objCarrera).then((rpta) => {
             console.log(rpta, 'delete');
         });
     };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -171,12 +166,12 @@ const PageCRUDCarreras = () => {
             nombre_carrera: carreraSeleccionada.nombre_carrera,
             nombre_instituto: carreraSeleccionada.nombre_instituto
         };
-        setOpenAgregar(false)
+        setOpenAgregar(false);
 
         createCarrera(objCarrera).then((rpta) => {
             console.log(rpta);
         });
-        console.log(carreras)
+        console.log(carreras);
     };
 
     return (
@@ -216,14 +211,13 @@ const PageCRUDCarreras = () => {
                         >
                             Agregar Carrera
                         </Button>
-                        <ModalAgregarCarrera 
+                        <ModalAgregarCarrera
                             openAgregar={openAgregar}
                             handleCloseAgregar={handleCloseAgregar}
                             handleSubmit={handleSubmit}
                             handleChange={handleChange}
                         ></ModalAgregarCarrera>
                     </Grid>
-
                 </GridTop>
 
                 <Grid
@@ -237,7 +231,9 @@ const PageCRUDCarreras = () => {
                         alignItems: 'flex-end'
                     }}
                 >
-                    <Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 5 }}>
+                    <Paper
+                        sx={{ width: '100%', overflow: 'hidden', boxShadow: 5 }}
+                    >
                         <TableContainer sx={{ maxHeight: 440 }}>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -253,7 +249,6 @@ const PageCRUDCarreras = () => {
                                             {column.label}
                                         </TableCell>
                                     ))}
-
                                 </TableHead>
                                 <TableBody>
                                     {rows.map((row) => {
@@ -264,37 +259,81 @@ const PageCRUDCarreras = () => {
                                                 key={row.id}
                                             >
                                                 {columns.map((column) => {
-                                                    const value = row[column.id];
+                                                    const value =
+                                                        row[column.id];
                                                     return (
                                                         <TableCell
                                                             key={column.id}
                                                             align={column.align}
                                                         >
-                                                            {formatearCelda(column, value)}
+                                                            {formatearCelda(
+                                                                column,
+                                                                value
+                                                            )}
                                                         </TableCell>
                                                     );
                                                 })}
                                                 <TableCell>
-
-                                                    <IconButton onClick={() => seleccionarCarrera(row, 'Editar')} aria-label="edit">
-                                                        <EditIcon
-                                                        />
+                                                    <IconButton
+                                                        onClick={() =>
+                                                            seleccionarCarrera(
+                                                                row,
+                                                                'Editar'
+                                                            )
+                                                        }
+                                                        aria-label="edit"
+                                                        sx={{
+                                                            '&:hover': {
+                                                                color:
+                                                                    'primary.main'
+                                                            }
+                                                        }}
+                                                    >
+                                                        <EditIcon />
                                                     </IconButton>
                                                     <ModalEditarCarrera
                                                         openEditar={openEditar}
-                                                        handleCloseEditar={handleCloseEditar}
-                                                        handleUpdate={handleUpdate}
-                                                        handleChange={handleChange}
-                                                        carreraSeleccionada={carreraSeleccionada}
+                                                        handleCloseEditar={
+                                                            handleCloseEditar
+                                                        }
+                                                        handleUpdate={
+                                                            handleUpdate
+                                                        }
+                                                        handleChange={
+                                                            handleChange
+                                                        }
+                                                        carreraSeleccionada={
+                                                            carreraSeleccionada
+                                                        }
                                                     ></ModalEditarCarrera>
 
-                                                    <IconButton aria-label="delete" onClick={() => seleccionarCarrera(row, 'Eliminar')}>
+                                                    <IconButton
+                                                        aria-label="delete"
+                                                        onClick={() =>
+                                                            seleccionarCarrera(
+                                                                row,
+                                                                'Eliminar'
+                                                            )
+                                                        }
+                                                        sx={{
+                                                            '&:hover': {
+                                                                color:
+                                                                    'error.main'
+                                                            }
+                                                        }}
+                                                    >
                                                         <DeleteIcon />
                                                     </IconButton>
                                                     <ModalEliminarCarrera
-                                                        openEliminar={openEliminar}
-                                                        handleCloseEliminar={handleCloseEliminar}
-                                                        handleDelete={handleDelete}
+                                                        openEliminar={
+                                                            openEliminar
+                                                        }
+                                                        handleCloseEliminar={
+                                                            handleCloseEliminar
+                                                        }
+                                                        handleDelete={
+                                                            handleDelete
+                                                        }
                                                     ></ModalEliminarCarrera>
                                                 </TableCell>
                                             </TableRow>
