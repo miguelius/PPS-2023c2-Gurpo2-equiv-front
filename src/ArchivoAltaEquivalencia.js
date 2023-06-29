@@ -2,6 +2,7 @@ import { Button, Grid, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FileUploader } from './components/atoms/Input/InputMUI';
 import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { Titulos } from '../src/components/atoms/Title/Titulos';
 
 const ArchivoAltaEquivalencia = ({
     handleChangeArray,
@@ -126,7 +127,6 @@ const ArchivoAltaEquivalencia = ({
                                             onClick={() =>
                                                 handleDeleteFile(file)
                                             }
-                                            // onClick={() => handleDeleteFile(nombreArchivo)}
                                         >
                                             Eliminar
                                         </BotonMUI>
@@ -186,33 +186,54 @@ const ArchivoAltaEquivalencia = ({
                             justifyContent="space-between"
                             alignItems="flex-end"
                         >
-                            <FileUploader
-                                id="contained-button-file"
-                                //multiple
-                                size="large"
-                                variant="standard"
-                                type="file"
-                                accept="application/*"
-                                allowedextensions={['pdf']}
-                                onChange={handleSelectedFile}
-                            />
-                            <br></br>
-                            <br></br>
-                            {/* </label> */}
-                            <BotonMUI
-                                // width='10%'
-                                // sx={{
-                                // marginRight: '12px'
-                                // }}
-                                buttonupload
-                                variant="outlined"
-                                // component="span"
-                                /*Agregado*/
-                                onClick={handleSendFile}
-                                /*Fin Agregado*/
+                            <Grid xs={12}>
+                                <Titulos
+                                    titulolabel
+                                    variant="h3"
+                                    fontSize={{
+                                        xs: '14px',
+                                        sm: '16px'
+                                    }}
+                                >
+                                    Adjunte un archivo .pdf:
+                                </Titulos>
+                            </Grid>
+                            <Grid
+                                sx={{ marginTop: '16px' }}
+                                xs={12}
+                                item
+                                container
+                                justifyContent="space-between"
+                                alignItems="flex-end"
                             >
-                                Cargar
-                            </BotonMUI>
+                                <FileUploader
+                                    id="contained-button-file"
+                                    //multiple
+                                    size="large"
+                                    variant="standard"
+                                    type="file"
+                                    accept="application/*"
+                                    allowedextensions={['pdf']}
+                                    onChange={handleSelectedFile}
+                                />
+                                <br></br>
+                                <br></br>
+                                {/* </label> */}
+                                <BotonMUI
+                                    // width='10%'
+                                    // sx={{
+                                    // marginRight: '12px'
+                                    // }}
+                                    buttonupload
+                                    variant="outlined"
+                                    // component="span"
+                                    /*Agregado*/
+                                    onClick={handleSendFile}
+                                    /*Fin Agregado*/
+                                >
+                                    Cargar
+                                </BotonMUI>
+                            </Grid>
                         </Grid>
                     )}
                 </Grid>

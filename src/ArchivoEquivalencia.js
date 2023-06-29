@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FileUploader } from './components/atoms/Input/InputMUI';
 import { BotonMUI } from './components/atoms/Button/BotonMUI';
 import { StandardInput } from './components/atoms/Input/InputMUI';
+import { Titulos } from '../src/components/atoms/Title/Titulos';
+import { OuterFormButtons } from '../src/OuterFormButtons';
 
 const rol = JSON.parse(localStorage.getItem('rol'));
 
@@ -28,7 +30,6 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
         })
             .then((res) => res.json())
             .then((res) => setFileList(res))
-            //.then(res => console.log(res))
             .catch((err) => {
                 console.error(err);
             });
@@ -65,8 +66,6 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                 console.error(err);
             });
 
-        // document.getElementById("algo").value = file
-
         document.getElementById('contained-button-file').value = null;
         setFile(null);
     };
@@ -90,7 +89,17 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                         estado == 'Aceptado' ||
                         estado == 'Rechazado') &&
                         rol == 'alumno')) && (
-                    <Grid sx={{ marginTop: '16px' }}>
+                    <Grid item container sx={{ marginTop: '16px' }}>
+                        <Titulos
+                            titulolabel
+                            variant="h3"
+                            fontSize={{
+                                xs: '14px',
+                                sm: '16px'
+                            }}
+                        >
+                            Archivo Adjunto:
+                        </Titulos>
                         {[fileList].map((file) => (
                             <Grid
                                 item
@@ -99,27 +108,31 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                                 justifyContent="space-between"
                                 sx={{ marginTop: '5px' }}
                             >
-                                <Link
-                                    //key={file}
-                                    href={
-                                        'http://localhost:3001/api/archivos/' +
-                                        file
-                                    }
-                                    target="_blank"
-                                    underline="hover"
-                                    color="#FF5733"
-                                    display="inline"
-                                    xs={12}
-                                >
-                                    {file}
-                                </Link>
+                                <Grid container sx={{ marginTop: '14px' }}>
+                                    <Link
+                                        //key={file}
+                                        href={
+                                            'http://localhost:3001/api/archivos/' +
+                                            file
+                                        }
+                                        target="_blank"
+                                        underline="hover"
+                                        color="#FF5733"
+                                        display="inline"
+                                        xs={12}
+                                    >
+                                        {file}
+                                    </Link>
+                                </Grid>
                             </Grid>
                         ))}
                     </Grid>
                 )}
             <Grid xs={12}>
                 {nombreArchivo != null &&
-                    (estado == 'Falta completar' || estado == 'Pendiente') &&
+                    (estado == 'Falta completar' ||
+                        estado == 'Pendiente' ||
+                        estado == 'pendiente') &&
                     rol == 'alumno' && (
                         <Grid item container sx={{ marginTop: '16px' }}>
                             <Grid
@@ -130,38 +143,59 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                                 alignItems="flex-start"
                                 sx={{ marginTop: '12px' }}
                             >
-                                {[fileList].map((file) => (
-                                    <Grid
-                                        item
-                                        container
-                                        key={file}
-                                        justifyContent="space-between"
-                                        sx={{ marginTop: '5px' }}
-                                    >
-                                        <Link
-                                            //key={file}
-                                            href={
-                                                'http://localhost:3001/api/archivos/' +
-                                                file
-                                            }
-                                            target="_blank"
-                                            underline="hover"
-                                            color="#FF5733"
-                                            display="inline"
+                                <Titulos
+                                    titulolabel
+                                    variant="h3"
+                                    fontSize={{
+                                        xs: '14px',
+                                        sm: '16px'
+                                    }}
+                                >
+                                    Archivo Adjunto:
+                                </Titulos>
+
+                                <Grid item container sx={{ marginTop: '16px' }}>
+                                    {[fileList].map((file) => (
+                                        <Grid
+                                            item
+                                            container
+                                            key={file}
+                                            justifyContent="space-between"
+                                            sx={{ marginTop: '5px' }}
                                         >
-                                            {file}
-                                        </Link>
-                                        <BotonMUI //key={file}
-                                            buttonupload
-                                            variant="outlined"
-                                            onClick={() =>
-                                                handleDeleteFile(file)
+                                            <Link
+                                                //key={file}
+                                                href={
+                                                    'http://localhost:3001/api/archivos/' +
+                                                    file
+                                                }
+                                                target="_blank"
+                                                underline="hover"
+                                                color="#FF5733"
+                                                display="inline"
+                                            >
+                                                {file}
+                                            </Link>
+                                            <BotonMUI //key={file}
+                                                buttonupload
+                                                variant="outlined"
+                                                onClick={() =>
+                                                    handleDeleteFile(file)
+                                                }
+                                            >
+                                                Eliminar
+                                            </BotonMUI>
+                                            {/* <OuterFormButtons
+                                            handleSubmit={handleDeleteFile(file)}
+                                            path={''}
+                                            titulo={'Eliminar Archivo'}
+                                            mensaje={
+                                                '¿Está seguro/a de que desea eliminar el archivo?'
                                             }
-                                        >
-                                            Eliminar
-                                        </BotonMUI>
-                                    </Grid>
-                                ))}
+                                        /> */}
+                                        </Grid>
+                                    ))}
+                                </Grid>
                             </Grid>
                             <Grid
                                 item
@@ -208,28 +242,49 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                             justifyContent="space-between"
                             alignItems="flex-end"
                         >
+                            <Grid xs={12}>
+                                <Titulos
+                                    titulolabel
+                                    variant="h3"
+                                    fontSize={{
+                                        xs: '14px',
+                                        sm: '16px'
+                                    }}
+                                >
+                                    Adjunte un archivo .pdf:
+                                </Titulos>
+                            </Grid>
                             {/* <label
-                            htmlFor="contained-button-file"
-                            style={{ width: '100%' }}
-                            ></label>  */}
-                            <FileUploader
-                                id="contained-button-file"
-                                //multiple
-                                size="large"
-                                variant="standard"
-                                type="file"
-                                accept="application/*"
-                                allowedextensions={['pdf']}
-                                onChange={handleSelectedFile}
-                            />
-                            {/* </label> */}
-                            <BotonMUI
-                                buttonupload
-                                variant="outlined"
-                                onClick={handleSendFile}
+                                htmlFor="contained-button-file"
+                                style={{ width: '100%' }}
+                                ></label>  */}
+                            <Grid
+                                sx={{ marginTop: '16px' }}
+                                xs={12}
+                                item
+                                container
+                                justifyContent="space-between"
+                                alignItems="flex-end"
                             >
-                                Cargar
-                            </BotonMUI>
+                                <FileUploader
+                                    id="contained-button-file"
+                                    //multiple
+                                    size="large"
+                                    variant="standard"
+                                    type="file"
+                                    accept="application/*"
+                                    allowedextensions={['pdf']}
+                                    onChange={handleSelectedFile}
+                                />
+                                {/* </label> */}
+                                <BotonMUI
+                                    buttonupload
+                                    variant="outlined"
+                                    onClick={handleSendFile}
+                                >
+                                    Cargar
+                                </BotonMUI>
+                            </Grid>
                         </Grid>
                     )}
             </Grid>

@@ -14,6 +14,7 @@ import { BotonMUI } from './components/atoms/Button/BotonMUI';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { ArchivoAltaEquivalencia } from './ArchivoAltaEquivalencia';
 
 const esNotaCorrecta = (nota) => {
     return nota == '' || nota == null || (nota >= 4 && nota <= 10);
@@ -220,7 +221,7 @@ const ExtrasUniOrigen = ({
                     marginTop: '16px'
                 }}
             >
-                <Grid item container xs={12}>
+                {/* <Grid item container xs={12}>
                     <Titulos
                         titulolabel
                         variant="h3"
@@ -231,14 +232,14 @@ const ExtrasUniOrigen = ({
                     >
                         Adjuntar programa de la materia .pdf
                     </Titulos>
-                </Grid>
+                </Grid> */}
 
-                <Grid item container xs={12} sx={{ marginTop: '16px' }}>
-                    <label
+                {/* <Grid item container xs={12} sx={{ marginTop: '16px' }}> */}
+                {/* <label
                         htmlFor="contained-button-file"
                         style={{ width: '100%' }}
-                    >
-                        <BotonMUI
+                    > */}
+                {/* <BotonMUI
                             sx={{
                                 marginRight: '12px'
                             }}
@@ -247,8 +248,8 @@ const ExtrasUniOrigen = ({
                             component="span"
                         >
                             Cargar
-                        </BotonMUI>
-                        {/* <IconButton
+                        </BotonMUI> */}
+                {/* <IconButton
                             sx={{
                                 marginRight: '12px'
                             }}
@@ -259,7 +260,7 @@ const ExtrasUniOrigen = ({
                             <AttachFileOutlinedIcon />
                         </IconButton> */}
 
-                        {/* <FileUploader
+                {/* <FileUploader
                             id="contained-button-file"
                             multiple
                             size="small"
@@ -267,8 +268,14 @@ const ExtrasUniOrigen = ({
                             type="file"
                             accept="application/pdf, application/vnd.ms-Excel"
                         /> */}
-                    </label>
-                </Grid>
+                {/* </label> */}
+                {/* </Grid> */}
+                <ArchivoAltaEquivalencia
+                    handleChangeArray={handleChangeArray}
+                    formValueArray={formValueArray}
+                    key2={key2}
+                    nArchivo={formValueArray.archivo}
+                ></ArchivoAltaEquivalencia>
             </Grid>
 
             {/* <AgregarMateriaUniOrigen /> */}
