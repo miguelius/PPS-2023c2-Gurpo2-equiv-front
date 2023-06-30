@@ -21,7 +21,10 @@ import AvatarIcon from '../AvatarIcon.jsx';
 import { Fragment } from 'react';
 import { cyan } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { updateMensaje } from '../../services/mensajes_service.js';
+import {
+    updateMensaje,
+    deleteMensaje
+} from '../../services/mensajes_service.js';
 
 const Mensajes = withStyles(MensajesStyle)((props) => {
     const { classes, mensajes, usuario_id } = props;
@@ -29,6 +32,8 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
     const [hoveredMessage, setHoveredMessage] = useState(null);
     const [open, setOpen] = useState(false);
     const [editedMessage, setEditedMessage] = useState('');
+    const [openDelete, setOpenDelete] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState('');
 
     const primerUltimoMensaje = (index, mensaje) =>
         index === 0 ||
@@ -96,9 +101,14 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
         setOpen(true);
     };
 
+    const handleDeleteClick = (id_mensaje) => {
+        setDeleteMessage(id_mensaje);
+        setOpenDelete(true);
+    };
+
     const handleDialogClose = () => {
         setOpen(false);
-        setEditedMessage('');
+        setOpenDelete(false);
         handleMenuClose();
     };
 
@@ -119,11 +129,24 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
         setOpen(false);
         updateMensaje(objMensaje);
         handleDialogClose();
+        handleMenuClose();
         mensajes.forEach((mensaje) => {
             if (mensaje.id === objMensaje.id) {
                 mensaje.texto = objMensaje.texto;
             }
         });
+    };
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        setOpenDelete(false);
+        deleteMensaje(deleteMessage);
+        handleDialogClose();
+        handleMenuClose();
+        const index = mensajes.findIndex(
+            (mensaje) => mensaje.id === deleteMessage
+        );
+        mensajes.splice(index, 1);
     };
 
     return (
@@ -338,17 +361,27 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                                     vertical: 'top'
                                                 }}
                                             >
+                                                {Date.now() -
+                                                    new Date(
+                                                        mensaje.createdAt
+                                                    ) <
+                                                    900000 && (
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            handleUpdateClick(
+                                                                mensaje.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Editar
+                                                    </MenuItem>
+                                                )}
                                                 <MenuItem
                                                     onClick={() =>
-                                                        handleUpdateClick(
+                                                        handleDeleteClick(
                                                             mensaje.id
                                                         )
                                                     }
-                                                >
-                                                    Editar
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={handleMenuClose}
                                                 >
                                                     Eliminar
                                                 </MenuItem>
@@ -362,6 +395,27 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                 })}
             </Grid>
 
+            {/* Dialog para el boton eliminar */}
+            <Dialog
+                open={openDelete}
+                onClose={handleDialogClose}
+                sx={{
+                    '& .MuiDialog-paper': {
+                        width: '25rem',
+                        backgroundColor: '#f5f5f5',
+                        borderRadius: '10px',
+                        boxShadow: 3
+                    }
+                }}
+            >
+                <DialogTitle>¿Estas seguro que quieres eliminar?</DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleDialogClose}>Cancelar</Button>
+                    <Button onClick={handleDelete}>Eliminar</Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Dialog para el boton editar */}
             <Dialog
                 open={open}
                 onClose={handleDialogClose}

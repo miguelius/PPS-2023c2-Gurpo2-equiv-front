@@ -29,3 +29,10 @@ export async function updateMensaje(mensaje) {
     });
     return apiResponse;
 }
+
+export async function deleteMensaje(id_mensaje) {
+    const apiResponse = await axios.delete(
+        `${config.apiUrl}/mensajes/${id_mensaje}`
+    );
+    return apiResponse;
+}
