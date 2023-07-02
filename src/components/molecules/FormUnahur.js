@@ -128,8 +128,14 @@ const FormUnahur = ({
                                         aria-label="upload picture"
                                         onClick={() => {
                                             if (materias.length > 1) {
-                                                handleEliminar(false);
-                                                handledelete(materia);
+                                                if (
+                                                    materia.materiaUnahur != ''
+                                                ) {
+                                                    handleEliminar(false);
+                                                    handledelete(materia);
+                                                } else {
+                                                    ('Tendriamos que borrar si preguntar');
+                                                }
                                             } else {
                                                 handledelete2();
                                             }
