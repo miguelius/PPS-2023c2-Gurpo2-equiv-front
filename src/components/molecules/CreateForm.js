@@ -279,6 +279,7 @@ const CreateForm = () => {
                         handledelete={handleClickOpen}
                         handledelete2={notifyBorrarMateria}
                         handleEliminar={elegirMateriaABorrar}
+                        eliminarDirecto={setMateriasUnahur}
                     />
                 </Grid>
 

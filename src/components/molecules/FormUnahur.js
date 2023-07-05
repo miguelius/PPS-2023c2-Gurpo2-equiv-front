@@ -15,7 +15,8 @@ const FormUnahur = ({
     handleChangeMateriaUnaHur,
     handledelete,
     handledelete2,
-    handleEliminar
+    handleEliminar,
+    eliminarDirecto
 }) => {
     return (
         <React.Fragment>
@@ -134,7 +135,13 @@ const FormUnahur = ({
                                                     handleEliminar(false);
                                                     handledelete(materia);
                                                 } else {
-                                                    ('Tendriamos que borrar si preguntar');
+                                                    eliminarDirecto(() =>
+                                                        materias.filter(
+                                                            (x) =>
+                                                                x.key !==
+                                                                materia.key
+                                                        )
+                                                    );
                                                 }
                                             } else {
                                                 handledelete2();
