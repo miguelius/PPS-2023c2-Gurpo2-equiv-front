@@ -56,7 +56,7 @@ const AutocompleteInput = styled(Autocomplete)`
 `;
 
 const FileUploader = styled(TextField)`
-    width: 50%;
+    width: 80%;
     min-width: 212px;
 
     input[type='file']::file-selector-button {

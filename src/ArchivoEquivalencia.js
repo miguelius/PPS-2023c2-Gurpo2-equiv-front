@@ -5,6 +5,7 @@ import { BotonMUI } from './components/atoms/Button/BotonMUI';
 import { StandardInput } from './components/atoms/Input/InputMUI';
 import { Titulos } from '../src/components/atoms/Title/Titulos';
 import { OuterFormButtons } from '../src/OuterFormButtons';
+import { putArchivoMateriaAprobada } from '../src/services/revision';
 
 const rol = JSON.parse(localStorage.getItem('rol'));
 
@@ -47,7 +48,9 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
         }
 
         const formdata = new FormData();
-        formdata.append('archivopdf', file);
+        formdata.append('uploadedPdf', file);
+        formdata.append('filename', file.name);
+        console.log('Nombre del archivo' + file.name);
 
         fetch('http://localhost:3001/api/archivos/', {
             method: 'POST',
@@ -55,11 +58,12 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
         })
             .then((res) => res.text())
             .then((res) => {
-                console.log(res);
+                console.log('El nombre del archivo devuelto es: ' + res);
                 {
                     materiaAprobada.archivo = res;
                 }
                 setNombreArchivo(res);
+                putArchivoMateriaAprobada(materiaAprobada.id, res);
                 setFileListUpdate(true);
             })
             .catch((err) => {
@@ -77,7 +81,9 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
             .then((res) => res.text())
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
+        console.log('Materia probada id: ' + materiaAprobada.id);
         setNombreArchivo(null);
+        putArchivoMateriaAprobada(materiaAprobada.id);
         setFileListUpdate(true);
     };
 

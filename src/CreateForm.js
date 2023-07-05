@@ -248,6 +248,9 @@ const CreateForm = () => {
                 try {
                     console.log('Res:', res);
                     res.status === 200 ? notifyExito() : notifyEnviarSinDatos();
+                    setTimeout(() => {
+                        window.location = '/usuario/equivalencias/';
+                    }, 5000);
                 } catch (error) {
                     console.log(error);
                 }
