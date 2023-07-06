@@ -33,9 +33,9 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
-                universidadOrigen: 1, // id de universidad
-                certificado: false,
-                archivo: null
+                archivo: null,
+                universidadOrigen: null, // id de universidad
+                certificado: false
             }
         ]);
     //Push de esto?
@@ -105,9 +105,9 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
-                universidadOrigen: 1, // id de universidad
                 certificado: false,
-                archivo: null
+                archivo: null,
+                universidadOrigen: null, // id de universidad
             }
         ]);
 
@@ -208,9 +208,9 @@ const CreateForm = () => {
                         carga_horaria: item.cargaHorariaTotal,
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
-                        UniversidadOrigenId: 1,
                         certificado: item.certificado,
-                        archivo: item.archivo
+                        archivo: item.archivo,
+                        UniversidadOrigenId: item.universidadOrigen,
                     };
                 }),
                 UsuarioId: usuarioId

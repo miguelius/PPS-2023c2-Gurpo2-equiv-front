@@ -7,7 +7,7 @@ import {
 } from '../../../services/institucionService';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Grid, Typography, Button } from '@mui/material';
+import { Grid, Typography, Button, IconButton } from '@mui/material';
 import { Header } from '../../../Header';
 import Image from 'mui-image';
 import {
@@ -19,6 +19,8 @@ import { useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 
 const PageEditarInstitucion = () => {
     const [nombre, setNombre] = useState('');
@@ -144,6 +146,11 @@ const PageEditarInstitucion = () => {
                         autoComplete="off"
                         sx={{ padding: '2rem', width: '100%' }}
                     >
+                        <Link to="/instituciones/todas">
+                            <IconButton sx={{ padding: 0 }}>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        </Link>
                         <ContainerTitle>
                             <Typography
                                 variant="h4"
@@ -230,17 +237,6 @@ const PageEditarInstitucion = () => {
                                     variant="contained"
                                 >
                                     Deshabilitar Institución
-                                </Button>
-                            </ContainerCenterButton>
-                            <ContainerCenterButton>
-                                <Button
-                                    size="large"
-                                    fullWidth
-                                    onClick={handleBack}
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Volver a Instituciones
                                 </Button>
                             </ContainerCenterButton>
                         </Grid>

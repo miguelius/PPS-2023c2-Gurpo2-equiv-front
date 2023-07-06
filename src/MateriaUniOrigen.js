@@ -4,7 +4,8 @@ import {
     StandardInput,
     AutocompleteInput
 } from './components/atoms/Input/InputMUI';
-import { nanoid } from 'nanoid';
+import { useState, useEffect } from 'react';
+import { getInstitucionesHabilitadas } from './services/institucionService';
 
 const MateriaUniOrigen = ({
     formValue,
@@ -12,6 +13,21 @@ const MateriaUniOrigen = ({
     formValueArray,
     key2
 }) => {
+    const [universidades, setUniversidades] = useState([]);
+
+    useEffect(() => {
+        const fetchUniversidades = async () => {
+            try {
+                const universidades = await getInstitucionesHabilitadas();
+                setUniversidades(universidades);
+            } catch (error) {
+                console.error('Error al obtener las universidades:', error);
+            }
+        };
+
+        fetchUniversidades();
+    }, []);
+
     return (
         <Grid
             item
@@ -65,16 +81,45 @@ const MateriaUniOrigen = ({
                 <AutocompleteInput
                     size="small"
                     variant="outlined"
-                    onSelect={(event) => handleChangeArray(event, key2)}
+                    onChange={(event, selectedOption) => {
+                        console.log('selectedOption:', selectedOption);
+                        const universidadSeleccionada = universidades.find(
+                            (universidad) =>
+                                universidad.nombre_universidad ===
+                                selectedOption
+                        );
+                        console.log(
+                            'universidadSeleccionada:',
+                            universidadSeleccionada
+                        );
+                        const idUniversidadSeleccionada = universidadSeleccionada
+                            ? universidadSeleccionada.id
+                            : null;
+                        console.log(
+                            'idUniversidadSeleccionada:',
+                            idUniversidadSeleccionada
+                        );
+                        handleChangeArray(
+                            {
+                                target: {
+                                    name: 'universidadOrigen',
+                                    value: idUniversidadSeleccionada
+                                }
+                            },
+                            key2
+                        );
+                    }}
                     disablePortal
-                    options={top100Films}
+                    options={universidades.map(
+                        (universidad) => universidad.nombre_universidad
+                    )}
                     renderInput={(params) => (
                         <TextField
                             required
                             {...params}
                             label="Universidad de Origen"
                             name="universidadOrigen"
-                            value={(formValueArray.universidadOrigen = 1)}
+                            value={formValueArray.universidadOrigen || ''}
                         />
                     )}
                 />
@@ -82,12 +127,5 @@ const MateriaUniOrigen = ({
         </Grid>
     );
 };
-
-const top100Films = [
-    { label: 'Universidad de la Matanza', year: 1994 },
-    { label: 'Universidad de 3 de Febrero', year: 1972 },
-    { label: 'Universidad de Morón', year: 1974 },
-    { label: 'Universidad de Buenos Aires', year: 2008 }
-];
 
 export { MateriaUniOrigen };

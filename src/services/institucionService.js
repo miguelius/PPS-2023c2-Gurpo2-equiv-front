@@ -26,7 +26,7 @@ export async function getInsitutciones({ limit, page }) {
     }
 }
 
-export async function getInsitutcionesHabilitadas() {
+export async function getInstitucionesHabilitadas() {
     const apiResponse = await axios.get(
         `${config.apiUrl}/universidades_origenes/todas/enabled`
     );

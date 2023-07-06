@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getInsitutciones } from '../../../services/institucionService';
 import { ContainerTitle } from './InstitucionesStyled';
 import { ContainerCenter, ContainerPagination } from './InstitucionesStyled';
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, IconButton } from '@mui/material';
 import { Header } from '../../../Header';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,6 +16,7 @@ import TablePagination from '@mui/material/TablePagination';
 import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PageInstituciones = () => {
     const [listaInstituciones, setListaInstituciones] = useState([]);
@@ -59,6 +60,16 @@ const PageInstituciones = () => {
             </Grid>
 
             <Grid container spacing={1} xs={12}>
+                <ContainerTitle
+                    sx={{ paddingTop: '2rem', paddingBottom: '0.5rem' }}
+                >
+                    <Link to="/direccion/instituciones">
+                        <IconButton sx={{ padding: 0 }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Link>
+                </ContainerTitle>
+
                 <ContainerTitle sx={{ paddingTop: '2rem' }}>
                     <Typography variant="h3" component="h1">
                         Instituciones registradas
