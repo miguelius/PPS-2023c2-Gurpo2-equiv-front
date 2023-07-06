@@ -122,6 +122,18 @@ const BotonMUI = styled(Button)`
                 background-color: #007a5e;
             }
         `}
+
+        ${(props) =>
+        props.buttonuploadoff &&
+        css`
+            background-color: #fbeee6;
+            width: 80px;
+            height: 30px;
+
+            &:hover {
+                background-color: #f27154;
+            }
+        `} /**/
 `;
 
 export { BotonMUI };

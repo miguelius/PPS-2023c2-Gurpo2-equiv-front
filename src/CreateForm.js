@@ -33,6 +33,7 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
+                archivo: null,
                 universidadOrigen: null, // id de universidad
                 certificado: false
             }
@@ -104,8 +105,9 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
+                certificado: false,
+                archivo: null,
                 universidadOrigen: null, // id de universidad
-                certificado: false
             }
         ]);
 
@@ -206,8 +208,9 @@ const CreateForm = () => {
                         carga_horaria: item.cargaHorariaTotal,
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
+                        certificado: item.certificado,
+                        archivo: item.archivo,
                         UniversidadOrigenId: item.universidadOrigen,
-                        certificado: item.certificado
                     };
                 }),
                 UsuarioId: usuarioId
@@ -245,6 +248,9 @@ const CreateForm = () => {
                 try {
                     console.log('Res:', res);
                     res.status === 200 ? notifyExito() : notifyEnviarSinDatos();
+                    setTimeout(() => {
+                        window.location = '/usuario/equivalencias/';
+                    }, 5000);
                 } catch (error) {
                     console.log(error);
                 }

@@ -23,6 +23,7 @@ import { getEquivalencia } from '../../../services/revision';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../../config/config';
+import { ArchivoEquivalencia } from '../../../ArchivoEquivalencia';
 
 const columns = [
     { id: 'desc', label: 'Solicitante', minWidth: 170 },
@@ -625,7 +626,17 @@ const PageRevision = () => {
                                                             variant="body1"
                                                             gutterBottom
                                                         >
-                                                            No tiene certificado
+                                                            {materiaAprobada.certificado ? (
+                                                                <p>
+                                                                    Tiene
+                                                                    certificado
+                                                                </p>
+                                                            ) : (
+                                                                <p>
+                                                                    No tiene
+                                                                    certificado
+                                                                </p>
+                                                            )}
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
@@ -638,7 +649,7 @@ const PageRevision = () => {
                                                         marginTop: '16px'
                                                     }}
                                                 >
-                                                    <Grid
+                                                    {/* <Grid
                                                         item
                                                         container
                                                         xs={12}
@@ -654,23 +665,23 @@ const PageRevision = () => {
                                                             Adjuntar programa de
                                                             la materia .pdf
                                                         </Titulos>
-                                                    </Grid>
+                                                    </Grid> */}
 
-                                                    <Grid
+                                                    {/* <Grid
                                                         item
                                                         container
                                                         xs={12}
                                                         sx={{
                                                             marginTop: '16px'
                                                         }}
-                                                    >
-                                                        <label
+                                                    > */}
+                                                    {/* <label
                                                             htmlFor="contained-button-file"
                                                             style={{
                                                                 width: '100%'
                                                             }}
-                                                        >
-                                                            <BotonMUI
+                                                        > */}
+                                                    {/* <BotonMUI
                                                                 sx={{
                                                                     marginRight:
                                                                         '12px'
@@ -680,8 +691,8 @@ const PageRevision = () => {
                                                                 component="span"
                                                             >
                                                                 Descargar
-                                                            </BotonMUI>
-                                                            {/* <IconButton
+                                                            </BotonMUI> */}
+                                                    {/* <IconButton
                                             sx={{
                                                 marginRight: '12px'
                                             }}
@@ -691,7 +702,7 @@ const PageRevision = () => {
                                         >
                                             <AttachFileOutlinedIcon />
                                         </IconButton> */}
-                                                            {/* <FileUploader
+                                                    {/* <FileUploader
                                             id="contained-button-file"
                                             multiple
                                             size="small"
@@ -699,8 +710,17 @@ const PageRevision = () => {
                                             type="file"
                                             accept="application/pdf, application/vnd.ms-Excel"
                                         /> */}
-                                                        </label>
-                                                    </Grid>
+                                                    {/* </label> */}
+                                                    <ArchivoEquivalencia
+                                                        nArchivo={
+                                                            materiaAprobada.archivo
+                                                        }
+                                                        estado={
+                                                            formValue.estado
+                                                        }
+                                                    ></ArchivoEquivalencia>
+
+                                                    {/* </Grid> */}
                                                 </Grid>
 
                                                 {/* <AgregarMateriaUniOrigen /> */}
