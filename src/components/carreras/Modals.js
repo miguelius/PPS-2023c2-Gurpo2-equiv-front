@@ -12,7 +12,7 @@ export const ModalEliminarCarrera = (props) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             sx={{
-                opacity: [0.5]
+                opacity: [0.33]
             }}
         >
             <Box
@@ -69,6 +69,9 @@ export const ModalEditarCarrera = (props) => {
             onClose={handleCloseEditar}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            sx={{
+                opacity: [0.33]
+            }}
         >
             <Box
                 sx={{
