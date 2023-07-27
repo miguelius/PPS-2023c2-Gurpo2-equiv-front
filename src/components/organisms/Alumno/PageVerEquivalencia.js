@@ -67,7 +67,7 @@ const horaConCero = (hora) => {
     }
 };
 
-const PageVerEquivalencia = () => {
+const PageVerEquivalencia = ({ socket }) => {
     const { id } = useParams();
     const [rows, setRows] = useState([]);
     const [equiv, setEquiv] = useState({});
@@ -808,7 +808,7 @@ const PageVerEquivalencia = () => {
                                 }}
                             >
                                 <Collapse in={mostrarChat}>
-                                    <Chat id={id} />
+                                    <Chat id={id} socket={socket} />
                                 </Collapse>{' '}
                             </Grid>
 

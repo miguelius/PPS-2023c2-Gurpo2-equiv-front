@@ -27,7 +27,7 @@ import {
 } from '../../services/mensajes_service.js';
 
 const Mensajes = withStyles(MensajesStyle)((props) => {
-    const { classes, mensajes, usuario_id } = props;
+    const { classes, mensajes, usuario_id, socket } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const [hoveredMessage, setHoveredMessage] = useState(null);
     const [open, setOpen] = useState(false);
@@ -135,6 +135,7 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                 mensaje.texto = objMensaje.texto;
             }
         });
+        socket.emit('message', objMensaje);
     };
 
     const handleDelete = (e) => {
@@ -147,6 +148,7 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
             (mensaje) => mensaje.id === deleteMessage
         );
         mensajes.splice(index, 1);
+        socket.emit('message', deleteMessage);
     };
 
     return (

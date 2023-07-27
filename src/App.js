@@ -10,6 +10,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import PageSuperUsuario from './components/PageSuperUsuario';
+import socketIO from 'socket.io-client';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+const socket = socketIO.connect('http://localhost:3001');
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
@@ -25,7 +28,9 @@ function App() {
                     />
                     <Route
                         path="/usuario/visualizar/:id"
-                        component={PageVerEquivalencia}
+                        component={() => (
+                            <PageVerEquivalencia socket={socket} />
+                        )}
                     />
                     <Route
                         path="/usuario/formulario"
@@ -42,7 +47,7 @@ function App() {
                     />
                     <Route
                         path="/direccion/revision/:id"
-                        component={PageRevision}
+                        component={() => <PageRevision socket={socket} />}
                     />
                 </Router>
             )}
@@ -55,7 +60,7 @@ function App() {
                     />
                     <Route
                         path="/direccion/revision/:id"
-                        component={PageRevision}
+                        component={() => <PageRevision socket={socket} />}
                     />
                     <Route
                         path="/superusuario/usuarios"
