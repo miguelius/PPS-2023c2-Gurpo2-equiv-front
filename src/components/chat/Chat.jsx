@@ -28,20 +28,20 @@ const Chat = (props) => {
 
     useEffect(() => {
         const readMensajes = () => {
-         getMensajes(id)
-            .then((rpta) => {
-                if (Array.isArray(rpta.data) && rpta.data.length > 0) {
-                    setMensajes(rpta.data);
-                }
-            })
-            .catch((error) => {
-                console.log('Error al obtener los mensajes:', error);
-            });
-        }
+            getMensajes(id)
+                .then((rpta) => {
+                    if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                        setMensajes(rpta.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error al obtener los mensajes:', error);
+                });
+        };
         socket.on('message', () => {
-            readMensajes()
+            readMensajes();
         });
-        readMensajes()
+        readMensajes();
     }, [id, socket]);
 
     const handleChange = (e) => {
@@ -53,7 +53,7 @@ const Chat = (props) => {
             id_equivalencia: id,
             texto: mensaje_input,
             id_remitente: usuario_id,
-            id: `${socket-id}${Math.random()}`,
+            id: `${socket - id}${Math.random()}`,
             socketID: socket.id
         };
         enviarMensaje(objMensaje).then((rpta) => {
@@ -80,7 +80,11 @@ const Chat = (props) => {
                 }}
             >
                 <div style={{ flex: 1, overflow: 'auto' }} ref={paperRef}>
-                    <Mensajes mensajes={mensajes} usuario_id={usuario_id} socket={socket}/>
+                    <Mensajes
+                        mensajes={mensajes}
+                        usuario_id={usuario_id}
+                        socket={socket}
+                    />
                 </div>
 
                 <Grid
@@ -99,7 +103,7 @@ const Chat = (props) => {
                         value={mensaje_input}
                         onChange={handleChange}
                         onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
+                            if (e.key === 'Enter' && mensaje_input !== '') {
                                 handleSubmit(e);
                             }
                         }}
@@ -110,6 +114,7 @@ const Chat = (props) => {
                                         onClick={handleSubmit}
                                         color="primary"
                                         size="medium"
+                                        disabled={mensaje_input === ''}
                                         sx={{
                                             transition: 'all 0.3s ease',
                                             '&:hover': {
