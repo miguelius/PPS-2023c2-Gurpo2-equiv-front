@@ -51,11 +51,7 @@ const Chat = (props) => {
                    console.log('Error al obtener los mensajes:', error);
                });
            }
-    
-       // Set up event listener on mount
     socket.on('message', readMensajes);
-
-    // Clean up the event listener on unmount
     return () => {
         socket.off('message', readMensajes);
     };
