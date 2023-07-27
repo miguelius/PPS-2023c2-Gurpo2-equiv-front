@@ -11,6 +11,9 @@ export const ModalEliminarCarrera = (props) => {
             onClose={handleCloseEliminar}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            sx={{
+                opacity: [0.6]
+            }}
         >
             <Box
                 sx={{
@@ -66,6 +69,9 @@ export const ModalEditarCarrera = (props) => {
             onClose={handleCloseEditar}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            sx={{
+                opacity: [0.6]
+            }}
         >
             <Box
                 sx={{
@@ -129,8 +135,12 @@ export const ModalEditarCarrera = (props) => {
 };
 
 export const ModalAgregarCarrera = (props) => {
-    const { openAgregar, handleCloseAgregar, handleSubmit, handleChange } =
-        props;
+    const {
+        openAgregar,
+        handleCloseAgregar,
+        handleSubmit,
+        handleChange
+    } = props;
 
     return (
         <Modal
