@@ -18,6 +18,10 @@ import {
     updateCarrera,
     deleteCarrera
 } from '../../services/carrera_service';
+import {getDirectivos} from '../../services/usuario_service';
+import {
+    createUsuario_Carrera
+} from '../../services/usuarios_carreras_service';
 import {
     ModalEliminarCarrera,
     ModalEditarCarrera,
@@ -168,9 +172,52 @@ const PageCRUDCarreras = () => {
         setOpenAgregar(false);
 
         createCarrera(objCarrera).then((rpta) => {
-            console.log(rpta);
+            console.log(rpta); 
+            console.log(formValue.directivo)
+            let objUsuario_Carrera = {
+                UsuarioId: formValue.directivo,
+                id_carrera: rpta.id
+            };
+            createUsuario_Carrera(objUsuario_Carrera).then((rpta) => {
+                console.log(rpta);
+            });
         });
         console.log(carreras);
+    };
+
+    const [formValue, setformValue] = useState({
+        directivo: ''
+    });
+
+    const [directivos, setDirectivos] = useState([]);
+
+    const nombresDirectivos = directivos.map((directivo) => {
+        return directivo.nombre;
+    });
+
+    useEffect(() => {
+        const fetchDirectivos = async () => {
+            const directivos = await getDirectivos();
+            setDirectivos(directivos);
+        };
+        fetchDirectivos();
+    }, []);
+
+    const handleChangeDirectivo = (event) => {
+        if (event.target.name === 'directivo') {
+            try {
+                const id_directivo = directivos.find(
+                    (directivo) => directivo.nombre === event.target.value
+                ).id;
+                console.log(id_directivo);
+                setformValue((formValue) => ({
+                    ...formValue,
+                    [event.target.name]: id_directivo
+                }));
+            } catch (error) {
+                console.log(error);
+            }
+        } 
     };
 
     return (
@@ -215,6 +262,9 @@ const PageCRUDCarreras = () => {
                             handleCloseAgregar={handleCloseAgregar}
                             handleSubmit={handleSubmit}
                             handleChange={handleChange}
+                            handleChangeDirectivo={handleChangeDirectivo}
+                            nombresDirectivos={nombresDirectivos}
+                            formValue={formValue}
                         ></ModalAgregarCarrera>
                     </Grid>
                 </GridTop>

@@ -41,6 +41,7 @@ const Chat = (props) => {
         socket.on('message', () => {
             readMensajes()
         });
+        readMensajes()
     }, [id, socket]);
 
     const handleChange = (e) => {
