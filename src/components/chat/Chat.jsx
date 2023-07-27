@@ -26,23 +26,59 @@ const Chat = (props) => {
         }
     }, [mensajes]);
 
+    const readMensajes = () => {
+        getMensajes(id)
+           .then((rpta) => {
+               if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                   setMensajes(rpta.data);
+               }
+           })
+           .catch((error) => {
+               console.log('Error al obtener los mensajes:', error);
+           });
+       }
+
+
     useEffect(() => {
         const readMensajes = () => {
-         getMensajes(id)
-            .then((rpta) => {
-                if (Array.isArray(rpta.data) && rpta.data.length > 0) {
-                    setMensajes(rpta.data);
-                }
-            })
-            .catch((error) => {
-                console.log('Error al obtener los mensajes:', error);
-            });
-        }
-        socket.on('message', () => {
-            readMensajes()
-        });
-        readMensajes()
+            getMensajes(id)
+               .then((rpta) => {
+                   if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                       setMensajes(rpta.data);
+                   }
+               })
+               .catch((error) => {
+                   console.log('Error al obtener los mensajes:', error);
+               });
+           }
+    
+       // Set up event listener on mount
+    socket.on('message', readMensajes);
+
+    // Clean up the event listener on unmount
+    return () => {
+        socket.off('message', readMensajes);
+    };
     }, [id, socket]);
+
+
+    useEffect(() => {
+        const readMensajes = () => {
+            getMensajes(id)
+               .then((rpta) => {
+                   if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                       setMensajes(rpta.data);
+                   }
+               })
+               .catch((error) => {
+                   console.log('Error al obtener los mensajes:', error);
+               });
+           }
+        readMensajes();
+    }, [id]);
+
+
+
 
     const handleChange = (e) => {
         setMensaje(e.target.value);
