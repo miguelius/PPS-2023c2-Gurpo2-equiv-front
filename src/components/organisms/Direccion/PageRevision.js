@@ -60,7 +60,7 @@ const horaConCero = (hora) => {
     }
 };
 
-const PageRevision = () => {
+const PageRevision = ({ socket }) => {
     const { id } = useParams();
     const [rows, setRows] = useState([]);
     const [equiv, setEquiv] = useState({});
@@ -833,7 +833,7 @@ const PageRevision = () => {
                                         }}
                                     >
                                         <Collapse in={mostrarChat}>
-                                            <Chat id={id} />
+                                            <Chat id={id} socket={socket} />
                                         </Collapse>
                                     </Grid>
 

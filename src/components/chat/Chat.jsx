@@ -14,7 +14,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { Fragment } from 'react';
 
 const Chat = (props) => {
-    const { id } = props;
+    const { id, socket } = props;
     const usuario_id = JSON.parse(localStorage.getItem('id'));
     const [mensajes, setMensajes] = useState([]);
     const [mensaje_input, setMensaje] = useState('');
@@ -27,16 +27,45 @@ const Chat = (props) => {
     }, [mensajes]);
 
     useEffect(() => {
-        getMensajes(id)
-            .then((rpta) => {
-                if (Array.isArray(rpta.data) && rpta.data.length > 0) {
-                    setMensajes(rpta.data);
-                }
-            })
-            .catch((error) => {
-                console.log('Error al obtener los mensajes:', error);
-            });
+        const readMensajes = () => {
+            getMensajes(id)
+               .then((rpta) => {
+                   if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                       setMensajes(rpta.data);
+                   }
+               })
+               .catch((error) => {
+                   console.log('Error al obtener los mensajes:', error);
+               });
+           }
+    
+       // Set up event listener on mount
+    socket.on('message', readMensajes);
+
+    // Clean up the event listener on unmount
+    return () => {
+        socket.off('message', readMensajes);
+    };
+    }, [id, socket]);
+
+
+    useEffect(() => {
+        const readMensajes = () => {
+            getMensajes(id)
+               .then((rpta) => {
+                   if (Array.isArray(rpta.data) && rpta.data.length > 0) {
+                       setMensajes(rpta.data);
+                   }
+               })
+               .catch((error) => {
+                   console.log('Error al obtener los mensajes:', error);
+               });
+           }
+        readMensajes();
     }, [id]);
+
+
+
 
     const handleChange = (e) => {
         setMensaje(e.target.value);
@@ -46,12 +75,15 @@ const Chat = (props) => {
         let objMensaje = {
             id_equivalencia: id,
             texto: mensaje_input,
-            id_remitente: usuario_id
+            id_remitente: usuario_id,
+            id: `${socket-id}${Math.random()}`,
+            socketID: socket.id
         };
         enviarMensaje(objMensaje).then((rpta) => {
             setMensajes([...mensajes, rpta.data]);
             setMensaje('');
         });
+        socket.emit('message', objMensaje);
     };
 
     return (
@@ -71,7 +103,7 @@ const Chat = (props) => {
                 }}
             >
                 <div style={{ flex: 1, overflow: 'auto' }} ref={paperRef}>
-                    <Mensajes mensajes={mensajes} usuario_id={usuario_id} />
+                    <Mensajes mensajes={mensajes} usuario_id={usuario_id} socket={socket}/>
                 </div>
 
                 <Grid
