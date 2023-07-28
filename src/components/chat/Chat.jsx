@@ -26,19 +26,6 @@ const Chat = (props) => {
         }
     }, [mensajes]);
 
-    const readMensajes = () => {
-        getMensajes(id)
-           .then((rpta) => {
-               if (Array.isArray(rpta.data) && rpta.data.length > 0) {
-                   setMensajes(rpta.data);
-               }
-           })
-           .catch((error) => {
-               console.log('Error al obtener los mensajes:', error);
-           });
-       }
-
-
     useEffect(() => {
         const readMensajes = () => {
             getMensajes(id)
@@ -51,7 +38,11 @@ const Chat = (props) => {
                    console.log('Error al obtener los mensajes:', error);
                });
            }
+    
+       // Set up event listener on mount
     socket.on('message', readMensajes);
+
+    // Clean up the event listener on unmount
     return () => {
         socket.off('message', readMensajes);
     };
@@ -85,7 +76,7 @@ const Chat = (props) => {
             id_equivalencia: id,
             texto: mensaje_input,
             id_remitente: usuario_id,
-            id: `${socket - id}${Math.random()}`,
+            id: `${socket-id}${Math.random()}`,
             socketID: socket.id
         };
         enviarMensaje(objMensaje).then((rpta) => {
@@ -112,11 +103,7 @@ const Chat = (props) => {
                 }}
             >
                 <div style={{ flex: 1, overflow: 'auto' }} ref={paperRef}>
-                    <Mensajes
-                        mensajes={mensajes}
-                        usuario_id={usuario_id}
-                        socket={socket}
-                    />
+                    <Mensajes mensajes={mensajes} usuario_id={usuario_id} socket={socket}/>
                 </div>
 
                 <Grid
@@ -135,7 +122,7 @@ const Chat = (props) => {
                         value={mensaje_input}
                         onChange={handleChange}
                         onKeyPress={(e) => {
-                            if (e.key === 'Enter' && mensaje_input !== '') {
+                            if (e.key === 'Enter') {
                                 handleSubmit(e);
                             }
                         }}
@@ -146,7 +133,6 @@ const Chat = (props) => {
                                         onClick={handleSubmit}
                                         color="primary"
                                         size="medium"
-                                        disabled={mensaje_input === ''}
                                         sx={{
                                             transition: 'all 0.3s ease',
                                             '&:hover': {
