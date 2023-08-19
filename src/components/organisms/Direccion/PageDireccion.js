@@ -11,6 +11,8 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 
 const PageDireccion = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -49,6 +51,11 @@ const PageDireccion = () => {
                     alignItems="center"
                 >
                     <Grid item>
+                        <Link to="/direccionDashboard">
+                            <IconButton sx={{ padding: 0 }}>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        </Link>
                         <Titulos component="h2" titulogrande>
                             Solicitudes de equivalencias
                         </Titulos>

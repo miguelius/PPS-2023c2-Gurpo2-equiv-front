@@ -5,7 +5,7 @@ import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const SideRegistro = styled(Grid)`
+const SideBack = styled(Grid)`
     background: #009673;
     width: 35%;
     max-width: 35%;
@@ -17,24 +17,24 @@ const SideRegistro = styled(Grid)`
     align-items: center;
 `;
 
-const Register = () => {
+const Back = () => {
     const onClick = (e) => {
         return <Registro />;
     };
 
     return (
-        <SideRegistro>
+        <SideBack>
             <Titulos centrar blanco titulogrande titulobold component="h1">
                 Trámites de Equivalencias
             </Titulos>
 
-            <Link to="/registro" style={{ textDecoration: 'none' }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
                 <BotonMUI buttonoutlined variant="outlined" onClick={onClick}>
-                    Registrarse
+                    Volver
                 </BotonMUI>
             </Link>
-        </SideRegistro>
+        </SideBack>
     );
 };
 
-export { SideRegistro, Register };
+export { SideBack, Back };

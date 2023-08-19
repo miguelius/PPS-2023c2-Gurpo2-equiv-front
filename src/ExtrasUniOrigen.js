@@ -14,6 +14,20 @@ import { BotonMUI } from './components/atoms/Button/BotonMUI';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { ArchivoAltaEquivalencia } from './ArchivoAltaEquivalencia';
+
+const esNotaCorrecta = (nota) => {
+    return nota == '' || nota == null || (nota >= 4 && nota <= 10);
+};
+
+const cargaHorariaCorrecta = (valor) => {
+    return valor <= 999;
+};
+
+const esAnioCorrecto = (valor) => {
+    const currentYear = new Date().getFullYear();
+    return valor <= currentYear;
+};
 
 const ExtrasUniOrigen = ({
     formValue,
@@ -84,6 +98,18 @@ const ExtrasUniOrigen = ({
                                     onChange={(event) =>
                                         handleChangeArray(event, key2)
                                     }
+                                    error={
+                                        !esAnioCorrecto(
+                                            formValueArray.anioAprobacion
+                                        )
+                                    }
+                                    helperText={
+                                        !esAnioCorrecto(
+                                            formValueArray.anioAprobacion
+                                        )
+                                            ? 'El año no pude ser en futuro.'
+                                            : undefined
+                                    }
                                 />
                             )}
                         />
@@ -100,7 +126,19 @@ const ExtrasUniOrigen = ({
                         variant="outlined"
                         type="number"
                         value={formValueArray.cargaHorariaTotal}
+                        error={
+                            !cargaHorariaCorrecta(
+                                formValueArray.cargaHorariaTotal
+                            )
+                        }
                         onChange={(event) => handleChangeArray(event, key2)}
+                        helperText={
+                            cargaHorariaCorrecta(
+                                formValueArray.cargaHorariaTotal
+                            )
+                                ? undefined
+                                : 'Debe ingresar un valor, no superior a 999.'
+                        }
                     />
                 </Grid>
             </Grid>
@@ -120,14 +158,23 @@ const ExtrasUniOrigen = ({
                 <Grid item container xs={5.6}>
                     <StandardInput
                         key={formValueArray.key}
-                        required
+                        //required
                         name="notaAprobacion"
                         size="small"
                         label="Nota aprobación"
                         variant="outlined"
                         type="number"
                         value={formValueArray.notaAprobacion}
-                        onChange={(event) => handleChangeArray(event, key2)}
+                        error={!esNotaCorrecta(formValueArray.notaAprobacion)}
+                        onChange={(event) => {
+                            handleChangeArray(event, key2);
+                            console.log(formValueArray.notaAprobacion);
+                        }}
+                        helperText={
+                            esNotaCorrecta(formValueArray.notaAprobacion)
+                                ? undefined
+                                : 'Nota optativa o valor entre 4 y 10.'
+                        }
                     />
                 </Grid>
 
@@ -174,7 +221,7 @@ const ExtrasUniOrigen = ({
                     marginTop: '16px'
                 }}
             >
-                <Grid item container xs={12}>
+                {/* <Grid item container xs={12}>
                     <Titulos
                         titulolabel
                         variant="h3"
@@ -185,14 +232,14 @@ const ExtrasUniOrigen = ({
                     >
                         Adjuntar programa de la materia .pdf
                     </Titulos>
-                </Grid>
+                </Grid> */}
 
-                <Grid item container xs={12} sx={{ marginTop: '16px' }}>
-                    <label
+                {/* <Grid item container xs={12} sx={{ marginTop: '16px' }}> */}
+                {/* <label
                         htmlFor="contained-button-file"
                         style={{ width: '100%' }}
-                    >
-                        <BotonMUI
+                    > */}
+                {/* <BotonMUI
                             sx={{
                                 marginRight: '12px'
                             }}
@@ -201,8 +248,8 @@ const ExtrasUniOrigen = ({
                             component="span"
                         >
                             Cargar
-                        </BotonMUI>
-                        {/* <IconButton
+                        </BotonMUI> */}
+                {/* <IconButton
                             sx={{
                                 marginRight: '12px'
                             }}
@@ -213,7 +260,7 @@ const ExtrasUniOrigen = ({
                             <AttachFileOutlinedIcon />
                         </IconButton> */}
 
-                        {/* <FileUploader
+                {/* <FileUploader
                             id="contained-button-file"
                             multiple
                             size="small"
@@ -221,8 +268,14 @@ const ExtrasUniOrigen = ({
                             type="file"
                             accept="application/pdf, application/vnd.ms-Excel"
                         /> */}
-                    </label>
-                </Grid>
+                {/* </label> */}
+                {/* </Grid> */}
+                <ArchivoAltaEquivalencia
+                    handleChangeArray={handleChangeArray}
+                    formValueArray={formValueArray}
+                    key2={key2}
+                    nArchivo={formValueArray.archivo}
+                ></ArchivoAltaEquivalencia>
             </Grid>
 
             {/* <AgregarMateriaUniOrigen /> */}
