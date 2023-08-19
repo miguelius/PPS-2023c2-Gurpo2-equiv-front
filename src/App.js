@@ -3,14 +3,20 @@ import { PageCreateForm } from './PageCreateForm';
 import { PageRevision } from './components/organisms/Direccion/PageRevision';
 import { PageMyForm } from './PageMyForm';
 import { PagePerfil } from './components/organisms/Alumno/PagePerfil';
+import { PageCRUDCarreras } from './components/carreras/PageCRUDCarreras';
 import { PageDireccion } from './components/organisms/Direccion/PageDireccion';
 import { PageVerEquivalencia } from './components/organisms/Alumno/PageVerEquivalencia';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import PageSuperUsuario from './components/PageSuperUsuario';
+import socketIO from 'socket.io-client';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+const socket = socketIO.connect('http://localhost:3001');
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
+
     return (
         <>
             {rol == 'alumno' && (
@@ -22,7 +28,9 @@ function App() {
                     />
                     <Route
                         path="/usuario/visualizar/:id"
-                        component={PageVerEquivalencia}
+                        component={() => (
+                            <PageVerEquivalencia socket={socket} />
+                        )}
                     />
                     <Route
                         path="/usuario/formulario"
@@ -39,7 +47,28 @@ function App() {
                     />
                     <Route
                         path="/direccion/revision/:id"
-                        component={PageRevision}
+                        component={() => <PageRevision socket={socket} />}
+                    />
+                </Router>
+            )}
+            {rol == 'superusuario' && (
+                <Router>
+                    <Route path="/" exact component={PageIniciarSesion} />
+                    <Route
+                        path="/superusuario/solicitudes"
+                        component={PageDireccion}
+                    />
+                    <Route
+                        path="/direccion/revision/:id"
+                        component={() => <PageRevision socket={socket} />}
+                    />
+                    <Route
+                        path="/superusuario/usuarios"
+                        component={PageSuperUsuario}
+                    />
+                    <Route
+                        path="/superusuario/carreras"
+                        component={PageCRUDCarreras}
                     />
                 </Router>
             )}

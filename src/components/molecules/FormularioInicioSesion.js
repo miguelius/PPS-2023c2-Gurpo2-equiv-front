@@ -9,7 +9,6 @@ import { InputMUI, ContenedorInputs } from '../atoms/Input/InputMUI';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid, styled } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUsuarios } from '../../services/usuario_service';
 
@@ -48,8 +47,10 @@ const FormularioInicioSesion = () => {
 
             if (usuario.rol == 'alumno') {
                 window.location.href = '/usuario/equivalencias';
-            } else {
+            } else if (usuario.rol == 'directivo') {
                 window.location.href = '/direccion/solicitudes';
+            } else {
+                window.location.href = '/superusuario/solicitudes';
             }
         } else {
             alert('Usuario o contraseña incorrectos');

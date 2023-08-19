@@ -1,10 +1,10 @@
 import { AppBar, Toolbar, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { BotonMUI } from './atoms/Button/BotonMUI';
 import React from 'react';
-import AvatarIcon from './components/AvatarIcon.jsx';
+import AvatarIcon from './AvatarIcon';
 
-const Header = () => {
+const HeaderDirectivo = () => {
     return (
         <AppBar position="static" sx={{ bgcolor: '#122C34' }}>
             <Toolbar color="#122C34">
@@ -29,14 +29,14 @@ const Header = () => {
                         </Grid>
                         <Grid md={7}>
                             <Link
-                                to={'/usuario/equivalencias'}
+                                to={'/direccion/solicitudes'}
                                 style={{ textDecoration: 'none' }}
                             >
                                 <BotonMUI
                                     variant="text"
-                                    sx={{ width: '160px' }}
+                                    sx={{ width: '130px' }}
                                 >
-                                    Mis equivalencias
+                                    Equivalencias
                                 </BotonMUI>
                             </Link>
                         </Grid>
@@ -80,4 +80,4 @@ const Header = () => {
     );
 };
 
-export { Header };
+export { HeaderDirectivo };

@@ -1,20 +1,24 @@
 import { Grid, Paper } from '@mui/material';
-import { Header } from '../../../Header';
 import { GridTop } from '../../../GridTop';
 import { Titulos } from '../../atoms/Title/Titulos';
 import StickyHeadTable from '../Direccion/TablaDireccion';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { getEquivalencia } from '../../../services/equivalencia_service';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
+import { HeaderDirectivo } from '../../HeaderDirectivo';
+import { HeaderSuperUsuario } from '../../HeaderSuperUsuario';
 
 const PageDireccion = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    console.log(searchQuery);
+    const rol = JSON.parse(localStorage.getItem('rol'));
+    const rolUsuario = () => {
+        if (rol === 'directivo') {
+            return <HeaderDirectivo />;
+        } else {
+            return <HeaderSuperUsuario />;
+        }
+    };
 
     const iconSearch = React.createRef();
     const inputSearch = React.createRef();
@@ -22,10 +26,7 @@ const PageDireccion = () => {
     return (
         <Grid container direction="column">
             <Grid item container xs={12}>
-                <Header
-                    name="Equivalencias"
-                    paginaPrincipal="/direccion/solicitudes"
-                />
+                {rolUsuario()}
             </Grid>
 
             <Grid

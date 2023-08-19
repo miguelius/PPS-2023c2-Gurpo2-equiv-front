@@ -1,6 +1,5 @@
-import { Grid, TextareaAutosize } from '@mui/material';
+import { Collapse, Grid } from '@mui/material';
 import React, { useState, useMemo, useEffect } from 'react';
-import { Header } from '../../../Header';
 import { Titulos } from '../../atoms/Title/Titulos';
 import { GridTop } from '../../../GridTop';
 import Paper from '@mui/material/Paper';
@@ -11,7 +10,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import { TextField } from '@mui/material';
 import { StandardInput } from '../../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -23,6 +21,10 @@ import { getEquivalencia } from '../../../services/revision';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../../config/config';
+import { HeaderDirectivo } from '../../HeaderDirectivo';
+import { HeaderSuperUsuario } from '../../HeaderSuperUsuario';
+import Chat from '../../chat/Chat';
+import { Button } from '@mui/material';
 
 const columns = [
     { id: 'desc', label: 'Solicitante', minWidth: 170 },
@@ -58,12 +60,17 @@ const horaConCero = (hora) => {
     }
 };
 
-const PageRevision = () => {
+const PageRevision = ({ socket }) => {
     const { id } = useParams();
     const [rows, setRows] = useState([]);
     const [equiv, setEquiv] = useState({});
     const [alignment, setAlignment] = useState('web');
     const [formValue, setFormValue] = useState({});
+    const [mostrarChat, setMostrarChat] = useState(false);
+
+    const handleMostrarChat = () => {
+        setMostrarChat(!mostrarChat);
+    };
 
     useEffect(() => {
         const fetchUsuarioData = async () => {
@@ -105,12 +112,13 @@ const PageRevision = () => {
 
     useEffect(() => {
         const fetchEquivalenciaData = async () => {
+            // Aca tambien incluir carreras.
             const obtainedEquivalenciaData = await getEquivalencia(id);
 
             let arrayData = {
                 nombre: obtainedEquivalenciaData.Materias_solicitadas[0].nombre,
-                carrera:
-                    obtainedEquivalenciaData.Materias_solicitadas[0].carrera,
+
+                carrera: obtainedEquivalenciaData.Carrera.nombre_carrera,
 
                 materiasAprobadas: obtainedEquivalenciaData.Materias_aprobadas,
 
@@ -164,23 +172,34 @@ const PageRevision = () => {
                 try {
                     res.data.data; // '{"name":"deven"}'
 
-                    window.location = '/direccion/solicitudes';
+                    window.location = urlUsuario();
                 } catch (error) {
                     console.log(error);
                 }
             })
             .catch(() => {});
     };
+    const rol = JSON.parse(localStorage.getItem('rol'));
+    const rolUsuario = () => {
+        if (rol === 'directivo') {
+            return <HeaderDirectivo />;
+        } else {
+            return <HeaderSuperUsuario />;
+        }
+    };
+    const urlUsuario = () => {
+        if (rol === 'directivo') {
+            return '/direccion/solicitudes';
+        } else {
+            return '/superusuario/solicitudes';
+        }
+    };
 
     return (
         <>
             <Grid container direction="column">
                 <Grid item container xs={12}>
-                    <Header
-                        name="Equivalencias"
-                        paginaPrincipal="/direccion/solicitudes"
-                        botonSeleccionado="rgba(255, 255, 255, 0.1);"
-                    />
+                    {rolUsuario()}
                 </Grid>
 
                 <Grid
@@ -644,7 +663,7 @@ const PageRevision = () => {
                                                     >
                                                         <Titulos
                                                             titulolabel
-                                                            variant="h3"
+                                                            variant="subtitle2"
                                                             fontSize={{
                                                                 xs: '14px',
                                                                 sm: '16px'
@@ -730,22 +749,6 @@ const PageRevision = () => {
                                 borderRadius: '10px 10px 0px 0px'
                             }}
                         >
-                            <Grid
-                                item
-                                container
-                                direction="column"
-                                alignItems="flex-start"
-                                md={12}
-                                lg={5.8}
-                                sx={{
-                                    marginTop: '6px',
-                                    marginBottom: '16px'
-                                }}
-                            >
-                                <Titulos titulolabel component="h2">
-                                    Respuesta
-                                </Titulos>
-                            </Grid>
                             {/* <Grid
                             item
                             container
@@ -801,7 +804,40 @@ const PageRevision = () => {
                                     placeholder="Observación..."
                                 /> */}
 
-                                    <TextField
+                                    <Button
+                                        onClick={handleMostrarChat}
+                                        variant="contained"
+                                        sx={{
+                                            backgroundColor: '#009673',
+                                            ':hover': {
+                                                backgroundColor: '#009674'
+                                            }
+                                        }}
+                                    >
+                                        {mostrarChat
+                                            ? 'Ocultar chat'
+                                            : 'Mostrar chat'}
+                                    </Button>
+
+                                    <Grid
+                                        item
+                                        container
+                                        direction="row"
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        sm={12}
+                                        sx={{
+                                            '& > :not(style)': {
+                                                width: '100%'
+                                            }
+                                        }}
+                                    >
+                                        <Collapse in={mostrarChat}>
+                                            <Chat id={id} socket={socket} />
+                                        </Collapse>
+                                    </Grid>
+
+                                    {/*<TextField
                                         id="filled-basic"
                                         label="Observación..."
                                         variant="filled"
@@ -813,7 +849,7 @@ const PageRevision = () => {
                                         sx={{
                                             width: '100%'
                                         }}
-                                    />
+                                    />*/}
                                 </Grid>
 
                                 <Grid
@@ -903,7 +939,7 @@ const PageRevision = () => {
                     </GridTop>
                     <OuterFormButtons
                         handleSubmit={handleSubmit}
-                        path={'/direccion/solicitudes'}
+                        path={urlUsuario()}
                         titulo={'Descartar revisión'}
                         mensaje={
                             '¿Está seguro/a de que desea descartar la revisión de la solicitud?'
