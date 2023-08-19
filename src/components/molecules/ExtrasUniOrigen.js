@@ -8,19 +8,14 @@ import {
     TextField
 } from '@mui/material';
 import React, { useState } from 'react';
-import { StandardInput, FileUploader } from './components/atoms/Input/InputMUI';
-import { Titulos } from './components/atoms/Title/Titulos';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { StandardInput, FileUploader } from '../atoms/Input/InputMUI';
+import { Titulos } from '../atoms/Title/Titulos';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-const ExtrasUniOrigen = ({
-    formValue,
-    handleChangeArray,
-    formValueArray,
-    key2
-}) => {
+const ExtrasUniOrigen = ({ handleChangeArray, formValueArray, key2 }) => {
     const [value, setValue] = useState(new Date());
 
     return (
@@ -45,18 +40,6 @@ const ExtrasUniOrigen = ({
                 }}
             >
                 <Grid item container xs={5.6}>
-                    {/* <StandardInput
-                        key={formValueArray.key}
-                        required
-                        name="anioAprobacion"
-                        size="small"
-                        label="Año aprobación"
-                        variant="outlined"
-                        type="number"
-                        value={formValueArray.anioAprobacion}
-                        onChange={(event) => handleChangeArray(event, key2)}
-                    /> */}
-
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             views={['year']}
@@ -176,7 +159,7 @@ const ExtrasUniOrigen = ({
             >
                 <Grid item container xs={12}>
                     <Titulos
-                        titulolabel
+                        titulolabel="true"
                         variant="h3"
                         fontSize={{
                             xs: '14px',
@@ -196,36 +179,15 @@ const ExtrasUniOrigen = ({
                             sx={{
                                 marginRight: '12px'
                             }}
-                            buttonupload
+                            buttonupload="true"
                             variant="outlined"
                             component="span"
                         >
                             Cargar
                         </BotonMUI>
-                        {/* <IconButton
-                            sx={{
-                                marginRight: '12px'
-                            }}
-                            buttonupload
-                            variant="outlined"
-                            component="span"
-                        >
-                            <AttachFileOutlinedIcon />
-                        </IconButton> */}
-
-                        {/* <FileUploader
-                            id="contained-button-file"
-                            multiple
-                            size="small"
-                            variant="standard"
-                            type="file"
-                            accept="application/pdf, application/vnd.ms-Excel"
-                        /> */}
                     </label>
                 </Grid>
             </Grid>
-
-            {/* <AgregarMateriaUniOrigen /> */}
         </Grid>
     );
 };

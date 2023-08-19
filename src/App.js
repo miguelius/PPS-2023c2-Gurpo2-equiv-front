@@ -1,13 +1,10 @@
 import PageIniciarSesion from './components/organisms/IniciarSesion/PageIniciarSesion';
-import { PageCreateForm } from './PageCreateForm';
 import { PageRevision } from './components/organisms/Direccion/PageRevision';
-import { PageMyForm } from './PageMyForm';
-import { PagePerfil } from './components/organisms/Alumno/PagePerfil';
-import { PageDireccion } from './components/organisms/Direccion/PageDireccion';
-import { PageVerEquivalencia } from './components/organisms/Alumno/PageVerEquivalencia';
+import { PageEquivalencias } from './components/organisms/PageEquivalencias';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { PageCreateForm } from './components/molecules/PageCreateForm';
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
@@ -16,14 +13,12 @@ function App() {
             {rol == 'alumno' && (
                 <Router>
                     <Route path="/" exact component={PageIniciarSesion} />
-                    <Route
-                        path="/usuario/equivalencias"
-                        component={PageMyForm}
-                    />
-                    <Route
-                        path="/usuario/visualizar/:id"
-                        component={PageVerEquivalencia}
-                    />
+                    <Route path="/usuario/equivalencias">
+                        <PageEquivalencias rol={rol}></PageEquivalencias>
+                    </Route>
+                    <Route path="/usuario/visualizar/:id">
+                        <PageRevision rol={rol} />
+                    </Route>
                     <Route
                         path="/usuario/formulario"
                         component={PageCreateForm}
@@ -33,14 +28,13 @@ function App() {
             {rol == 'directivo' && (
                 <Router>
                     <Route path="/" exact component={PageIniciarSesion} />
-                    <Route
-                        path="/direccion/solicitudes"
-                        component={PageDireccion}
-                    />
-                    <Route
-                        path="/direccion/revision/:id"
-                        component={PageRevision}
-                    />
+                    <Route path="/direccion/solicitudes">
+                        <PageEquivalencias rol={rol}></PageEquivalencias>
+                    </Route>
+
+                    <Route path="/direccion/revision/:id">
+                        <PageRevision rol={rol} />
+                    </Route>
                 </Router>
             )}
             {rol == null && (

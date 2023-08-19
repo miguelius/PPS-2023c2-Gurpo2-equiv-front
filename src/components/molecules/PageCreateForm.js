@@ -1,10 +1,9 @@
 import { Grid } from '@mui/material';
 import { Header } from './Header';
-import { GridTop } from './GridTop';
-import { Titulos } from './components/atoms/Title/Titulos';
+import { GridTop } from '../atoms/GridTop';
+import { Titulos } from '../atoms/Title/Titulos';
 import { CreateForm } from './CreateForm';
 import React from 'react';
-import { OuterFormButtons } from './OuterFormButtons';
 
 const PageCreateForm = () => {
     return (
@@ -37,15 +36,13 @@ const PageCreateForm = () => {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Titulos component="h2" titulogrande>
+                        <Titulos component="h2" titulogrande="+true">
                             Formulario de Equivalencia
                         </Titulos>
                     </Grid>
                 </GridTop>
 
                 <CreateForm />
-
-                {/* <OuterFormButtons /> */}
             </Grid>
         </Grid>
     );

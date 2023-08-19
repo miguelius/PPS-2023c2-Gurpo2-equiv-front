@@ -1,10 +1,6 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
-import {
-    StandardInput,
-    AutocompleteInput
-} from './components/atoms/Input/InputMUI';
-import { nanoid } from 'nanoid';
+import { StandardInput, AutocompleteInput } from '../atoms/Input/InputMUI';
 
 const MateriaUniOrigen = ({
     formValue,
@@ -38,7 +34,6 @@ const MateriaUniOrigen = ({
                     variant="outlined"
                     value={formValueArray.materiaAprobada}
                     onChange={(event) => handleChangeArray(event, key2)}
-                    //(event) => handleChangeArray(event)
                 />
             </Grid>
 
@@ -51,17 +46,6 @@ const MateriaUniOrigen = ({
                     marginTop: '6px'
                 }}
             >
-                {/* <StandardInput
-                    key={formValueArray.key}
-                    required
-                    name="universidadOrigen"
-                    size="small"
-                    label="Universidad de Origen"
-                    variant="outlined"
-                    value={formValueArray.universidadOrigen}
-                    onChange={(event) => handleChangeArray(event, key2)}
-                /> */}
-
                 <AutocompleteInput
                     size="small"
                     variant="outlined"

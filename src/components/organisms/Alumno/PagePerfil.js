@@ -1,11 +1,9 @@
 import { Grid } from '@mui/material';
-import { Header } from '../../../Header';
 import { GridTop } from '../../../GridTop';
 import { Titulos } from '../../atoms/Title/Titulos';
-import { BotonMUI } from '../../atoms/Button/BotonMUI';
 import StickyHeadTable from '../../../TableAlumno';
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Header } from '../../molecules/Header';
 
 const PagePerfil = () => {
     return (
@@ -35,7 +33,7 @@ const PagePerfil = () => {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Titulos component="h2" tituloGrande>
+                        <Titulos component="h2" tituloGrande="+true">
                             Perfil
                         </Titulos>
                     </Grid>
@@ -44,7 +42,7 @@ const PagePerfil = () => {
                 <GridTop
                     item
                     container
-                    blanco
+                    blanco="+true"
                     xs={11.5}
                     md={7}
                     marginTop={{

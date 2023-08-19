@@ -9,7 +9,6 @@ import { InputMUI, ContenedorInputs } from '../atoms/Input/InputMUI';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid, styled } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUsuarios } from '../../services/usuario_service';
 
@@ -30,11 +29,9 @@ const FormularioInicioSesion = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(usuarios);
         const usuario = usuarios.find(
             (usuario) => usuario.dni === dni && usuario.password === password
         );
-        console.log(usuario);
         if (usuario) {
             localStorage.setItem('dni', JSON.stringify(usuario.dni));
             localStorage.setItem('nombre', JSON.stringify(usuario.nombre));
@@ -59,7 +56,7 @@ const FormularioInicioSesion = () => {
     return (
         <FormularioMain>
             <TituloBienvenida>
-                <Titulos titulogrande titulomarginbottom component="h2">
+                <Titulos titulogrande="+true" titulomarginbottom component="h2">
                     ¡Bienvenido/a!
                 </Titulos>
                 <Titulos titulochico titulolight component="h2">
@@ -111,7 +108,7 @@ const FormularioInicioSesion = () => {
                     <Grid>
                         <BotonMUI
                             variant="contained"
-                            buttoncontained
+                            buttoncontained="+true"
                             disableElevation
                             type="submit"
                         >
