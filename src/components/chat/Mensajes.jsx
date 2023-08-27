@@ -177,9 +177,9 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                                     paddingBottom: '0.2rem'
                                                 }}
                                             >
-                                                {mensaje.Usuario.nombre.trim() +
+                                                {mensaje.Equivalencium.Usuario.nombre.trim() +
                                                     ' ' +
-                                                    mensaje.Usuario.apellido.trim()}
+                                                    mensaje.Equivalencium.Usuario.apellido.trim()}
                                                 <Typography
                                                     variant="caption"
                                                     color="textSecondary"
@@ -188,10 +188,10 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                                     }}
                                                 >
                                                     {' - ' +
-                                                        mensaje.Usuario.rol[0]
+                                                        mensaje.Equivalencium.Usuario.rol[0]
                                                             .toUpperCase()
                                                             .trim() +
-                                                        mensaje.Usuario.rol
+                                                        mensaje.Equivalencium.Usuario.rol
                                                             .substring(1)
                                                             .trim()}
                                                 </Typography>
@@ -203,9 +203,9 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                             classes.leftFirst && (
                                             <AvatarIcon
                                                 info={[
-                                                    mensaje.Usuario.nombre.trim() +
+                                                    mensaje.Equivalencium.Usuario.nombre.trim() +
                                                         ' ' +
-                                                        mensaje.Usuario.apellido.trim()
+                                                        mensaje.Equivalencium.Usuario.apellido.trim()
                                                 ]}
                                             />
                                         )}

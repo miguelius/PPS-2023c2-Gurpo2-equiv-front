@@ -110,8 +110,8 @@ const PageVerEquivalencia = ({ socket }) => {
 
             setRows(arrayData);
 
-            console.log('Hola' + equiv);
-            console.log('obtainedusuario:', obtainedUsuarioData.Usuario.nombre);
+            // console.log('Hola' + equiv);
+            // console.log('obtainedusuario:', obtainedUsuarioData.Usuario.nombre);
         };
 
         fetchUsuarioData();
@@ -123,11 +123,11 @@ const PageVerEquivalencia = ({ socket }) => {
             const obtainedEquivalenciaData = await getEquivalencia(id);
 
             let arrayData = {
-                nombre: obtainedEquivalenciaData.Materias_solicitadas[0].nombre,
+                nombre: obtainedEquivalenciaData.Materia_solicitadas[0].nombre,
 
                 carrera: obtainedEquivalenciaData.Carrera.nombre_carrera,
 
-                materiasAprobadas: obtainedEquivalenciaData.Materias_aprobadas,
+                materiasAprobadas: obtainedEquivalenciaData.Materia_aprobadas,
 
                 observaciones: obtainedEquivalenciaData.observaciones,
 
@@ -136,9 +136,9 @@ const PageVerEquivalencia = ({ socket }) => {
 
             setEquiv(arrayData);
 
-            console.log(obtainedEquivalenciaData);
+            // console.log(obtainedEquivalenciaData);
 
-            console.log('Hola' + arrayData.nombre_materia);
+            // console.log('Hola' + arrayData.nombre_materia);
         };
 
         fetchEquivalenciaData();

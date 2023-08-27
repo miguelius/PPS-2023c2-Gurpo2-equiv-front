@@ -51,9 +51,9 @@ export default function StickyHeadTable({ searchQuery }) {
         const fetchEquivalenciaData = async () => {
             function obtainedEquivalenciaData() {
                 if (JSON.parse(localStorage.getItem('rol')) === 'directivo') {
-                    return getEquivalenciaPorDirectivo(
-                        JSON.parse(localStorage.getItem('id'))
-                    );
+                    return getEquivalenciaPorDirectivo();
+                    // JSON.parse(localStorage.getItem('id'))
+                    // );
                 } else if (
                     JSON.parse(localStorage.getItem('rol')) === 'superusuario'
                 ) {
@@ -61,40 +61,38 @@ export default function StickyHeadTable({ searchQuery }) {
                 }
             }
 
-            let equivalenciaData = await obtainedEquivalenciaData();
-
             let array = [];
+            let equivalenciaData = await obtainedEquivalenciaData();
+            console.log(equivalenciaData);
 
             equivalenciaData.forEach(function (arrayItem) {
-                arrayItem.Carrera.Equivalencia.forEach(function (
-                    itemEquivalencia
-                ) {
-                    let d = new Date(itemEquivalencia.createdAt); //tengo que traer solicitantes
-                    let dateTime =
-                        // Traer solo la fecha
-                        d.getDate() +
-                        '/' +
-                        (d.getMonth() + 1) +
-                        '/' +
-                        d.getFullYear();
-                    console.log('array item: ', arrayItem.Usuario);
-                    console.log('Equiv:', obtainedEquivalenciaData);
+                let d = new Date(arrayItem.createdAt); //tengo que traer solicitantes
+                let dateTime =
+                    // Traer solo la fecha
+                    d.getDate() +
+                    '/' +
+                    (d.getMonth() + 1) +
+                    '/' +
+                    d.getFullYear();
+                console.log('array item: ', arrayItem.Usuario);
+                console.log('Equiv:', obtainedEquivalenciaData);
 
-                    console.log(itemEquivalencia.Usuario.nombre);
-                    array.push(
-                        createData(
-                            //solicitante, dni, materia, id, dateTime, carrera
-                            itemEquivalencia.Usuario.nombre +
-                                ' ' +
-                                itemEquivalencia.Usuario.apellido,
-                            itemEquivalencia.Usuario.dni,
-                            itemEquivalencia.Materias_solicitadas[0].nombre,
-                            itemEquivalencia.id,
-                            dateTime,
-                            arrayItem.Carrera.nombre_carrera
-                        )
-                    );
-                });
+                console.log(
+                    arrayItem.Usuario.nombre + ' ' + arrayItem.Usuario.apellido
+                );
+                console.log(array);
+                array.push(
+                    createData(
+                        //solicitante, dni, materia, id, dateTime, carrera
+                        `${arrayItem.Usuario.nombre} ${arrayItem.Usuario.apellido}`,
+                        arrayItem.Usuario.dni,
+                        arrayItem.Materia_solicitadas[0].nombre,
+                        arrayItem.id,
+                        dateTime,
+                        arrayItem.Carrera.nombre_carrera
+                    )
+                );
+                // });
                 console.log(arrayItem.id, 'array');
                 const dataFilter = array.filter(
                     (d) =>

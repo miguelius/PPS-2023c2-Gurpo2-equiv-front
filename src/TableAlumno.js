@@ -133,7 +133,7 @@ export default function StickyHeadTable() {
             let arrayData = [];
 
             obtainedEquivalenciaData.forEach(function (arrayItem) {
-                let d = new Date(arrayItem.Materias_solicitadas[0].createdAt);
+                let d = new Date(arrayItem.Materia_solicitadas[0].createdAt);
                 let dateTime =
                     d.getDate() +
                     '/' +
@@ -147,7 +147,7 @@ export default function StickyHeadTable() {
 
                 arrayData.push(
                     createData(
-                        arrayItem.Materias_solicitadas[0].nombre,
+                        arrayItem.Materia_solicitadas[0].nombre,
                         dateTime,
                         arrayItem.estado,
                         arrayItem.id

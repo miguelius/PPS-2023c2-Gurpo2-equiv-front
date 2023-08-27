@@ -116,11 +116,11 @@ const PageRevision = ({ socket }) => {
             const obtainedEquivalenciaData = await getEquivalencia(id);
 
             let arrayData = {
-                nombre: obtainedEquivalenciaData.Materias_solicitadas[0].nombre,
+                nombre: obtainedEquivalenciaData.Materia_solicitadas[0].nombre,
 
                 carrera: obtainedEquivalenciaData.Carrera.nombre_carrera,
 
-                materiasAprobadas: obtainedEquivalenciaData.Materias_aprobadas,
+                materiasAprobadas: obtainedEquivalenciaData.Materia_aprobadas,
 
                 observaciones: obtainedEquivalenciaData.observaciones
             };
