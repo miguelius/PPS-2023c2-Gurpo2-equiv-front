@@ -247,4 +247,4 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
     );
 };
 
-export { Header };
+export { Header, stringConcat };

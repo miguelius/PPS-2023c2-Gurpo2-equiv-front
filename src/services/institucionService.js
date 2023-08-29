@@ -65,7 +65,7 @@ export async function postInstituciones(nombre, localidad, sigla) {
 }
 export async function putInstituciones(nombre, direccion, sigla, id) {
     const data = {
-        nombre_universidad: nombre,
+        nombre: nombre,
         localidad: direccion,
         sigla: sigla,
         disabled: false

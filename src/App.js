@@ -22,6 +22,7 @@ const socket = socketIO.connect('http://localhost:3001');
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));
+    console.log(rol);
 
     return (
         <>
@@ -118,12 +119,12 @@ function App() {
                     />
                 </Router>
             )}
-            {rol == null && (
+            {
                 <Router>
                     <Route path="/" exact component={PageIniciarSesion} />
                     <Route path="/registro" exact component={PageRegistro} />
                 </Router>
-            )}
+            }
 
             <ToastContainer
                 containerId={'Toastify'}
