@@ -21,7 +21,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { Redirect } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import { getCarreras, getNombresCarreras } from './services/carrera_service';
 const CreateForm = () => {
     const [materias, setMaterias] =
         // <FormUniOrigen key={nanoid()} />
@@ -53,6 +54,19 @@ const CreateForm = () => {
         materiaSolicitada: '',
         carreraUnahur: ''
     });
+
+    const [carreras, setCarreras] = useState([]);
+
+    useEffect(() => {
+        const fetchCarreras = async () => {
+            const carreras = await getCarreras();
+            setCarreras(carreras);
+        };
+        fetchCarreras();
+    }, []);
+
+    const nombresCarreras =
+        carreras.data?.map((carrera) => carrera.nombre_carrera) ?? [];
 
     const notifyEnviarSinDatos = () => {
         toast.error('Debe completar todos los campos del formulario', {
@@ -117,10 +131,25 @@ const CreateForm = () => {
     };
 
     const handleChange = (event) => {
-        setformValue((formValue) => ({
-            ...formValue,
-            [event.target.name]: event.target.value
-        }));
+        if (event.target.name === 'carreraUnahur') {
+            try {
+                const id_carrera = carreras.data.find(
+                    (carrera) => carrera.nombre_carrera === event.target.value
+                ).id;
+                setformValue((formValue) => ({
+                    ...formValue,
+                    [event.target.name]: id_carrera
+                }));
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            setformValue((formValue) => ({
+                ...formValue,
+                [event.target.name]: event.target.value
+            }));
+        }
+
         console.log(event.target.key);
         console.log(event.target.value);
         console.log(event.target.name);
@@ -193,9 +222,12 @@ const CreateForm = () => {
         let equivalencia;
 
         if (usuarioId) {
+            console.log('Enviando equivalencia...');
+            console.log('Materias aprobadas: ', materias);
+            console.log('FormValue: ', formValue);
             equivalencia = {
                 nombre: formValue.materiaSolicitada,
-                carrera: formValue.carreraUnahur,
+                CarreraId: formValue.carreraUnahur,
                 estado: 'Pendiente',
                 observaciones: '',
                 instituto: 'Instituto de Tecnología e Ingeniería',
@@ -461,7 +493,7 @@ const CreateForm = () => {
                                 variant="outlined"
                                 onSelect={handleChange}
                                 disablePortal
-                                options={carreras}
+                                options={nombresCarreras}
                                 renderInput={(params) => (
                                     <TextField
                                         required
@@ -585,9 +617,5 @@ const CreateForm = () => {
         // </Grid>
     );
 };
-
-const carreras = [
-    { label: 'Informática', instituto: 'Instituto de Tecnología e Ingeniería' }
-];
 
 export { CreateForm };

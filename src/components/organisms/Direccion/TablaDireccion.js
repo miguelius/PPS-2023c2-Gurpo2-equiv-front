@@ -1,5 +1,4 @@
-// import * as React from 'react';
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,62 +7,36 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { getEquivalencia } from '../../../services/equivalencia_service';
-import { getUsuario } from '../../../services/usuario_service';
-// import { useState, useEffect } from 'react';
+import { getEquivalenciaPorDirectivo } from '../../../services/equivalencia_service';
+import { getEquivalenciaSuperUsuario } from '../../../services/equivalencia_service';
 import Button from '@mui/material/Button';
-// import { OuterFormButtons } from '../../../OuterFormButtons';
-import FormHelperText from '@mui/material/FormHelperText';
-import { useFormControl } from '@mui/material/FormControl';
 import { Link } from 'react-router-dom';
-import { Grid } from '@mui/material';
-
-// import TextField from '@mui/material/TextField';
-// import Stack from '@mui/material/Stack';
-// import Autocomplete from '@mui/material/Autocomplete';
-// import { getEquivalencia } from './services/equivalencia_service';
 
 export const columns = [
-    { id: 'dni', label: 'DNI', minWidth: 100 },
-    { id: 'solicitante', label: 'Solicitante', minWidth: 170 },
-    { id: 'materia', label: 'Materia', minWidth: 170 },
-    { id: 'dateTime', label: 'Fecha y Hora', minWidth: 100 },
-    { id: 'actions', label: 'Acciones', minWidth: 170 }
+    { id: 'dni', label: 'DNI', minWidth: 100, align: 'center' },
+    { id: 'solicitante', label: 'Solicitante', minWidth: 140, align: 'center' },
+    { id: 'materia', label: 'Materia', minWidth: 140, align: 'center' },
+    { id: 'dateTime', label: 'Fecha', minWidth: 100, align: 'center' },
+    { id: 'carrera', label: 'Carrera', minWidth: 140, align: 'center' },
+    { id: 'actions', label: 'Acciones', minWidth: 100, align: 'center' }
 ];
 
-function createData(solicitante, dni, materia, id, dateTime) {
+function createData(solicitante, dni, materia, id, dateTime, carrera) {
     const actions = (
-        <Grid
-            container
-            item
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
+        <Link
+            to={'/direccion/revision/' + id}
+            style={{ textDecoration: 'none' }}
         >
-            <Link
-                to={'/direccion/revision/' + id}
-                style={{ textDecoration: 'none' }}
-            >
-                <Button>Revisar</Button>
-            </Link>
-        </Grid>
+            <Button>Revisar</Button>
+        </Link>
     ); //acciones lleva a pantalla revision de ese id
-    return { solicitante, dni, materia, dateTime, actions };
+    return { solicitante, dni, materia, dateTime, actions, carrera };
 }
-
-const horaConCero = (hora) => {
-    if (hora < 10) {
-        return `0${hora}`;
-    } else {
-        return hora;
-    }
-};
 
 export default function StickyHeadTable({ searchQuery }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState([]);
-    const [arrayData, setArrayData] = useState([]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -74,47 +47,53 @@ export default function StickyHeadTable({ searchQuery }) {
         setPage(0);
     };
 
-    // const [searchQuery, setSearchQuery] = useState('');
-    // console.log(searchQuery);
-
     useEffect(() => {
         const fetchEquivalenciaData = async () => {
-            const obtainedEquivalenciaData = await getEquivalencia();
+            function obtainedEquivalenciaData() {
+                if (JSON.parse(localStorage.getItem('rol')) === 'directivo') {
+                    return getEquivalenciaPorDirectivo();
+                    // JSON.parse(localStorage.getItem('id'))
+                    // );
+                } else if (
+                    JSON.parse(localStorage.getItem('rol')) === 'superusuario'
+                ) {
+                    return getEquivalenciaSuperUsuario();
+                }
+            }
 
             let array = [];
+            let equivalenciaData = await obtainedEquivalenciaData();
+            console.log(equivalenciaData);
 
-            obtainedEquivalenciaData.forEach(function (arrayItem) {
-                let d = new Date(arrayItem.Materias_solicitadas[0].createdAt); //tengo que traer solicitantes
+            equivalenciaData.forEach(function (arrayItem) {
+                let d = new Date(arrayItem.createdAt); //tengo que traer solicitantes
                 let dateTime =
-                    // d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
+                    // Traer solo la fecha
                     d.getDate() +
                     '/' +
                     (d.getMonth() + 1) +
                     '/' +
-                    d.getFullYear() +
-                    ' - ' +
-                    d.getHours() +
-                    ':' +
-                    horaConCero(d.getMinutes());
+                    d.getFullYear();
                 console.log('array item: ', arrayItem.Usuario);
                 console.log('Equiv:', obtainedEquivalenciaData);
+
+                console.log(
+                    arrayItem.Usuario.nombre + ' ' + arrayItem.Usuario.apellido
+                );
+                console.log(array);
                 array.push(
                     createData(
-                        // arrayItem.Materias_solicitadas[0].nombre ----falta esto
-                        // arrayItem.Materias_solicitadas[0].Usuario.id,
-                        // arrayItem.Materias_solicitadas[0].usuario.dni,
-                        // arrayItem.Materias_solicitadas[0].id,
-                        arrayItem.Usuario.nombre +
-                            ' ' +
-                            arrayItem.Usuario.apellido,
+                        //solicitante, dni, materia, id, dateTime, carrera
+                        `${arrayItem.Usuario.nombre} ${arrayItem.Usuario.apellido}`,
                         arrayItem.Usuario.dni,
-                        arrayItem.Materias_solicitadas[0].nombre,
+                        arrayItem.Materia_solicitadas[0].nombre,
                         arrayItem.id,
-                        // arrayItem.Materias_solicitadas[0],
-                        dateTime //fecha actual de cuando se genero la equivalencia
-                        // arrayItem.Estado[0].status
+                        dateTime,
+                        arrayItem.Carrera.nombre_carrera
                     )
                 );
+                // });
+                console.log(arrayItem.id, 'array');
                 const dataFilter = array.filter(
                     (d) =>
                         d.solicitante
@@ -124,7 +103,6 @@ export default function StickyHeadTable({ searchQuery }) {
                             .toString()
                             .toLowerCase()
                             .includes(searchQuery.toLowerCase())
-                    // console.log(d.solicitante, "desde filter")
                 );
 
                 if (searchQuery) {
@@ -134,22 +112,9 @@ export default function StickyHeadTable({ searchQuery }) {
                     setRows([...array]);
                 }
             });
-            console.log(arrayData);
         };
         fetchEquivalenciaData();
     }, [searchQuery]);
-    console.log(arrayData);
-
-    // function search(arrayData, setRows) {
-    //     const dataFilter = arrayData.filter(
-    //         (d) => d.solicitante.includes(searchQuery)
-    //         // console.log(d.solicitante, "desde filter")
-    //     );
-
-    //     if (searchQuery) {
-    //         setRows(dataFilter);
-    //     }
-    // }
 
     return (
         <Paper
@@ -167,16 +132,15 @@ export default function StickyHeadTable({ searchQuery }) {
                             {columns.map((column) => (
                                 <TableCell
                                     key={column.id}
-                                    align={
-                                        column.label === 'Acciones'
-                                            ? 'center'
-                                            : 'left'
-                                    }
-                                    style={{ minWidth: column.minWidth }}
+                                    align={column.align}
+                                    style={{
+                                        minWidth: column.minWidth,
+                                        fontWeight: 'bold'
+                                    }}
                                     sx={{
                                         backgroundColor:
                                             'rgba(245, 245, 245, 0.7)',
-                                        padding: '16px 40px'
+                                        paddingTop: '20px'
                                     }}
                                 >
                                     {column.label}
@@ -205,7 +169,7 @@ export default function StickyHeadTable({ searchQuery }) {
                                                     key={column.id}
                                                     align={column.align}
                                                     sx={{
-                                                        padding: '16px 40px'
+                                                        paddingTop: '20px'
                                                     }}
                                                 >
                                                     {column.format &&

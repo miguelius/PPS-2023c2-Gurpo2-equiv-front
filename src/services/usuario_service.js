@@ -12,25 +12,12 @@ export async function getUsuarios() {
     return apiResponse.data;
 }
 
-// export async function postUsuarios(dni, nombre, apellido, email, discord, telefono, rol, password) {
-//     const data = {
-//       dni: dni,
-//       nombre: nombre,
-//       apellido: apellido,
-//       email: email,
-//       discord: discord,
-//       telefono: telefono,
-//       rol: rol,
-//       password: password
-//     };
-//     try {
-//       const apiResponse = await axios.post(`${config.apiUrl}/usuarios`, data);
-//       return apiResponse.data;
-//     } catch (error) {
-//       console.log(error);
-//       throw new Error('Error al hacer la petición post');
-//     }
-//   }
+export async function getDirectivos() {
+    const apiResponse = await axios.get(
+        `${config.apiUrl}/usuarios/directivos/todos`
+    );
+    return apiResponse.data;
+}
 
 export async function postUsuarios(
     dni,

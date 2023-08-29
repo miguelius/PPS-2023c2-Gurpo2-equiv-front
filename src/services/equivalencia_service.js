@@ -8,6 +8,27 @@ export async function getEquivalencia() {
     return apiResponse.data;
 }
 
+// export async function getEquivalenciaPorDirectivo(id) {
+//     const apiResponse = await axios.get(
+//         `${config.apiUrl}/usuarios_carreras/directivo/${id}`
+//     );
+//     return apiResponse.data;
+// }
+
+export async function getEquivalenciaPorDirectivo() {
+    const apiResponse = await axios.get(
+        `${config.apiUrl}/equivalencias/general/`
+    );
+    return apiResponse.data;
+}
+
+export async function getEquivalenciaSuperUsuario() {
+    const apiResponse = await axios.get(
+        `${config.apiUrl}/equivalencias/general/`
+    );
+    return apiResponse.data;
+}
+
 export async function getEquivalenciaUsuario(id) {
     const apiResponse = await axios.get(
         `${config.apiUrl}/equivalencias/generalUsuario/${id}`

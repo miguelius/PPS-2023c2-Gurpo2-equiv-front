@@ -1,5 +1,5 @@
-import { Grid, TextareaAutosize } from '@mui/material';
-import React, { useState, useMemo, useEffect } from 'react';
+import { Grid, Button, Collapse } from '@mui/material';
+import React, { useState, useMemo, useEffect, Fragment } from 'react';
 import { Header } from '../../../Header';
 import { Titulos } from '../../atoms/Title/Titulos';
 import { GridTop } from '../../../GridTop';
@@ -11,7 +11,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import { TextField } from '@mui/material';
 import { StandardInput } from '../../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -25,6 +24,7 @@ import { css } from '@mui/styled-engine';
 import { Link } from 'react-router-dom';
 import { config } from '../../../config/config';
 import { ArchivoEquivalencia } from '../../../ArchivoEquivalencia';
+import Chat from '../../chat/Chat';
 
 const ChipMedium = styled(Chip)`
     ${(props) =>
@@ -68,12 +68,17 @@ const horaConCero = (hora) => {
     }
 };
 
-const PageVerEquivalencia = () => {
+const PageVerEquivalencia = ({ socket }) => {
     const { id } = useParams();
     const [rows, setRows] = useState([]);
     const [equiv, setEquiv] = useState({});
     const [alignment, setAlignment] = useState('web');
     const [formValue, setFormValue] = useState({});
+    const [mostrarChat, setMostrarChat] = useState(false);
+
+    const handleMostrarChat = () => {
+        setMostrarChat(!mostrarChat);
+    };
 
     useEffect(() => {
         const fetchUsuarioData = async () => {
@@ -106,8 +111,8 @@ const PageVerEquivalencia = () => {
 
             setRows(arrayData);
 
-            console.log('Hola' + equiv);
-            console.log('obtainedusuario:', obtainedUsuarioData.Usuario.nombre);
+            // console.log('Hola' + equiv);
+            // console.log('obtainedusuario:', obtainedUsuarioData.Usuario.nombre);
         };
 
         fetchUsuarioData();
@@ -115,14 +120,15 @@ const PageVerEquivalencia = () => {
 
     useEffect(() => {
         const fetchEquivalenciaData = async () => {
+            // Juntar estas 2 funciones y hacerlas una.
             const obtainedEquivalenciaData = await getEquivalencia(id);
 
             let arrayData = {
-                nombre: obtainedEquivalenciaData.Materias_solicitadas[0].nombre,
-                carrera:
-                    obtainedEquivalenciaData.Materias_solicitadas[0].carrera,
+                nombre: obtainedEquivalenciaData.Materia_solicitadas[0].nombre,
 
-                materiasAprobadas: obtainedEquivalenciaData.Materias_aprobadas,
+                carrera: obtainedEquivalenciaData.Carrera.nombre_carrera,
+
+                materiasAprobadas: obtainedEquivalenciaData.Materia_aprobadas,
 
                 observaciones: obtainedEquivalenciaData.observaciones,
 
@@ -131,9 +137,9 @@ const PageVerEquivalencia = () => {
 
             setEquiv(arrayData);
 
-            console.log(obtainedEquivalenciaData);
+            // console.log(obtainedEquivalenciaData);
 
-            console.log('Hola' + arrayData.nombre_materia);
+            // console.log('Hola' + arrayData.nombre_materia);
         };
 
         fetchEquivalenciaData();
@@ -796,22 +802,35 @@ const PageVerEquivalencia = () => {
                                 borderRadius: '10px 10px 0px 0px'
                             }}
                         >
+                            <Button
+                                onClick={handleMostrarChat}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#009673',
+                                    ':hover': { backgroundColor: '#009674' }
+                                }}
+                            >
+                                {mostrarChat ? 'Ocultar chat' : 'Mostrar chat'}
+                            </Button>
+
                             <Grid
                                 item
                                 container
-                                direction="column"
-                                alignItems="flex-start"
-                                md={12}
-                                lg={5.8}
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                sm={12}
                                 sx={{
-                                    marginTop: '6px',
-                                    marginBottom: '16px'
+                                    '& > :not(style)': {
+                                        width: '100%'
+                                    }
                                 }}
                             >
-                                <Titulos titulolabel component="h2">
-                                    Respuesta
-                                </Titulos>
+                                <Collapse in={mostrarChat}>
+                                    <Chat id={id} socket={socket} />
+                                </Collapse>{' '}
                             </Grid>
+
                             {/* <Grid
                             item
                             container
@@ -867,7 +886,7 @@ const PageVerEquivalencia = () => {
                                     placeholder="Observación..."
                                 /> */}
 
-                                    <TextField
+                                    {/*<TextField
                                         id="filled-basic"
                                         label="Observación..."
                                         variant="filled"
@@ -883,7 +902,7 @@ const PageVerEquivalencia = () => {
                                         sx={{
                                             width: '100%'
                                         }}
-                                    />
+                                    />*/}
                                 </Grid>
                             </Grid>
                         </Grid>

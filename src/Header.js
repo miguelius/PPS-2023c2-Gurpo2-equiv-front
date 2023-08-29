@@ -11,7 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import { BotonMUI } from './components/atoms/Button/BotonMUI';
-import { Menu } from '../src/components/molecules/Menu';
+import { Menu } from './components/molecules/Menu';
 import React from 'react';
 import md5 from 'md5';
 
@@ -175,20 +175,6 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                         </Grid>
                     </Grid>
 
-                    {/* <Grid
-                        item
-                        justifyContent={'center'}
-                        alignContent={'center'}
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <img
-                            src="https://unahur.edu.ar/wp-content/uploads/2021/03/UNAHUR-1.png"
-                            alt=""
-                            width={'40px'}
-                            height={'45px'}
-                        />
-                    </Grid> */}
-
                     <Grid
                         item
                         justifyContent={'flex-start'}
@@ -261,4 +247,4 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
     );
 };
 
-export { Header, stringConcat };
+export { Header };
