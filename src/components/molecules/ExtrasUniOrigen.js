@@ -8,9 +8,9 @@ import {
     TextField
 } from '@mui/material';
 import React, { useState } from 'react';
-import { StandardInput, FileUploader } from './components/atoms/Input/InputMUI';
-import { Titulos } from './components/atoms/Title/Titulos';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { StandardInput, FileUploader } from '../atoms/Input/InputMUI';
+import { Titulos } from '../atoms/Title/Titulos';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';

@@ -9,11 +9,11 @@ import {
     Select,
     TextField
 } from '@mui/material';
-import { GridTop } from '../GridTop';
+import { GridTop } from './atoms/GridTop';
 import { Titulos } from './atoms/Title/Titulos';
 import SearchIcon from '@mui/icons-material/Search';
-import TablaUsuarios from './TablaUsuarios';
-import { HeaderSuperUsuario } from './HeaderSuperUsuario';
+import TablaUsuarios from './organisms/TablaUsuarios';
+import { HeaderSuperUsuario } from './molecules/HeaderSuperUsuario';
 import { getUsuarios } from '../services/usuario_service';
 
 const PageSuperUsuario = () => {

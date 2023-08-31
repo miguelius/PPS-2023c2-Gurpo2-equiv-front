@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid } from '@mui/material';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Link } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

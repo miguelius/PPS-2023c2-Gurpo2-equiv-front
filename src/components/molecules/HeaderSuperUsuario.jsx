@@ -1,8 +1,8 @@
 import { AppBar, Toolbar, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { BotonMUI } from './atoms/Button/BotonMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import React from 'react';
-import AvatarIcon from './AvatarIcon';
+import AvatarIcon from '../atoms/AvatarIcon';
 
 const HeaderSuperUsuario = () => {
     return (

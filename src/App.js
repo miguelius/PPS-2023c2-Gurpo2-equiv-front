@@ -1,11 +1,11 @@
 import PageIniciarSesion from './components/organisms/IniciarSesion/PageIniciarSesion';
-import { PageCreateForm } from './PageCreateForm';
+import { PageCreateForm } from './components/molecules/PageCreateForm';
 import { PageRevision } from './components/organisms/Direccion/PageRevision';
-import { PageMyForm } from './PageMyForm';
+import { PageMyForm } from './components/molecules/PageMyForm';
 import { PagePerfil } from './components/organisms/Alumno/PagePerfil';
 import { PageCRUDCarreras } from './components/carreras/PageCRUDCarreras';
 import { PageDireccion } from './components/organisms/Direccion/PageDireccion';
-import { PageVerEquivalencia } from './components/organisms/Alumno/PageVerEquivalencia';
+import { PageVerEquivalencia } from './components/molecules/PageVerEquivalencia';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';

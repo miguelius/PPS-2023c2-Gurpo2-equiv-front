@@ -1,7 +1,7 @@
 import { Collapse, Grid } from '@mui/material';
 import React, { useState, useMemo, useEffect } from 'react';
 import { Titulos } from '../../atoms/Title/Titulos';
-import { GridTop } from '../../../GridTop';
+import { GridTop } from '../../atoms/GridTop';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,16 +14,16 @@ import { StandardInput } from '../../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { OuterFormButtons } from '../../../OuterFormButtons';
+import { OuterFormButtons } from '../../molecules/OuterFormButtons';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
 import { getEquivalencia } from '../../../services/revision';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../../config/config';
-import { ArchivoEquivalencia } from '../../../ArchivoEquivalencia';
-import { HeaderDirectivo } from '../../HeaderDirectivo';
-import { HeaderSuperUsuario } from '../../HeaderSuperUsuario';
+import { ArchivoEquivalencia } from '../../molecules/ArchivoEquivalencia';
+import { HeaderDirectivo } from '../../molecules/HeaderDirectivo';
+import { HeaderSuperUsuario } from '../../molecules/HeaderSuperUsuario';
 import Chat from '../../chat/Chat';
 import { Button } from '@mui/material';
 
@@ -278,9 +278,10 @@ const PageRevision = ({ socket }) => {
                                             <TableRow
                                                 key={row.solicitante}
                                                 sx={{
-                                                    '&:last-child td, &:last-child th': {
-                                                        border: 0
-                                                    }
+                                                    '&:last-child td, &:last-child th':
+                                                        {
+                                                            border: 0
+                                                        }
                                                 }}
                                             >
                                                 <TableCell

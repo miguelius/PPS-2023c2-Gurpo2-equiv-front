@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import { Header } from './Header';
-import { GridTop } from './GridTop';
-import { Titulos } from './components/atoms/Title/Titulos';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
-import { FabButton } from './components/atoms/Button/FabButton';
-import StickyHeadTable from './TableAlumno';
+import { GridTop } from '../atoms/GridTop';
+import { Titulos } from '../atoms/Title/Titulos';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
+import { FabButton } from '../atoms/Button/FabButton';
+import StickyHeadTable from '../organisms/TableAlumno';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';

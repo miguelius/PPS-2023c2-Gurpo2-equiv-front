@@ -1,6 +1,6 @@
 import { React } from 'react';
 import { Container, Grid, IconButton, Typography } from '@mui/material';
-import { Header } from '../../../Header';
+import { Header } from '../../molecules/Header';
 import { ContainerTitle } from './InstitucionesStyled';
 import DashboardCard from '../../atoms/DashboardCard/DashboardInstitucionCard';
 import { Link } from 'react-router-dom';

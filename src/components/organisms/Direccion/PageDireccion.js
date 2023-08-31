@@ -1,5 +1,5 @@
 import { Grid, Paper } from '@mui/material';
-import { GridTop } from '../../../GridTop';
+import { GridTop } from '../../atoms/GridTop';
 import { Titulos } from '../../atoms/Title/Titulos';
 import StickyHeadTable from '../Direccion/TablaDireccion';
 import { useState } from 'react';
@@ -8,8 +8,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
-import { HeaderDirectivo } from '../../HeaderDirectivo';
-import { HeaderSuperUsuario } from '../../HeaderSuperUsuario';
+import { HeaderDirectivo } from '../../molecules/HeaderDirectivo';
+import { HeaderSuperUsuario } from '../../molecules/HeaderSuperUsuario';
 import IconButton from '@mui/material/IconButton';
 
 const PageDireccion = () => {

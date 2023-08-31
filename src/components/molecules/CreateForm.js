@@ -1,19 +1,16 @@
 import { Grid, TextField } from '@mui/material';
-import {
-    StandardInput,
-    AutocompleteInput
-} from './components/atoms/Input/InputMUI';
-import { Titulos } from './components/atoms/Title/Titulos';
+import { StandardInput, AutocompleteInput } from '../atoms/Input/InputMUI';
+import { Titulos } from '../atoms/Title/Titulos';
 import React, { useState } from 'react';
-import { GridTop } from './GridTop';
+import { GridTop } from '../atoms/GridTop';
 import { FormUniOrigen } from './FormUniOrigen';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { nanoid } from 'nanoid';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { OuterFormButtons } from './OuterFormButtons';
-import { config } from '../src/config/config';
+import { config } from '../../config/config';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -22,7 +19,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCarreras, getNombresCarreras } from './services/carrera_service';
+import {
+    getCarreras,
+    getNombresCarreras
+} from '../../services/carrera_service';
 const CreateForm = () => {
     const [materias, setMaterias] =
         // <FormUniOrigen key={nanoid()} />

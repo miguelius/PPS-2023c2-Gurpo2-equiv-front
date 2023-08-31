@@ -1,11 +1,8 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
-import {
-    StandardInput,
-    AutocompleteInput
-} from './components/atoms/Input/InputMUI';
+import { StandardInput, AutocompleteInput } from '../atoms/Input/InputMUI';
 import { useState, useEffect } from 'react';
-import { getInstitucionesHabilitadas } from './services/institucionService';
+import { getInstitucionesHabilitadas } from '../../services/institucionService';
 
 const MateriaUniOrigen = ({
     formValue,
@@ -92,9 +89,10 @@ const MateriaUniOrigen = ({
                             'universidadSeleccionada:',
                             universidadSeleccionada
                         );
-                        const idUniversidadSeleccionada = universidadSeleccionada
-                            ? universidadSeleccionada.id
-                            : null;
+                        const idUniversidadSeleccionada =
+                            universidadSeleccionada
+                                ? universidadSeleccionada.id
+                                : null;
                         console.log(
                             'idUniversidadSeleccionada:',
                             idUniversidadSeleccionada

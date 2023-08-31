@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
-import { Menu } from './components/molecules/Menu';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
+import { Menu } from './Menu';
 import React from 'react';
 import md5 from 'md5';
 

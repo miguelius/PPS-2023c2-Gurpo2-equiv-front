@@ -9,19 +9,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { GridTop } from '../../GridTop';
+import { GridTop } from '../atoms/GridTop';
 import { Titulos } from '../atoms/Title/Titulos';
-import { HeaderSuperUsuario } from '../HeaderSuperUsuario';
+import { HeaderSuperUsuario } from '../molecules/HeaderSuperUsuario';
 import {
     getCarreras,
     createCarrera,
     updateCarrera,
     deleteCarrera
 } from '../../services/carrera_service';
-import {getDirectivos} from '../../services/usuario_service';
-import {
-    createUsuario_Carrera
-} from '../../services/usuarios_carreras_service';
+import { getDirectivos } from '../../services/usuario_service';
+import { createUsuario_Carrera } from '../../services/usuarios_carreras_service';
 import {
     ModalEliminarCarrera,
     ModalEditarCarrera,
@@ -172,8 +170,8 @@ const PageCRUDCarreras = () => {
         setOpenAgregar(false);
 
         createCarrera(objCarrera).then((rpta) => {
-            console.log(rpta); 
-            console.log(formValue.directivo)
+            console.log(rpta);
+            console.log(formValue.directivo);
             let objUsuario_Carrera = {
                 UsuarioId: formValue.directivo,
                 id_carrera: rpta.id
@@ -217,7 +215,7 @@ const PageCRUDCarreras = () => {
             } catch (error) {
                 console.log(error);
             }
-        } 
+        }
     };
 
     return (
@@ -333,8 +331,7 @@ const PageCRUDCarreras = () => {
                                                         aria-label="edit"
                                                         sx={{
                                                             '&:hover': {
-                                                                color:
-                                                                    'primary.main'
+                                                                color: 'primary.main'
                                                             }
                                                         }}
                                                     >
@@ -366,8 +363,7 @@ const PageCRUDCarreras = () => {
                                                         }
                                                         sx={{
                                                             '&:hover': {
-                                                                color:
-                                                                    'error.main'
+                                                                color: 'error.main'
                                                             }
                                                         }}
                                                     >

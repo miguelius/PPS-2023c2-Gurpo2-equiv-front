@@ -4,7 +4,7 @@ import { getInsitutciones } from '../../../services/institucionService';
 import { ContainerTitle } from './InstitucionesStyled';
 import { ContainerCenter, ContainerPagination } from './InstitucionesStyled';
 import { Grid, Button, IconButton } from '@mui/material';
-import { Header } from '../../../Header';
+import { Header } from '../../molecules/Header';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -124,9 +124,10 @@ const PageInstituciones = () => {
                                     <TableRow
                                         key={instituciones.id}
                                         sx={{
-                                            '&:last-child td, &:last-child th': {
-                                                border: 0
-                                            }
+                                            '&:last-child td, &:last-child th':
+                                                {
+                                                    border: 0
+                                                }
                                         }}
                                     >
                                         <TableCell

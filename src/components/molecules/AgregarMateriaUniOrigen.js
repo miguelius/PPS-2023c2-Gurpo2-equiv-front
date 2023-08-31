@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { FormUniOrigen } from './FormUniOrigen';
 
 const AgregarMateriaUniOrigen = () => {

@@ -1,11 +1,11 @@
 import { Button, Grid, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { FileUploader } from './components/atoms/Input/InputMUI';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
-import { StandardInput } from './components/atoms/Input/InputMUI';
-import { Titulos } from '../src/components/atoms/Title/Titulos';
-import { OuterFormButtons } from '../src/OuterFormButtons';
-import { putArchivoMateriaAprobada } from '../src/services/revision';
+import { FileUploader } from '../atoms/Input/InputMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
+import { StandardInput } from '../atoms/Input/InputMUI';
+import { Titulos } from '../atoms/Title/Titulos';
+import { OuterFormButtons } from './OuterFormButtons';
+import { putArchivoMateriaAprobada } from '../../services/revision';
 
 const rol = JSON.parse(localStorage.getItem('rol'));
 

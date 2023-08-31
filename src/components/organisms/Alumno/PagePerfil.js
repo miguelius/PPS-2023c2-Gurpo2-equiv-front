@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
-import { Header } from '../../../Header';
-import { GridTop } from '../../../GridTop';
+import { GridTop } from '../../atoms/GridTop';
+import { Header } from '../../molecules/Header';
 import { Titulos } from '../../atoms/Title/Titulos';
 import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import StickyHeadTable from '../../../TableAlumno';
+import StickyHeadTable from '../TableAlumno';
 import React from 'react';
 // import { Link } from 'react-router-dom';
 

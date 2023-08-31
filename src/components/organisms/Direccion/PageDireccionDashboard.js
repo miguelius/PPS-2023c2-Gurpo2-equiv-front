@@ -1,6 +1,6 @@
 import { React } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
-import { Header } from '../../../Header';
+import { Header } from '../../molecules/Header';
 import { ContainerTitle } from './DireccionStyled';
 import DashboardCard from '../../atoms/DashboardCard/DashboardInstitucionCard';
 const DireccionDashboard = () => {

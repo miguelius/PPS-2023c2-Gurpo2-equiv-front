@@ -17,7 +17,7 @@ import {
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import MensajesStyle from './MensajesStyle.js';
-import AvatarIcon from '../AvatarIcon.jsx';
+import AvatarIcon from '../atoms/AvatarIcon.jsx';
 import { Fragment } from 'react';
 import { cyan } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

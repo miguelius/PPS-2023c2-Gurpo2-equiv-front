@@ -17,4 +17,4 @@ const FormularioMain = styled(Grid)`
     align-items: center;
 `;
 
-export default Registro;
+export { Registro };

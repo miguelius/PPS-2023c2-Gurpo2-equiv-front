@@ -4,7 +4,7 @@ import { DatosMateriaUniOrigen } from './DatosMateriaUniOrigen';
 import { ExtrasUniOrigen } from './ExtrasUniOrigen';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Titulos } from './components/atoms/Title/Titulos';
+import { Titulos } from '../atoms/Title/Titulos';
 
 const FormUniOrigen = ({
     handledelete,

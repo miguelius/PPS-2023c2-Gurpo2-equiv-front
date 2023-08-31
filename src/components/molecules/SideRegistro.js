@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Registro from '../Registro';
+import { Registro } from '../organisms/Registro/Registro';
 import { Titulos } from '../atoms/Title/Titulos';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid } from '@mui/material';

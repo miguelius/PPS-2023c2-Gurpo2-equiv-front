@@ -1,8 +1,8 @@
 import { Button, Grid, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { FileUploader } from './components/atoms/Input/InputMUI';
-import { BotonMUI } from './components/atoms/Button/BotonMUI';
-import { Titulos } from '../src/components/atoms/Title/Titulos';
+import { FileUploader } from '../atoms/Input/InputMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
+import { Titulos } from '../atoms/Title/Titulos';
 
 const ArchivoAltaEquivalencia = ({
     handleChangeArray,

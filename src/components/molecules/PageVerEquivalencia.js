@@ -1,8 +1,8 @@
 import { Grid, Button, Collapse } from '@mui/material';
 import React, { useState, useMemo, useEffect, Fragment } from 'react';
-import { Header } from '../../../Header';
-import { Titulos } from '../../atoms/Title/Titulos';
-import { GridTop } from '../../../GridTop';
+import { Header } from './Header';
+import { Titulos } from '../atoms/Title/Titulos';
+import { GridTop } from '../atoms/GridTop';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,21 +10,21 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { BotonMUI } from '../../atoms/Button/BotonMUI';
-import { StandardInput } from '../../atoms/Input/InputMUI';
+import { BotonMUI } from '../atoms/Button/BotonMUI';
+import { StandardInput } from '../atoms/Input/InputMUI';
 import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
-import { getEquivalencia } from '../../../services/revision';
+import { getEquivalencia } from '../../services/revision';
 import { useParams } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
 import axios from 'axios';
 import { styled } from '@mui/material';
 import { css } from '@mui/styled-engine';
 import { Link } from 'react-router-dom';
-import { config } from '../../../config/config';
-import { ArchivoEquivalencia } from '../../../ArchivoEquivalencia';
-import Chat from '../../chat/Chat';
+import { config } from '../../config/config';
+import { ArchivoEquivalencia } from './ArchivoEquivalencia';
+import Chat from '../chat/Chat';
 
 const ChipMedium = styled(Chip)`
     ${(props) =>
@@ -311,9 +311,10 @@ const PageVerEquivalencia = ({ socket }) => {
                                             <TableRow
                                                 key={row.solicitante}
                                                 sx={{
-                                                    '&:last-child td, &:last-child th': {
-                                                        border: 0
-                                                    }
+                                                    '&:last-child td, &:last-child th':
+                                                        {
+                                                            border: 0
+                                                        }
                                                 }}
                                             >
                                                 <TableCell
