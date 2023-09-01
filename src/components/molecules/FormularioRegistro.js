@@ -536,7 +536,8 @@ const FormularioRegistro = () => {
                                 }}
                                 helperText={
                                     errorPassword
-                                        ? 'Minímo de 8 caracteres y una letra en mayúscula.'
+                                        ? 'Debe contener al menos una letra minúscula, una letra mayúscula,' +
+                                          ' un dígito (número) y una longitud mínima de 8 caracteres.'
                                         : ''
                                 }
                                 error={errorPassword}

@@ -28,11 +28,11 @@ const Register = () => {
                 Trámites de Equivalencias
             </Titulos>
 
-            <Link to="/registro" style={{ textDecoration: 'none' }}>
+            <a href={'/registro'} style={{ textDecoration: 'none' }}>
                 <BotonMUI buttonoutlined variant="outlined" onClick={onClick}>
                     Registrarse
                 </BotonMUI>
-            </Link>
+            </a>
         </SideRegistro>
     );
 };
