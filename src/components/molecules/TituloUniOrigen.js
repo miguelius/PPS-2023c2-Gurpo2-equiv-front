@@ -4,7 +4,6 @@ import { Titulos } from '../atoms/Title/Titulos';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { color } from '@mui/system';
 
 const TituloUniOrigen = () => {
     return (
@@ -27,7 +26,7 @@ const TituloUniOrigen = () => {
                     marginTop: '6px'
                 }}
             >
-                <Titulos titulolabel component="h2">
+                <Titulos titulolabel="true" component="h2">
                     Datos Universidad Origen
                 </Titulos>
             </Grid>

@@ -29,12 +29,7 @@ const esAnioCorrecto = (valor) => {
     return valor <= currentYear;
 };
 
-const ExtrasUniOrigen = ({
-    formValue,
-    handleChangeArray,
-    formValueArray,
-    key2
-}) => {
+const ExtrasUniOrigen = ({ handleChangeArray, formValueArray, key2 }) => {
     const [value, setValue] = useState(new Date());
 
     return (
@@ -59,18 +54,6 @@ const ExtrasUniOrigen = ({
                 }}
             >
                 <Grid item container xs={5.6}>
-                    {/* <StandardInput
-                        key={formValueArray.key}
-                        required
-                        name="anioAprobacion"
-                        size="small"
-                        label="Año aprobación"
-                        variant="outlined"
-                        type="number"
-                        value={formValueArray.anioAprobacion}
-                        onChange={(event) => handleChangeArray(event, key2)}
-                    /> */}
-
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             views={['year']}
@@ -223,7 +206,7 @@ const ExtrasUniOrigen = ({
             >
                 {/* <Grid item container xs={12}>
                     <Titulos
-                        titulolabel
+                        titulolabel="true"
                         variant="h3"
                         fontSize={{
                             xs: '14px',
@@ -243,7 +226,7 @@ const ExtrasUniOrigen = ({
                             sx={{
                                 marginRight: '12px'
                             }}
-                            buttonupload
+                            buttonupload="true"
                             variant="outlined"
                             component="span"
                         >
@@ -277,8 +260,6 @@ const ExtrasUniOrigen = ({
                     nArchivo={formValueArray.archivo}
                 ></ArchivoAltaEquivalencia>
             </Grid>
-
-            {/* <AgregarMateriaUniOrigen /> */}
         </Grid>
     );
 };

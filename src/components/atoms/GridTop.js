@@ -3,11 +3,11 @@ import { styled } from '@mui/system';
 import { css } from '@mui/styled-engine';
 
 const GridTop = styled(Grid)`
-    width: 1306px;
+    width: auto;
     height: 102px;
-    border-radius: 10px;
-    //padding: 0px 60px;
 
+    //padding: 0px 60px;
+    margin: 5px;
     ${(props) =>
         props.blanco &&
         css`

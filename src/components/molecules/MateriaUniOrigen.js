@@ -51,7 +51,6 @@ const MateriaUniOrigen = ({
                     variant="outlined"
                     value={formValueArray.materiaAprobada}
                     onChange={(event) => handleChangeArray(event, key2)}
-                    //(event) => handleChangeArray(event)
                 />
             </Grid>
 
@@ -64,17 +63,6 @@ const MateriaUniOrigen = ({
                     marginTop: '6px'
                 }}
             >
-                {/* <StandardInput
-                    key={formValueArray.key}
-                    required
-                    name="universidadOrigen"
-                    size="small"
-                    label="Universidad de Origen"
-                    variant="outlined"
-                    value={formValueArray.universidadOrigen}
-                    onChange={(event) => handleChangeArray(event, key2)}
-                /> */}
-
                 <AutocompleteInput
                     size="small"
                     variant="outlined"
