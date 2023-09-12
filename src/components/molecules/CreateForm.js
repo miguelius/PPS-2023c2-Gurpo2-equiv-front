@@ -1,12 +1,10 @@
-import { Grid, TextField } from '@mui/material';
-import { StandardInput, AutocompleteInput } from '../atoms/Input/InputMUI';
-import { Titulos } from '../atoms/Title/Titulos';
+import { Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { GridTop } from '../atoms/GridTop';
 import { FormUniOrigen } from './FormUniOrigen';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { nanoid } from 'nanoid';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { OuterFormButtons } from './OuterFormButtons';
@@ -17,56 +15,62 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { Redirect } from 'react-router-dom';
+import FormUnahur from './FormUnahur';
+import { getCarreras } from '../../services/carrera_service';
 import { useEffect } from 'react';
-import {
-    getCarreras,
-    getNombresCarreras
-} from '../../services/carrera_service';
+
 const CreateForm = () => {
-    const [materias, setMaterias] =
-        // <FormUniOrigen key={nanoid()} />
-        // <FormUniOrigen key={nanoid()} />
-        useState([
-            {
-                key: nanoid(),
-                notaAprobacion: null,
-                cargaHorariaTotal: null,
-                anioAprobacion: '',
-                materiaAprobada: '',
-                archivo: null,
-                universidadOrigen: null, // id de universidad
-                certificado: false
-            }
-        ]);
-    //Push de esto?
-    // const materiasAprobadasArray = {
-
-    // 		key: idMateriaUno,
-    // 		materiaAprobada: '',
-    // 		universidadOrigen: '',
-    // 		anioAprobacion: '',
-    // 		cargaHorariaTotal: '',
-    // 		notaAprobacion: ''
-    // })
-
-    const [formValue, setformValue] = useState({
-        materiaSolicitada: '',
-        carreraUnahur: ''
-    });
-
     const [carreras, setCarreras] = useState([]);
 
     useEffect(() => {
         const fetchCarreras = async () => {
             const carreras = await getCarreras();
-            setCarreras(carreras);
+            const carrerasAdaptadas = carreras.data.map((carrera) => {
+                return {
+                    key: carrera.id,
+                    label: carrera.nombre_carrera,
+                    instituto: carrera.nombre_instituto
+                };
+            });
+            setCarreras(carrerasAdaptadas);
+            console.log(carrerasAdaptadas);
         };
         fetchCarreras();
     }, []);
 
-    const nombresCarreras =
-        carreras.data?.map((carrera) => carrera.nombre_carrera) ?? [];
+    const usuarioId = parseInt(JSON.parse(localStorage.getItem('id')));
+
+    const [handleEliminar, handlePerepe] = useState(false);
+
+    const [materias, setMaterias] = useState([
+        {
+            key: nanoid(),
+            notaAprobacion: null,
+            cargaHorariaTotal: null,
+            anioAprobacion: '',
+            materiaAprobada: '',
+            universidadOrigen: 1,
+            certificado: false
+        }
+    ]);
+
+    const [materiaEliminar, setMateriaEliminar] = useState(null);
+
+    const [materiasUnahur, setMateriasUnahur] = useState([
+        {
+            key: nanoid(),
+            materiaUnahur: '',
+            estado: 'pendiente'
+        }
+    ]);
+
+    const [formValue, setformValue] = useState({
+        carreraUnahur: ''
+    });
+
+    const elegirMateriaABorrar = (bool) => {
+        handlePerepe((handleEliminar) => (handleEliminar = bool));
+    };
 
     const notifyEnviarSinDatos = () => {
         toast.error('Debe completar todos los campos del formulario', {
@@ -96,21 +100,21 @@ const CreateForm = () => {
         toast.success('Equivalencia creada con éxito', {
             containerId: 'home',
             position: 'bottom-left',
-            autoClose: 5000,
+            autoClose: 800,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined
         });
+        // Esperar 5 segundos
+        setTimeout(() => {
+            window.location = '/usuario/equivalencias';
+        }, 2000);
     };
 
+    //Materias boton agregar
     const addMateria = () => {
-        // setMaterias((materias) => [
-        // 	...materias,
-        // 	<FormUniOrigen key={nanoid()} />
-        // ]);
-
         setMaterias((materias) => [
             ...materias,
             {
@@ -119,63 +123,58 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
-                certificado: false,
-                archivo: null,
-                universidadOrigen: null // id de universidad
+                universidadOrigen: 1,
+                certificado: false
             }
         ]);
 
-        // formValue.materiasAprobadas.push(formValueArray);
-
-        console.log('Agregar Materias: ', materias);
+        //console.log('Agregar Materias: ', materias);
     };
 
-    const handleChange = (event) => {
-        if (event.target.name === 'carreraUnahur') {
-            try {
-                const id_carrera = carreras.data.find(
-                    (carrera) => carrera.nombre_carrera === event.target.value
-                ).id;
-                setformValue((formValue) => ({
-                    ...formValue,
-                    [event.target.name]: id_carrera
-                }));
-            } catch (error) {
-                console.log(error);
+    //Materias Unahur functions
+    const addMateriaUnahur = () => {
+        setMateriasUnahur((materiasUnahur) => [
+            ...materiasUnahur,
+            {
+                key: nanoid(),
+                materiaUnahur: '',
+                estado: 'pendiente'
             }
-        } else {
-            setformValue((formValue) => ({
-                ...formValue,
-                [event.target.name]: event.target.value
-            }));
-        }
-
-        console.log(event.target.key);
-        console.log(event.target.value);
-        console.log(event.target.name);
-        console.log(formValue);
+        ]);
     };
 
+    const handleChangeMateriaUnaHur = (event, key) => {
+        const copiaMaterias = [].concat(materiasUnahur);
+        const { value } = event.target;
+
+        copiaMaterias
+            .filter((mat) => mat.key === key)
+            .map((mat) => (mat.materiaUnahur = value));
+        setMateriasUnahur(copiaMaterias);
+        console.log(materiasUnahur);
+    };
+
+    const [carreraElegida, setCarreraElegida] = useState({});
+
+    //Carrera
+    const handleChangeCarrera = (event) => {
+        const { name, value } = event.target;
+        setformValue((carrera) => ({
+            ...carrera,
+            [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        const carreraDatos = carreras.find(
+            (carr) => carr.label === formValue.carreraUnahur
+        );
+        setCarreraElegida(carreraDatos);
+    }, [formValue]);
+
+    //MateriasEquivalencias functions
     const handleChangeArray = (event, key) => {
-        // const materia = materias.find(e => e.key === key)
-        // setFormValueArray((formValueArray) => ({
-        //     ...formValueArray,
-        //     [event.target.name]: event.target.value
-        // }));
-        // setformValue((formValue));
-        // console.log(event.target.key);
-        // console.log(event.target.value);
-        // console.log(event.target.name);
-        // console.log(formValueArray);
         const indiceMateria = materias.findIndex((e) => e.key === key);
-        console.log(materias);
-        console.log(key);
-        console.log(indiceMateria);
-        console.log(materias[indiceMateria]);
-        // console.log({
-        //     ...materias[indiceMateria],
-        //     [event.target.name]: event.target.value
-        // });
         setMaterias((materias) => {
             return [
                 ...materias.slice(0, indiceMateria),
@@ -187,88 +186,47 @@ const CreateForm = () => {
             ];
         });
     };
-    console.log('Materias aprobadas: ', materias);
+    //console.log('Materias aprobadas: ', materias);
+    const handleClickOpen = (materia) => {
+        setMateriaEliminar(materia);
+    };
 
-    //TURNOS
+    const handleClose = () => {
+        setMateriaEliminar(null);
+    };
 
-    // const handleChangeHour = (id, event) => {
-    //     const newInputFields = horarios.map((horario) => {
-    //       if (id === horario.id) {
-    //         horario[event.name] = event.value;
-    //       }
-    //       return horario;
-    //     });
-
-    //     setHorarios(newInputFields);
-    //   };
-
-    //NUESTRO
-
-    // const handleChangeArray = (key, event) => {
-    // 	// if(key === formValue.materiasAprobadas[formValues.key]) {
-    // 		setformValue((formValues) => ({
-    // 			...formValues,
-    // 			if(key === formValues.materiasAprobadas[key]){
-    // 				[event.target.name] : event.target.value
-    // 			}
-
-    // 		}))
-    // }
-    // }
-
-    const usuarioId = parseInt(JSON.parse(localStorage.getItem('id')));
-
+    //Summit function
     const handleSubmit = async () => {
         let equivalencia;
 
         if (usuarioId) {
-            console.log('Enviando equivalencia...');
-            console.log('Materias aprobadas: ', materias);
-            console.log('FormValue: ', formValue);
             equivalencia = {
-                nombre: formValue.materiaSolicitada,
-                CarreraId: formValue.carreraUnahur,
-                estado: 'Pendiente',
-                observaciones: '',
-                instituto: 'Instituto de Tecnología e Ingeniería',
+                nombre: 'Equivalencia',
+                materiaSolicitada: materiasUnahur.map((item) => {
+                    return {
+                        nombre: item.materiaUnahur,
+                        estado: 'pendiente'
+                    };
+                }),
+                observaciones: ' ',
+                instituto: carreraElegida.instituto,
+                estado: 'pendiente',
+                carrera: formValue.carreraUnahur,
                 array: materias.map((item) => {
                     return {
-                        nota:
-                            item.notaAprobacion == ''
-                                ? null
-                                : item.notaAprobacion,
+                        nota: item.notaAprobacion,
                         carga_horaria: item.cargaHorariaTotal,
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
-                        certificado: item.certificado,
-                        archivo: item.archivo,
-                        UniversidadOrigenId: item.universidadOrigen
+                        UniversidadOrigenId: 1,
+                        certificado: item.certificado
                     };
                 }),
-                UsuarioId: usuarioId
+                UsuarioId: usuarioId,
+                CarreraId: carreraElegida.key
             };
+            console.log(equivalencia);
         }
-
-        console.log('Equivalencia:', equivalencia);
-
-        // const response = await fetch(
-        //     'http://localhost:3001/api/equivalencias/createx3',
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(equivalencia)
-        //     }
-        // )
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //         notifyExito();
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
 
         const response = await axios
             .post(`${config.apiUrl}/equivalencias/createx3`, equivalencia, {
@@ -278,144 +236,27 @@ const CreateForm = () => {
             })
             .then((res) => {
                 try {
-                    console.log('Res:', res);
                     res.status === 200 ? notifyExito() : notifyEnviarSinDatos();
-                    setTimeout(() => {
-                        window.location = '/usuario/equivalencias/';
-                    }, 5000);
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                 }
             })
             .catch((error) => {
-                console.log('Error: ', error);
+                console.error('Error: ', error);
                 notifyEnviarSinDatos();
             });
-
-        // try {
-        //     const response = await axios
-        //         .post(
-        //             'http://localhost:3001/api/equivalencias/createx3',
-        //             equivalencia,
-        //             {
-        //                 headers: {
-        //                     'Content-Type': 'application/json'
-        //                 }
-        //             }
-        //         )
-        //         .then((res) => {
-        //             console.log(res);
-        //             response.status === 200
-        //                 ? notifyExito()
-        //                 : console.log('Error');
-        //         });
-        // } catch (error) {
-        //     console.log('Catch error: ', error);
-        //     notifyEnviarSinDatos();
-        // }
-
-        // await axios.post(
-        //     'http://localhost:3001/api/equivalencias/createx3',
-        //     { equivalencia },
-        //     {
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }
-        // )
-        // .then((response) => {
-        //     console.log(response);
-        //     response.status === 201 ? notifyExito() : console.log('Error');
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        //     notifyEnviarSinDatos();
-        // });
-
-        // res.data.headers['application/json']; // 'application/json;charset=utf-8',
-
-        // store the states in the form data
-        // const loginFormData = new FormData();
-        // loginFormData.append('materiaSolicitada', formValue.materiaSolicitada);
-        // loginFormData.append('carreraUnahur', formValue.carreraUnahur);
-        // loginFormData.append('materiaAprobada', formValue.materiaAprobada);
-        // loginFormData.append('universidadOrigen', formValue.universidadOrigen);
-        // loginFormData.append('anioAprobacion', formValue.anioAprobacion);
-        // loginFormData.append('cargaHorariaTotal', formValue.cargaHorariaTotal);
-        // loginFormData.append('notaAprobacion', formValue.notaAprobacion);
-
-        // const loginFormData = new FormData();
-        // loginFormData.append('materiaSolicitada', formValue.materiaSolicitada);
-        // loginFormData.append('carreraUnahur', formValue.carreraUnahur);
-        // loginFormData.append('materiasAprobadas', materias);
-
-        // try {
-        //     // make axios post request
-        //     const response = await axios({
-        //         method: 'post',
-        //         url: `${config.apiUrl}/materias_solicitadas`,
-        //         data: loginFormData,
-        //         headers: { 'content-type': 'text/json' }
-        //     });
-
-        //     console.log(loginFormData.get('materiaSolicitada'));
-        //     console.log(loginFormData.get('carreraUnahur'));
-        //     console.log(loginFormData.get('materiasAprobadas'));
-        //     console.log(formValue);
-        //     console.log(materias);
-        //     for (var pair of loginFormData.entries()) {
-        //         console.log(pair[0] + ', ' + pair[1]);
-        //     }
-        // } catch (Exception) {
-        //     console.log(Exception);
-        // }
-    };
-
-    const [materiaEliminar, setMateriaEliminar] = React.useState(null);
-
-    const handleClickOpen = (materia) => {
-        setMateriaEliminar(materia);
-    };
-
-    const handleClose = () => {
-        setMateriaEliminar(null);
     };
 
     return (
-        // <Grid
-        //     item
-        //     container
-        //     blanco
-        //     xs={11.5}
-        //     md={7}
-        //     marginTop={{
-        //         xs: '30px'
-        //     }}
-        //     sx={{
-        //         height: 'auto'
-        //     }}
-        // >
-        // <form
-        //     style={{
-        //         backgroundColor: 'red',
-        //         display: 'block',
-        //         width: '100%',
-        //         height: '100%'
-        //     }}
-        // >
         <>
             <GridTop
                 item
                 container
-                blanco
+                blanco="+true"
                 xs={11.5}
                 md={7}
-                marginTop={{
-                    xs: '30px'
-                }}
-                sx={{
-                    height: 'auto'
-                }}
+                marginTop={{ xs: '30px' }}
+                sx={{ height: 'auto' }}
             >
                 <Grid
                     item
@@ -433,111 +274,48 @@ const CreateForm = () => {
                         borderRadius: '10px 10px 0px 0px'
                     }}
                 >
-                    <Grid
-                        item
-                        container
-                        direction="column"
-                        alignItems="flex-start"
-                        md={12}
-                        lg={5.8}
-                        sx={{
-                            marginTop: '6px'
-                        }}
-                    >
-                        <Titulos titulolabel component="h2">
-                            Datos Universidad Nacional de Hurlingham
-                        </Titulos>
-                    </Grid>
+                    <FormUnahur
+                        formValue={formValue}
+                        carreras={carreras}
+                        materias={materiasUnahur}
+                        handleChangeCarrera={handleChangeCarrera}
+                        handleChangeMateriaUnaHur={handleChangeMateriaUnaHur}
+                        handledelete={handleClickOpen}
+                        handledelete2={notifyBorrarMateria}
+                        handleEliminar={elegirMateriaABorrar}
+                        eliminarDirecto={setMateriasUnahur}
+                    />
+                </Grid>
 
-                    <Grid
-                        item
-                        container
-                        xs={12}
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="flex-start"
+                <Grid
+                    item
+                    container
+                    xs={12}
+                    sx={{
+                        borderTop: '1px solid #DADCE0',
+                        marginTop: '20px ',
+                        padding: '0px 40px'
+                    }}
+                >
+                    <BotonMUI
+                        buttoncontainedaddmateria="+true"
+                        variant="outlined"
+                        sx={{ margin: '10px 0px' }}
+                        onClick={addMateriaUnahur}
                     >
-                        <Grid
-                            item
-                            container
-                            direction="column"
-                            alignItems="flex-start"
-                            md={12}
-                            lg={5.8}
-                            sx={{
-                                marginTop: '6px'
-                            }}
-                        >
-                            <StandardInput
-                                required
-                                name="materiaSolicitada"
-                                size="small"
-                                label="Materia solicitada UNAHUR"
-                                variant="outlined"
-                                value={formValue.materiaSolicitada || ''}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-
-                        <Grid
-                            item
-                            container
-                            md={12}
-                            lg={5.8}
-                            sx={{
-                                marginTop: '6px'
-                            }}
-                        >
-                            <AutocompleteInput
-                                size="small"
-                                variant="outlined"
-                                onSelect={handleChange}
-                                disablePortal
-                                options={nombresCarreras}
-                                renderInput={(params) => (
-                                    <TextField
-                                        required
-                                        {...params}
-                                        label="Carreras UNAHUR"
-                                        name="carreraUnahur"
-                                        value={formValue.carreraUnahur || ''}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                    </Grid>
+                        Agregar materia
+                    </BotonMUI>
                 </Grid>
 
                 {materias.map((materia) => {
-                    console.log(materia.key);
                     return (
                         <>
                             <FormUniOrigen
                                 key2={materia.key}
                                 key={materia.key}
-                                // handledelete={
-                                //     materias.length > 1
-                                //         ? () => {
-                                //               const newMaterias = materias.filter(
-                                //                   (x) => x.key !== materia.key
-                                //               );
-                                //               setMaterias([...newMaterias]);
-                                //               console.log(materias);
-                                //           }
-                                //         : () => {
-                                //               console.log('Eliminar este console');
-                                //           }
-                                // }
-
                                 handledelete={() => {
-                                    console.log(formValue);
-
                                     if (materias.length > 1) {
-                                        // const newMaterias = materias.filter(
-                                        //     (x) => x.key !== materia.key
-                                        // );
-                                        // setMaterias([...newMaterias]);
-                                        // console.log(materias);
+                                        elegirMateriaABorrar(true);
                                         handleClickOpen(materia);
                                     } else {
                                         notifyBorrarMateria();
@@ -567,14 +345,23 @@ const CreateForm = () => {
                                     </Button>
                                     <Button
                                         onClick={() => {
-                                            setMaterias(() =>
-                                                //Se eliminó el parámetro materias en setMaterias
-                                                materias.filter(
-                                                    (x) =>
-                                                        x.key !==
-                                                        materiaEliminar.key
-                                                )
-                                            );
+                                            if (handleEliminar) {
+                                                setMaterias(() =>
+                                                    materias.filter(
+                                                        (x) =>
+                                                            x.key !==
+                                                            materiaEliminar.key
+                                                    )
+                                                );
+                                            } else {
+                                                setMateriasUnahur(() =>
+                                                    materiasUnahur.filter(
+                                                        (x) =>
+                                                            x.key !==
+                                                            materiaEliminar.key
+                                                    )
+                                                );
+                                            }
                                             handleClose();
                                         }}
                                     >
@@ -597,7 +384,7 @@ const CreateForm = () => {
                     }}
                 >
                     <BotonMUI
-                        buttoncontainedaddmateria
+                        buttoncontainedaddmateria="+true"
                         variant="outlined"
                         sx={{ margin: '10px 0px' }}
                         onClick={addMateria}
@@ -606,15 +393,24 @@ const CreateForm = () => {
                     </BotonMUI>
                 </Grid>
             </GridTop>
-            <OuterFormButtons
-                handleSubmit={handleSubmit}
-                path={'/usuario/equivalencias'}
-                titulo={'Descartar formulario'}
-                mensaje={'¿Está seguro/a de que desea descartar el formulario?'}
-            />
+            <Grid
+                container
+                item
+                xs={11.5}
+                md={7}
+                justifyContent="space-between"
+                marginTop="1rem"
+            >
+                <OuterFormButtons
+                    handleSubmit={handleSubmit}
+                    path={'/usuario/equivalencias'}
+                    titulo={'Descartar formulario'}
+                    mensaje={
+                        '¿Está seguro/a de que desea descartar el formulario?'
+                    }
+                />
+            </Grid>
         </>
-        // </form>
-        // </Grid>
     );
 };
 
