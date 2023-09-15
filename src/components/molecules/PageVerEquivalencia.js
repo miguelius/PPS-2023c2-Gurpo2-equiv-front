@@ -311,10 +311,9 @@ const PageVerEquivalencia = ({ socket }) => {
                                             <TableRow
                                                 key={row.solicitante}
                                                 sx={{
-                                                    '&:last-child td, &:last-child th':
-                                                        {
-                                                            border: 0
-                                                        }
+                                                    '&:last-child td, &:last-child th': {
+                                                        border: 0
+                                                    }
                                                 }}
                                             >
                                                 <TableCell
@@ -533,7 +532,9 @@ const PageVerEquivalencia = ({ socket }) => {
                                                         label="Universidad de Origen"
                                                         name="universidadOrigen"
                                                         value={
-                                                            'Universidad de la Matanza'
+                                                            materiaAprobada
+                                                                .Universidad_origen
+                                                                .nombre_universidad
                                                         }
                                                         variant="outlined"
                                                         size="small"

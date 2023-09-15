@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AddIcon from '@mui/icons-material/Add';
+import TablaEquivalencias from './TablaEquivalencias';
 
 const PageMyForm = () => {
     const [open, setOpen] = useState(false);
@@ -105,7 +106,8 @@ const PageMyForm = () => {
                             height: 'auto'
                         }}
                     >
-                        <StickyHeadTable />
+                        <TablaEquivalencias />
+                        {/* <StickyHeadTable /> */}
                     </GridTop>
                 </Grid>
             </Grid>

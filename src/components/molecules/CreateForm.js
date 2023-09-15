@@ -49,7 +49,7 @@ const CreateForm = () => {
             cargaHorariaTotal: null,
             anioAprobacion: '',
             materiaAprobada: '',
-            universidadOrigen: 1,
+            universidadOrigen: null,
             certificado: false
         }
     ]);
@@ -123,7 +123,7 @@ const CreateForm = () => {
                 cargaHorariaTotal: null,
                 anioAprobacion: '',
                 materiaAprobada: '',
-                universidadOrigen: 1,
+                universidadOrigen: null,
                 certificado: false
             }
         ]);
@@ -205,7 +205,8 @@ const CreateForm = () => {
                 materiaSolicitada: materiasUnahur.map((item) => {
                     return {
                         nombre: item.materiaUnahur,
-                        estado: 'pendiente'
+                        estado: 'pendiente',
+                        carrera: formValue.carreraUnahur
                     };
                 }),
                 observaciones: ' ',
@@ -218,7 +219,7 @@ const CreateForm = () => {
                         carga_horaria: item.cargaHorariaTotal,
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
-                        UniversidadOrigenId: 1,
+                        UniversidadOrigenId: item.universidadOrigen,
                         certificado: item.certificado
                     };
                 }),

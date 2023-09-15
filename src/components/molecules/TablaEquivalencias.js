@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -18,7 +20,8 @@ import { Grid } from '@mui/material';
 import { ActionButtons } from '../atoms/Button/ActionButtons';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 
-export default function TablaEquivalencias({ searchQuery, rol }) {
+export default function TablaEquivalencias({ searchQuery }) {
+    const rol = JSON.parse(localStorage.getItem('rol'));
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState([]);
@@ -127,8 +130,14 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
             case 'CERRADO':
                 color = 'error';
                 break;
+            case 'RECHAZADO':
+                color = 'error';
+                break;
             case 'PENDIENTE':
                 color = 'info';
+                break;
+            case 'FALTA COMPLETAR':
+                color = 'warning';
                 break;
             default:
                 color = 'success';
@@ -136,12 +145,13 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
         return (
             <Button
                 color={color}
-                variant="contained"
+                variant="outlined"
                 fullWidth
                 endIcon={renderNotify(materias)}
                 sx={{
-                    backgroundColor: color === 'success' ? '#009673' : '',
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
+                    borderRadius: 3,
+                    borderWidth: 2
                 }}
             >
                 {estado}
@@ -166,7 +176,7 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
             let array = [];
 
             obtainedEquivalenciaData.forEach(function (arrayItem) {
-                let d = new Date(arrayItem.Materias_solicitadas[0].createdAt);
+                let d = new Date(arrayItem.Materia_solicitadas[0].createdAt);
                 let dateTime =
                     d.getDate() +
                     '/' +
@@ -176,16 +186,16 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
                 let carrera = arrayItem.carrera;
                 let status = renderState(
                     arrayItem.estado.toUpperCase(),
-                    arrayItem.Materias_solicitadas
+                    arrayItem.Materia_solicitadas
                 );
                 let actions = defineActions(
                     arrayItem.id,
-                    arrayItem.Materias_solicitadas
+                    arrayItem.Materia_solicitadas
                 );
                 //console.log(status);
                 array.push(
                     createData(
-                        filterNameMat(arrayItem.Materias_solicitadas),
+                        filterNameMat(arrayItem.Materia_solicitadas),
                         dateTime,
                         status,
                         arrayItem.Usuario.nombre +
@@ -260,9 +270,9 @@ export default function TablaEquivalencias({ searchQuery, rol }) {
                                     align={'center'}
                                     style={{ minWidth: column.minWidth }}
                                     sx={{
-                                        backgroundColor: 'azure',
-                                        padding: '16px 40px',
-                                        fontSize: '1.2rem'
+                                        backgroundColor:
+                                            'rgba(245, 245, 245, 0.7)',
+                                        padding: '16px 40px'
                                     }}
                                 >
                                     {column.label}
