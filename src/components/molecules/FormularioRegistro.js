@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Titulos } from '../atoms/Title/Titulos';
-
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Grid, MenuItem, styled, Select, TextField } from '@mui/material';
 import { Formulario } from '../atoms/Formulario/Formulario';
 import { postUsuarios } from '../../services/usuario_service';
+import { useHistory } from 'react-router-dom';
 
 import bcrypt from 'bcryptjs';
 import { toast } from 'react-toastify';
@@ -64,6 +64,8 @@ const FormularioRegistro = () => {
         });
     };
 
+    const history = useHistory();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -121,10 +123,12 @@ const FormularioRegistro = () => {
                 hashedPassword
             );
 
-            console.log('response', response.status);
-
-            //Ver promesas
-            response.status === 200 ? notifyExito() : notifyError();
+            if (response.status === 200) {
+                notifyExito();
+                history.push('/Registro');
+            } else {
+                notifyError();
+            }
         }
 
         if (!valid) {
@@ -332,7 +336,7 @@ const FormularioRegistro = () => {
                                 required
                                 inputProps={{
                                     minLength: 1,
-                                    maxLength: 8
+                                    maxLength: 20
                                 }}
                                 helperText={
                                     errorNombre
@@ -375,7 +379,7 @@ const FormularioRegistro = () => {
                                 required
                                 inputProps={{
                                     minLength: 1,
-                                    maxLength: 8
+                                    maxLength: 20
                                 }}
                                 helperText={
                                     errorApellido
@@ -460,7 +464,7 @@ const FormularioRegistro = () => {
                                 required
                                 inputProps={{
                                     minLength: 1,
-                                    maxLength: 5
+                                    maxLength: 15
                                 }}
                                 helperText={
                                     errorDiscord
