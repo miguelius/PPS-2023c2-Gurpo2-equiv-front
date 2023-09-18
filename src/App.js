@@ -35,9 +35,7 @@ function App() {
                     />
                     <Route
                         path="/usuario/visualizar/:id"
-                        component={() => (
-                            <PageVerEquivalencia socket={socket} />
-                        )}
+                        component={() => <PageRevision socket={socket} />}
                     />
                     <Route
                         path="/usuario/formulario"
