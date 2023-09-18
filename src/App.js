@@ -80,7 +80,7 @@ function App() {
                 <Router>
                     <Route path="/" exact component={PageIniciarSesion} />
                     <Route
-                        path="/superusuario/solicitudes"
+                        path="/direccion/solicitudes"
                         component={PageDireccion}
                     />
                     <Route

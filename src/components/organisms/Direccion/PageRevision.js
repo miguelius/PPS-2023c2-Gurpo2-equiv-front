@@ -891,7 +891,8 @@ const PageRevision = ({ socket }) => {
                                     lg={8.9}
                                     marginTop="1rem"
                                 >
-                                    {rol === 'directivo' ? (
+                                    {rol === 'directivo' ||
+                                    rol === 'superusuario' ? (
                                         <OuterFormButtons
                                             handleSubmit={handleSubmit}
                                             path={'/direccion/solicitudes'}

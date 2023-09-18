@@ -165,7 +165,8 @@ const PageCRUDCarreras = () => {
         e.preventDefault();
         let objCarrera = {
             nombre_carrera: carreraSeleccionada.nombre_carrera,
-            nombre_instituto: carreraSeleccionada.nombre_instituto
+            nombre_instituto: carreraSeleccionada.nombre_instituto,
+            activo: 1
         };
         setOpenAgregar(false);
 

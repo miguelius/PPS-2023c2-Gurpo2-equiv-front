@@ -12,7 +12,9 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {
     getEquivalencia,
-    getEquivalenciaUsuario
+    getEquivalenciaUsuario,
+    getEquivalenciaSuperUsuario,
+    getEquivalenciaPorDirectivo
 } from '../../services/equivalencia_service';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
@@ -22,12 +24,13 @@ import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsAct
 
 export default function TablaEquivalencias({ searchQuery }) {
     const rol = JSON.parse(localStorage.getItem('rol'));
+    const id = JSON.parse(localStorage.getItem('id'));
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = useState([]);
     //console.log(rol);
     const getColumns = () => {
-        if (rol === 'directivo') {
+        if (rol === 'directivo' || rol === 'superusuario') {
             return [
                 { id: 'dni', label: 'DNI' },
                 { id: 'solicitante', label: 'Solicitante' },
@@ -61,7 +64,7 @@ export default function TablaEquivalencias({ searchQuery }) {
         actions,
         carrera
     ) => {
-        if (rol === 'directivo') {
+        if (rol === 'directivo' || rol === 'superusuario') {
             return { solicitante, dni, materia, dateTime, actions, estado };
         } else {
             return { carrera, materia, dateTime, estado, actions };
@@ -96,7 +99,7 @@ export default function TablaEquivalencias({ searchQuery }) {
                 justifyContent="center"
                 alignItems="center"
             >
-                {rol === 'directivo' ? (
+                {rol === 'directivo' || rol === 'superusuario' ? (
                     <Link
                         to={'/direccion/revision/' + id}
                         style={{ textDecoration: 'none' }}
@@ -164,6 +167,8 @@ export default function TablaEquivalencias({ searchQuery }) {
             let obtainedEquivalenciaData = [];
             if (rol === 'directivo') {
                 obtainedEquivalenciaData = await getEquivalencia();
+            } else if (rol === 'superusuario') {
+                obtainedEquivalenciaData = await getEquivalencia();
             } else {
                 const usuarioId = parseInt(
                     JSON.parse(localStorage.getItem('id'))
@@ -206,7 +211,7 @@ export default function TablaEquivalencias({ searchQuery }) {
                         carrera
                     )
                 );
-                if (rol === 'directivo') {
+                if (rol === 'directivo' || rol === 'superusuario') {
                     let dataFilter = array;
                     switch (searchQuery.column) {
                         case 'dni':
