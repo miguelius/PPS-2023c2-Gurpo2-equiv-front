@@ -168,20 +168,23 @@ const PageCRUDCarreras = () => {
             nombre_instituto: carreraSeleccionada.nombre_instituto,
             activo: 1
         };
-        setOpenAgregar(false);
-
+        
         createCarrera(objCarrera).then((rpta) => {
             console.log(rpta);
             console.log(formValue.directivo);
             let objUsuario_Carrera = {
                 UsuarioId: formValue.directivo,
-                id_carrera: rpta.id
+                CarreraId: rpta.id
             };
             createUsuario_Carrera(objUsuario_Carrera).then((rpta) => {
                 console.log(rpta);
             });
         });
         console.log(carreras);
+        setTimeout(() => {
+            setOpenAgregar(false);
+        }, 1000);
+        setOpenAgregar(false);
     };
 
     const [formValue, setformValue] = useState({
