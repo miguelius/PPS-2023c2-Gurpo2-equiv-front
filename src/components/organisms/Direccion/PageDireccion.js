@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, MenuItem, Select } from '@mui/material';
 import { GridTop } from '../../atoms/GridTop';
 import { Titulos } from '../../atoms/Title/Titulos';
 import StickyHeadTable from '../Direccion/TablaDireccion';
@@ -10,10 +10,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import { HeaderDirectivo } from '../../molecules/HeaderDirectivo';
 import { HeaderSuperUsuario } from '../../molecules/HeaderSuperUsuario';
+import TablaEquivalencias from '../../molecules/TablaEquivalencias';
 import IconButton from '@mui/material/IconButton';
 
 const PageDireccion = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState({
+        value: '',
+        column: 'dni'
+    });
     const rol = JSON.parse(localStorage.getItem('rol'));
     const rolUsuario = () => {
         if (rol === 'directivo') {
@@ -25,6 +29,13 @@ const PageDireccion = () => {
 
     const iconSearch = React.createRef();
     const inputSearch = React.createRef();
+
+    const handleChange = (event) => {
+        setSearchQuery((prevState) => ({
+            ...prevState,
+            column: event.target.value
+        }));
+    };
 
     return (
         <Grid container direction="column">
@@ -67,15 +78,16 @@ const PageDireccion = () => {
                 <GridTop
                     item
                     container
-                    blanco
+                    blanco="+true"
                     search
                     searchPlaceholder
                     searchProps
                     debounceSearchRender
                     xs={11.5}
-                    md={7}
+                    md={9}
+                    lg={7}
                     sx={{
-                        height: '75px',
+                        height: '5rem',
                         borderBottom: 'none',
                         borderBottomLeftRadius: '0px',
                         borderBottomRightRadius: '0px'
@@ -104,11 +116,6 @@ const PageDireccion = () => {
                                 width: '220px'
                             }}
                         >
-                            {/* <IconButton
-                                id="search-bar"
-                                sx={{ p: '10px' }}
-                                aria-label="search"
-                            > */}
                             <SearchIcon
                                 id="icon-search-bar"
                                 ref={iconSearch}
@@ -124,43 +131,43 @@ const PageDireccion = () => {
                                 className="text"
                                 onInput={(e) => {
                                     e.preventDefault();
-                                    setSearchQuery(e.target.value);
+                                    setSearchQuery((prevState) => ({
+                                        ...prevState,
+                                        value: e.target.value
+                                    }));
                                 }}
                                 variant="outlined"
                                 placeholder="Buscar"
                                 sx={{ width: '220px' }}
-                                // Al hacer click en el input, ocultar boton
-                                onFocus={(e) => {
+                                onFocus={() => {
                                     iconSearch.current.style.display = 'none';
 
                                     inputSearch.current.style.margin =
                                         '6px 20px';
                                 }}
-                                onBlur={(e) => {
+                                onBlur={() => {
                                     iconSearch.current.style.display = 'block';
 
                                     inputSearch.current.style.margin =
                                         '0px 0px';
                                 }}
                             />
-
-                            {/* <TextField
-                                id="search-bar"
-                                className="text"
-                                onInput={(e) => {
-                                    e.preventDefault();
-                                    setSearchQuery(e.target.value);
-                                }}
-                                label="Buscar"
-                                variant="outlined"
-                                placeholder="DNI o Solicitante"
-                                size="small"
-                                sx={{ width: '300px' }}
-                            /> */}
-                            {/* <IconButton onClick={search()} aria-label="search">
-                                    <SearchIcon style={{ fill: 'blue' }} />
-                                </IconButton> */}
                         </Paper>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={searchQuery.column}
+                            label="Age"
+                            onChange={handleChange}
+                            size="small"
+                            sx={{
+                                marginLeft: '1%'
+                            }}
+                        >
+                            <MenuItem value="dni">DNI</MenuItem>
+                            <MenuItem value="solicitante">Solicitante</MenuItem>
+                            <MenuItem value="estado">Estado</MenuItem>
+                        </Select>
                     </Grid>
                 </GridTop>
                 <GridTop
@@ -175,7 +182,8 @@ const PageDireccion = () => {
                         borderTopRightRadius: '0px'
                     }}
                 >
-                    <StickyHeadTable searchQuery={searchQuery} />
+                    <TablaEquivalencias searchQuery={searchQuery} />
+                    {/* <StickyHeadTable searchQuery={searchQuery} /> */}
                 </GridTop>
             </Grid>
         </Grid>
