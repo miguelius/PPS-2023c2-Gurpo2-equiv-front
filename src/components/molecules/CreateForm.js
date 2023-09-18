@@ -220,7 +220,8 @@ const CreateForm = () => {
                         año_aprobacion: item.anioAprobacion,
                         nombre_materia: item.materiaAprobada,
                         UniversidadOrigenId: item.universidadOrigen,
-                        certificado: item.certificado
+                        certificado: item.certificado,
+                        archivo: item.archivo
                     };
                 }),
                 UsuarioId: usuarioId,

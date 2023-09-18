@@ -3,19 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { FileUploader } from '../atoms/Input/InputMUI';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Titulos } from '../atoms/Title/Titulos';
+import { postArchivos, getArchivos, deleteArchivos } from '../../services/archivos_services'
 
 const ArchivoAltaEquivalencia = ({
     handleChangeArray,
     formValueArray,
     key2
 }) => {
-    const [nombreArchivo, setNombreArchivo] = useState(null);
+    const [nombreArchivo, setNombreArchivo] = useState(null); //nombre del archivo
+    const [nombreArchivoLocal, setNombreArchivoLocal] = useState(null); //almacena archivo local
 
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState(null); // archivo local
 
-    const [fileList, setFileList] = useState([]);
+    const [fileList, setFileList] = useState([]);  // ?
 
-    const [fileListUpdate, setFileListUpdate] = useState(false);
+    const [fileListUpdate, setFileListUpdate] = useState(false); // ?
 
     // Hace una llamada a la API para obtener la lista de archivos
     useEffect(() => {
@@ -36,10 +38,11 @@ const ArchivoAltaEquivalencia = ({
     }, [fileListUpdate, nombreArchivo]);
 
     const handleSelectedFile = (e) => {
+        console.log("Esto hay cuando se selecciona" + e.target.files[0])
         setFile(e.target.files[0]);
     };
 
-    const handleSendFile = () => {
+    const handleSendFile = async () => {
         if (!file) {
             alert('Debe seleccionar algún archivo');
             return;
@@ -48,7 +51,7 @@ const ArchivoAltaEquivalencia = ({
         const formdata = new FormData();
         formdata.append('uploadedPdf', file);
         formdata.append('filename', file.name);
-
+        /*
         fetch('http://localhost:3001/api/archivos/', {
             method: 'POST',
             body: formdata
@@ -65,17 +68,51 @@ const ArchivoAltaEquivalencia = ({
             .catch((err) => {
                 console.error(err);
             });
-
+        */
+        await postArchivos(formdata).then((res) => res.text())
+            .then((res) => {
+                console.log(res);
+                const respuesta = JSON.parse(res); //se convierte respuesta
+                console.log(respuesta[0].nombre);
+                console.log(file.name);
+                {
+                    formValueArray.archivo = file;
+                }
+                setNombreArchivo(respuesta[0].nombre); // archivo local
+                setNombreArchivoLocal(file.name); // nombre archivo almacenado en el server
+                alert(respuesta[0].mensaje);
+                setFileListUpdate(true);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
         document.getElementById('contained-button-file').value = null;
-        setFile(null);
+        setFile(file);
     };
 
-    const handleDeleteFile = (f) => {
-        fetch('http://localhost:3001/api/archivos/' + f, {
+    const handleReadFile = async (archivo) => {
+        await getArchivos(archivo)
+            .then((res) => {
+                const url = window.URL.createObjectURL(new Blob([res.data]))
+                const link = document.createElement('a')
+                link.href= url
+            })
+            .catch((error) => {
+                alert(error[0].mensaje)
+            })
+    };
+
+    const handleDeleteFile = async (e) => {
+        /*fetch('http://localhost:3001/api/archivos/' + f, {
             method: 'DELETE'
-        })
+        })*/
+        await deleteArchivos(e)
             .then((res) => res.text())
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res)
+                const respuesta = JSON.parse(res);
+                alert(respuesta[0].mensaje)
+            })
             .catch((err) => console.error(err));
         {
             formValueArray.archivo = null;
@@ -107,25 +144,28 @@ const ArchivoAltaEquivalencia = ({
                                         justifyContent="space-between"
                                         sx={{ marginTop: '5px' }}
                                     >
+
                                         <Link
+                                            
+                                            
                                             href={
-                                                // 'http://localhost:3001/' + nombreArchivo
-                                                'http://localhost:3001/api/archivos/' +
-                                                file
+                                                'http://localhost:3001/api/archivos/'+nombreArchivo
                                             }
                                             target="_blank"
                                             underline="hover"
                                             color="#FF5733"
                                             display="inline"
+                                            xs={12}
                                         >
                                             {/* {nombreArchivo} */}
-                                            {file}
+                                            {nombreArchivoLocal}
                                         </Link>
+
                                         <BotonMUI //key={file}
                                             buttonupload
                                             variant="outlined"
                                             onClick={() =>
-                                                handleDeleteFile(file)
+                                                handleDeleteFile(nombreArchivo)
                                             }
                                         >
                                             Eliminar
@@ -195,7 +235,7 @@ const ArchivoAltaEquivalencia = ({
                                         sm: '16px'
                                     }}
                                 >
-                                    Adjunte un archivo .pdf:
+                                    Adjunte un archivo BICHA .pdf:
                                 </Titulos>
                             </Grid>
                             <Grid
