@@ -64,11 +64,13 @@ const PageDireccion = () => {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Link to="/direccionDashboard">
-                            <IconButton sx={{ padding: 0 }}>
-                                <ArrowBackIcon />
-                            </IconButton>
-                        </Link>
+                        {rol == 'directivo' && (
+                            <Link to="/direccionDashboard">
+                                <IconButton sx={{ padding: 0 }}>
+                                    <ArrowBackIcon />
+                                </IconButton>
+                            </Link>
+                        )}
                         <Titulos component="h2" titulogrande>
                             Solicitudes de equivalencias
                         </Titulos>
