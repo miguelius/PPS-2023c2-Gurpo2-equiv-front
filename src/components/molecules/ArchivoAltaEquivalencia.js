@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { FileUploader } from '../atoms/Input/InputMUI';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Titulos } from '../atoms/Title/Titulos';
-import { postArchivos, getArchivos, deleteArchivos } from '../../services/archivos_services'
+import {
+    postArchivos,
+    getArchivos,
+    deleteArchivos,
+    getLinkArchivos
+} from '../../services/archivos_services';
 
 const ArchivoAltaEquivalencia = ({
     handleChangeArray,
@@ -15,7 +20,7 @@ const ArchivoAltaEquivalencia = ({
 
     const [file, setFile] = useState(null); // archivo local
 
-    const [fileList, setFileList] = useState([]);  // ?
+    const [fileList, setFileList] = useState([]); // ?
 
     const [fileListUpdate, setFileListUpdate] = useState(false); // ?
 
@@ -38,7 +43,7 @@ const ArchivoAltaEquivalencia = ({
     }, [fileListUpdate, nombreArchivo]);
 
     const handleSelectedFile = (e) => {
-        console.log("Esto hay cuando se selecciona" + e.target.files[0])
+        console.log('Esto hay cuando se selecciona' + e.target.files[0]);
         setFile(e.target.files[0]);
     };
 
@@ -69,14 +74,15 @@ const ArchivoAltaEquivalencia = ({
                 console.error(err);
             });
         */
-        await postArchivos(formdata).then((res) => res.text())
+        await postArchivos(formdata)
+            .then((res) => res.text())
             .then((res) => {
                 console.log(res);
                 const respuesta = JSON.parse(res); //se convierte respuesta
                 console.log(respuesta[0].nombre);
                 console.log(file.name);
                 {
-                    formValueArray.archivo = file;
+                    formValueArray.archivo = respuesta[0].nombre; //pasa un string con el nombre del archivo subido al server
                 }
                 setNombreArchivo(respuesta[0].nombre); // archivo local
                 setNombreArchivoLocal(file.name); // nombre archivo almacenado en el server
@@ -93,13 +99,13 @@ const ArchivoAltaEquivalencia = ({
     const handleReadFile = async (archivo) => {
         await getArchivos(archivo)
             .then((res) => {
-                const url = window.URL.createObjectURL(new Blob([res.data]))
-                const link = document.createElement('a')
-                link.href= url
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.href = url;
             })
             .catch((error) => {
-                alert(error[0].mensaje)
-            })
+                alert(error[0].mensaje);
+            });
     };
 
     const handleDeleteFile = async (e) => {
@@ -109,9 +115,9 @@ const ArchivoAltaEquivalencia = ({
         await deleteArchivos(e)
             .then((res) => res.text())
             .then((res) => {
-                console.log(res)
+                console.log(res);
                 const respuesta = JSON.parse(res);
-                alert(respuesta[0].mensaje)
+                alert(respuesta[0].mensaje);
             })
             .catch((err) => console.error(err));
         {
@@ -144,12 +150,10 @@ const ArchivoAltaEquivalencia = ({
                                         justifyContent="space-between"
                                         sx={{ marginTop: '5px' }}
                                     >
-
                                         <Link
-                                            
-                                            
                                             href={
-                                                'http://localhost:3001/api/archivos/'+nombreArchivo
+                                                'http://localhost:3001/api/archivos/' +
+                                                nombreArchivo
                                             }
                                             target="_blank"
                                             underline="hover"

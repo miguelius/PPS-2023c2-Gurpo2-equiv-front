@@ -6,6 +6,12 @@ import { StandardInput } from '../atoms/Input/InputMUI';
 import { Titulos } from '../atoms/Title/Titulos';
 import { OuterFormButtons } from './OuterFormButtons';
 import { putArchivoMateriaAprobada } from '../../services/revision';
+import {
+    postArchivos,
+    getArchivos,
+    deleteArchivos,
+    getLinkArchivos
+} from '../../services/archivos_services';
 
 const rol = JSON.parse(localStorage.getItem('rol'));
 
@@ -18,23 +24,33 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
 
     const [fileListUpdate, setFileListUpdate] = useState(false);
 
+    const [fileLink, setFileLink] = useState(null);
+
     // Hace una llamada a la API para obtener la lista de archivos
     useEffect(() => {
         if (nombreArchivo == null) {
             return;
         }
-        console.log('Rol:' + rol);
-        console.log('nArchivo: ' + nArchivo);
-
+        /*
         fetch('http://localhost:3001/api/archivos/f/' + nombreArchivo, {
             method: 'GET'
         })
+        getLinkArchivos(nArchivo)
             .then((res) => res.json())
             .then((res) => setFileList(res))
             .catch((err) => {
                 console.error(err);
             });
+        */
+        setFile(nArchivo);
+        setFileList(file);
         setFileListUpdate(false);
+        setFileLink(getLinkArchivos(nombreArchivo));
+        console.log('Rol:' + rol);
+        console.log('nArchivo: ' + nArchivo);
+        console.log('nombreArchivo: ' + nombreArchivo);
+        console.log('Archivo en la lista: ' + fileList);
+        console.log('Link archivo ' + getLinkArchivos(nombreArchivo));
     }, [fileListUpdate, nArchivo, nombreArchivo]);
 
     const handleSelectedFile = (e) => {
@@ -90,44 +106,35 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
     return (
         <>
             {nombreArchivo != null &&
+                {
+                    /*
                 (rol == 'directivo' ||
                     ((estado == 'aceptado' ||
                         estado == 'Aceptado' ||
                         estado == 'Rechazado') &&
-                        rol == 'alumno')) && (
+                        rol == 'alumno')) */
+                } && (
                     <Grid item container sx={{ marginTop: '16px' }}>
-                        <Titulos
-                            titulolabel
-                            variant="h3"
-                            fontSize={{
-                                xs: '14px',
-                                sm: '16px'
-                            }}
-                        >
-                            Archivo Adjunto:
-                        </Titulos>
-                        {[fileList].map((file) => (
+                        <p>Archivo Adjunto:</p>
+                        {[fileList].map((files) => (
                             <Grid
                                 item
                                 container
-                                key={file}
+                                key={files}
                                 justifyContent="space-between"
                                 sx={{ marginTop: '5px' }}
                             >
                                 <Grid container sx={{ marginTop: '14px' }}>
                                     <Link
                                         //key={file}
-                                        href={
-                                            'http://localhost:3001/api/archivos/' +
-                                            file
-                                        }
+                                        href={fileLink}
                                         target="_blank"
                                         underline="hover"
                                         color="#FF5733"
                                         display="inline"
                                         xs={12}
                                     >
-                                        {file}
+                                        {nombreArchivo}
                                     </Link>
                                 </Grid>
                             </Grid>
