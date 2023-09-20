@@ -238,9 +238,13 @@ const PageRevision = ({ socket }) => {
                     state = 'Abierto';
                 }
                 const solicitud = {
+                    instituto: formValue.instituto,
                     estado: state,
-                    observaciones: formValue.observaciones
+                    observaciones: formValue.observaciones,
+                    solicitante: user.solicitante,
+                    email: user.email
                 };
+                console.log('la solicitud es: ', solicitud);
                 const response = await axios
                     .put(`${config.apiUrl}/equivalencias/` + id, solicitud)
                     .then((res) => {
@@ -248,7 +252,7 @@ const PageRevision = ({ socket }) => {
                             res.data.data;
                             notifyExito();
                         } catch (error) {
-                            console.error(error);
+                            console.error('Hubo un error: ' + error);
                         }
                     })
                     .catch(() => {});
@@ -405,9 +409,10 @@ const PageRevision = ({ socket }) => {
                                         <TableRow
                                             key={user.dni}
                                             sx={{
-                                                '&:last-child td, &:last-child th': {
-                                                    border: 0
-                                                }
+                                                '&:last-child td, &:last-child th':
+                                                    {
+                                                        border: 0
+                                                    }
                                             }}
                                         >
                                             <TableCell
@@ -539,8 +544,7 @@ const PageRevision = ({ socket }) => {
                                                 sx={{
                                                     padding: {
                                                         xs: '0rem 2rem',
-                                                        lg:
-                                                            '0rem 1rem 0rem 1rem'
+                                                        lg: '0rem 1rem 0rem 1rem'
                                                     }
                                                 }}
                                                 marginTop="1rem"

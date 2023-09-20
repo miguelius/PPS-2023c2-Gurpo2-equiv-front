@@ -35,3 +35,10 @@ export async function getEquivalenciaUsuario(id) {
     );
     return apiResponse.data;
 }
+
+export async function putEquivalenciaUsuario(id, solicitante) {
+    const apiResponse = await axios.put(
+        `${config.apiUrl}/equivalencias/${(id, solicitante)}`
+    );
+    return apiResponse.data;
+}
