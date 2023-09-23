@@ -11,7 +11,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import { stringConcat } from './Header';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { Titulos } from '../atoms/Title/Titulos';
 
 export default function Menu({ name, paginaPrincipal }) {
@@ -77,6 +77,7 @@ export default function Menu({ name, paginaPrincipal }) {
                     ''
                 )}
             </Grid>
+
             <Grid
                 item
                 justifyContent={'flex-start'}
@@ -87,7 +88,23 @@ export default function Menu({ name, paginaPrincipal }) {
                     marginTop: '2px'
                 }}
             >
-                {email ? <span style={{ color: '#71767b' }}>{email}</span> : ''}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        overflowWrap: 'break-word',
+                        wordBreak: 'break-all',
+                        wordWrap: 'break-word'
+                    }}
+                >
+                    <Typography>
+                        {email ? (
+                            <span style={{ color: '#71767b' }}>{email}</span>
+                        ) : (
+                            ''
+                        )}
+                    </Typography>
+                </Box>
             </Grid>
 
             <Grid

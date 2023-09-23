@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
-import { AccessAlarm } from '@mui/icons-material';
+import { AccessAlarm, Adjust } from '@mui/icons-material';
 import { BotonMUI } from '../atoms/Button/BotonMUI';
 import { Menu } from './Menu';
 import React from 'react';
@@ -115,7 +115,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                                     horizontal: 'left'
                                 }}
                             >
-                                <Box sx={{ width: 230 }}>
+                                <Box sx={{ width: 220 }}>
                                     <Grid
                                         container
                                         direction="column"
@@ -164,7 +164,17 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                                             >
                                                 Email:
                                             </Typography>
-                                            <Typography>{email}</Typography>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    overflowWrap: 'break-word',
+                                                    wordBreak: 'break-all',
+                                                    wordWrap: 'break-word'
+                                                }}
+                                            >
+                                                <Typography>{email}</Typography>
+                                            </Box>
                                         </Grid>
                                         <Grid item>
                                             <Typography
