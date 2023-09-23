@@ -25,6 +25,9 @@ import {
     ModalEditarCarrera,
     ModalAgregarCarrera
 } from './Modals';
+import { Header } from '../molecules/Header';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PageCRUDCarreras = () => {
     const [carreraSeleccionada, setCarreraSeleccionada] = useState({
@@ -225,7 +228,10 @@ const PageCRUDCarreras = () => {
     return (
         <Grid container>
             <Grid item container xs={12}>
-                <HeaderSuperUsuario />
+            <Header
+                name="Mis equivalencias"
+                paginaPrincipal="/usuario/equivalencias/"
+            />
             </Grid>
 
             <Grid
@@ -247,6 +253,11 @@ const PageCRUDCarreras = () => {
                     alignItems="center"
                 >
                     <Grid item>
+                        <Link to="/direccionDashboard">
+                            <IconButton sx={{ padding: 0 }}>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        </Link>
                         <Titulos component="h2" titulogrande>
                             Carreras
                         </Titulos>

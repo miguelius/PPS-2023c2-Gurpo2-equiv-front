@@ -84,7 +84,7 @@ const FormularioInicioSesion = () => {
                     } else if (usuario.rol == 'directivo') {
                         window.location.href = '/direccionDashboard';
                     } else if (usuario.rol == 'superusuario') {
-                        window.location.href = '/direccion/solicitudes';
+                        window.location.href = '/direccionDashboard'; //superusuario/solicitudes direccion anterior
                     }
                 }
             });

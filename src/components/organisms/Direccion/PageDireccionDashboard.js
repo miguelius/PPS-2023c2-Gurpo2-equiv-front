@@ -3,7 +3,14 @@ import { Container, Grid, Typography } from '@mui/material';
 import { Header } from '../../molecules/Header';
 import { ContainerTitle } from './DireccionStyled';
 import DashboardCard from '../../atoms/DashboardCard/DashboardInstitucionCard';
+
 const DireccionDashboard = () => {
+    const rol = JSON.parse(localStorage.getItem('rol'));
+    const rolDireccion =
+        rol === 'directivo'
+            ? '/direccion/solicitudes'
+            : '/superusuario/solicitudes';
+
     return (
         <>
             <Grid item container xs={12}>
@@ -28,8 +35,38 @@ const DireccionDashboard = () => {
                                     tituloCard="Solicitudes"
                                     cuerpoCard="Ver las solicitudes de equivalencia."
                                     imgSrc="https://res.cloudinary.com/dfwvsjwjr/image/upload/c_scale,w_68/v1684362644/solicitud_rryiab.png"
-                                    link={'/direccion/solicitudes'}
+                                    link={rolDireccion}
                                 />
+                            </Grid>
+                            <Grid sx={{ padding: '0.5rem' }}>
+                                <div
+                                    style={{
+                                        display:
+                                            rol == 'directivo' ? 'none' : 'true'
+                                    }}
+                                >
+                                    <DashboardCard
+                                        tituloCard="Usuarios"
+                                        cuerpoCard="Ir a control de instituciones en el sistema."
+                                        imgSrc="https://res.cloudinary.com/dfwvsjwjr/image/upload/c_scale,w_68/v1684362643/institucion_1_plx7hx.png"
+                                        link={'/superusuario/usuarios'}
+                                    />
+                                </div>
+                            </Grid>
+                            <Grid sx={{ padding: '0.5rem' }}>
+                                <div
+                                    style={{
+                                        display:
+                                            rol == 'directivo' ? 'none' : 'true'
+                                    }}
+                                >
+                                    <DashboardCard
+                                        tituloCard="Carreras"
+                                        cuerpoCard="Ir a control de instituciones en el sistema."
+                                        imgSrc="https://res.cloudinary.com/dfwvsjwjr/image/upload/c_scale,w_68/v1684362643/institucion_1_plx7hx.png"
+                                        link={'/superusuario/carreras'}
+                                    />
+                                </div>
                             </Grid>
 
                             <Grid sx={{ padding: '0.5rem' }}>

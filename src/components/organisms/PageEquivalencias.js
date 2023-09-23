@@ -30,19 +30,24 @@ const PageEquivalencias = ({ rol }) => {
     return (
         <Grid container direction="column">
             <Grid item container xs={12}>
-                {rol === 'directivo' ? (
-                    <Header
-                        name="Equivalencias"
-                        paginaPrincipal="/direccion/solicitudes/"
-                    />
-                ) : (
-                    <Header
-                        name="Mis equivalencias"
-                        paginaPrincipal="/usuario/equivalencias/"
-                        botonSeleccionado="rgba(255, 255, 255, 0.1);"
-                    />
-                )}
+                <Header name="Instituciones" paginaPrincipal="/" />
             </Grid>
+            {
+                <Grid item container xs={12}>
+                    {rol === 'directivo' ? (
+                        <Header
+                            name="Equivalencias"
+                            paginaPrincipal="/direccion/solicitudes/"
+                        />
+                    ) : (
+                        <Header
+                            name="Mis equivalencias"
+                            paginaPrincipal="/usuario/equivalencias/"
+                            botonSeleccionado="rgba(255, 255, 255, 0.1);"
+                        />
+                    )}
+                </Grid>
+            }
 
             <Grid
                 item

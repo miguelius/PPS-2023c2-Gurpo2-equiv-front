@@ -21,11 +21,13 @@ import { ArchivoEquivalencia } from '../../molecules/ArchivoEquivalencia';
 import { HeaderDirectivo } from '../../molecules/HeaderDirectivo';
 import { HeaderSuperUsuario } from '../../molecules/HeaderSuperUsuario';
 import Chat from '../../chat/Chat';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { toast } from 'react-toastify';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import { Header } from '../../molecules/Header';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const horaConCero = (hora) => {
     if (hora < 10) {
@@ -314,16 +316,19 @@ const PageRevision = ({ socket }) => {
         return salida;
     };
 
-    const rolUsuario = () => {
-        if (rol === 'directivo') {
-            return <HeaderDirectivo />;
-        } else {
-            return <HeaderSuperUsuario />;
-        }
-    };
+    //const rolUsuario = () => {
+    //    if (rol === 'directivo') {
+    //        return <HeaderDirectivo />;
+    //    } else {
+    //        return <HeaderSuperUsuario />;
+    //    }
+    //};
     const urlUsuario = () => {
         if (rol === 'directivo') {
             return '/direccion/solicitudes';
+        }
+        if (rol === 'alumno') {
+            return '/usuario/equivalencias';
         } else {
             return '/superusuario/solicitudes';
         }
@@ -333,7 +338,8 @@ const PageRevision = ({ socket }) => {
         <>
             <Grid container direction="column">
                 <Grid item container xs={12}>
-                    {rolUsuario()}
+                    {/*rolUsuario()*/}
+                    <Header name="Instituciones" paginaPrincipal="/" />
                 </Grid>
 
                 <Grid
@@ -357,6 +363,11 @@ const PageRevision = ({ socket }) => {
                         alignItems="center"
                     >
                         <Grid item>
+                            <Link to={urlUsuario}>
+                                <IconButton sx={{ padding: 0 }}>
+                                    <ArrowBackIcon />
+                                </IconButton>
+                            </Link>
                             <Titulos component="h2" titulogrande>
                                 Revisión
                             </Titulos>
@@ -899,7 +910,7 @@ const PageRevision = ({ socket }) => {
                                     rol === 'superusuario' ? (
                                         <OuterFormButtons
                                             handleSubmit={handleSubmit}
-                                            path={'/direccion/solicitudes'}
+                                            path={urlUsuario}
                                             titulo={'Descartar revisión'}
                                             mensaje={
                                                 '¿Está seguro/a de que desea descartar la revisión de la solicitud?'

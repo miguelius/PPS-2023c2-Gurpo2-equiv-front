@@ -81,9 +81,9 @@ const PageEditarInstitucion = () => {
         );
     };
 
-    const handleBack = () => {
-        history.push('/instituciones/todas');
-    };
+    //const handleBack = () => {
+    //    history.push('/instituciones/todas');
+    //};
 
     const handleSubmit = async (event) => {
         event.preventDefault();

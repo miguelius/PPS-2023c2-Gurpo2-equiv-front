@@ -50,7 +50,12 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
     return (
         <AppBar
             position="static"
-            sx={{ bgcolor: rol === 'directivo' ? '#2D7AC0' : '#122C34' }}
+            sx={{
+                bgcolor:
+                    rol === 'directivo' || rol === 'superusuario'
+                        ? '#2D7AC0'
+                        : '#122C34'
+            }}
         >
             <Toolbar color="#122C34">
                 <Grid xs={0.25} lg={1.5} />
@@ -73,6 +78,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                                     to={'/usuario/equivalencias/'}
                                     style={{ textDecoration: 'none' }}
                                 >
+                                    {/*
                                     <BotonMUI
                                         variant="text"
                                         sx={{
@@ -82,6 +88,7 @@ const Header = ({ name, paginaPrincipal, botonSeleccionado }) => {
                                     >
                                         Mis equivalencias
                                     </BotonMUI>
+                                    */}
                                 </Link>
                             </Grid>
                         )}

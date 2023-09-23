@@ -1,4 +1,4 @@
-import { Grid, Button, Collapse } from '@mui/material';
+import { Grid, Button, Collapse, IconButton } from '@mui/material';
 import React, { useState, useMemo, useEffect, Fragment } from 'react';
 import { Header } from './Header';
 import { Titulos } from '../atoms/Title/Titulos';
@@ -25,6 +25,7 @@ import { Link } from 'react-router-dom';
 import { config } from '../../config/config';
 import { ArchivoEquivalencia } from './ArchivoEquivalencia';
 import Chat from '../chat/Chat';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ChipMedium = styled(Chip)`
     ${(props) =>
@@ -216,6 +217,11 @@ const PageVerEquivalencia = ({ socket }) => {
                         alignItems="center"
                     >
                         <Grid item>
+                            <Link to="/usuario/equivalencias">
+                                <IconButton sx={{ padding: 0 }}>
+                                    <ArrowBackIcon />
+                                </IconButton>
+                            </Link>
                             <Titulos component="h2" titulogrande>
                                 Revisión
                             </Titulos>
@@ -311,9 +317,10 @@ const PageVerEquivalencia = ({ socket }) => {
                                             <TableRow
                                                 key={row.solicitante}
                                                 sx={{
-                                                    '&:last-child td, &:last-child th': {
-                                                        border: 0
-                                                    }
+                                                    '&:last-child td, &:last-child th':
+                                                        {
+                                                            border: 0
+                                                        }
                                                 }}
                                             >
                                                 <TableCell
