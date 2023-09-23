@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import cx from 'clsx';
 import {
     Dialog,
@@ -18,13 +17,14 @@ import {
 import withStyles from '@material-ui/core/styles/withStyles';
 import MensajesStyle from './MensajesStyle.js';
 import AvatarIcon from '../atoms/AvatarIcon.jsx';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { cyan } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     updateMensaje,
     deleteMensaje
 } from '../../services/mensajes_service.js';
+import { getUsuario, getUsuarios } from '../../services/usuario_service.js';
 
 const Mensajes = withStyles(MensajesStyle)((props) => {
     const { classes, mensajes, usuario_id, socket } = props;
@@ -151,6 +151,29 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
         socket.emit('message', deleteMessage);
     };
 
+    const [usuarios, setUsuarios] = useState({});
+
+    useEffect(() => {
+        const cargarUsuarios = async () => {
+            const usuariosCargados = {};
+            for (const mensaje of mensajes) {
+                if (!usuariosCargados[mensaje.id_remitente]) {
+                    try {
+                        const usuario = await getUsuario(mensaje.id_remitente);
+                        usuariosCargados[mensaje.id_remitente] = usuario;
+                    } catch (error) {
+                        console.error('Error al obtener el usuario:', error);
+                    }
+                }
+            }
+            setUsuarios(usuariosCargados);
+        };
+
+        cargarUsuarios();
+    }, [mensajes]);
+
+    //Fin getUsuario
+
     return (
         <Fragment>
             <Grid container>
@@ -164,7 +187,7 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                         item
                                         xs={12}
                                         sx={{
-                                            paddingLeft: 7
+                                            paddingLeft: 2
                                         }}
                                     >
                                         {primerUltimoMensaje(i, mensaje) ===
@@ -177,51 +200,88 @@ const Mensajes = withStyles(MensajesStyle)((props) => {
                                                     paddingBottom: '0.2rem'
                                                 }}
                                             >
-                                                {mensaje.Equivalencium.Usuario.nombre.trim() +
-                                                    ' ' +
-                                                    mensaje.Equivalencium.Usuario.apellido.trim()}
-                                                <Typography
-                                                    variant="caption"
-                                                    color="textSecondary"
-                                                    sx={{
-                                                        fontSize: '13px'
-                                                    }}
-                                                >
-                                                    {' - ' +
-                                                        mensaje.Equivalencium.Usuario.rol[0]
-                                                            .toUpperCase()
-                                                            .trim() +
-                                                        mensaje.Equivalencium.Usuario.rol
-                                                            .substring(1)
-                                                            .trim()}
-                                                </Typography>
+                                                {usuarios[
+                                                    mensaje.id_remitente
+                                                ] ? (
+                                                    <>
+                                                        {usuarios[
+                                                            mensaje.id_remitente
+                                                        ].nombre.trim() +
+                                                            '' +
+                                                            usuarios[
+                                                                mensaje
+                                                                    .id_remitente
+                                                            ].apellido.trim()}
+                                                        <Typography
+                                                            variant="caption"
+                                                            color="textSecondary"
+                                                            sx={{
+                                                                fontSize: '13px'
+                                                            }}
+                                                        >
+                                                            {' - ' +
+                                                                usuarios[
+                                                                    mensaje
+                                                                        .id_remitente
+                                                                ].rol[0]
+                                                                    .toUpperCase()
+                                                                    .trim() +
+                                                                usuarios[
+                                                                    mensaje
+                                                                        .id_remitente
+                                                                ].rol
+                                                                    .substring(
+                                                                        1
+                                                                    )
+                                                                    .trim()}
+                                                        </Typography>
+                                                    </>
+                                                ) : (
+                                                    'Cargando...'
+                                                )}
                                             </Typography>
                                         )}
                                     </Grid>
-                                    <Grid container item xs={12}>
-                                        {primerUltimoMensaje(i, mensaje) ===
+                                    <Grid container item>
+                                        {/*primerUltimoMensaje(i, mensaje) ===
                                             classes.leftFirst && (
                                             <AvatarIcon
-                                                info={[
-                                                    mensaje.Equivalencium.Usuario.nombre.trim() +
-                                                        ' ' +
-                                                        mensaje.Equivalencium.Usuario.apellido.trim()
-                                                ]}
+                                                info={
+                                                    usuarios[
+                                                        mensaje.id_remitente
+                                                    ]
+                                                        ? [
+                                                              `${usuarios[
+                                                                  mensaje
+                                                                      .id_remitente
+                                                              ].nombre.trim()} ${usuarios[
+                                                                  mensaje
+                                                                      .id_remitente
+                                                              ].apellido.trim()}`
+                                                          ]
+                                                        : ['Cargando...']
+                                                }
                                             />
-                                        )}
+                                            )*/}
+
                                         <Grid
                                             item
                                             xs={9}
                                             display="flex"
                                             justifyContent="flex-start"
                                             sx={{
+                                                marginLeft:
+                                                    sidePorUsuario(mensaje) ==
+                                                    'left'
+                                                        ? '0'
+                                                        : 'auto',
                                                 paddingLeft:
                                                     primerUltimoMensaje(
                                                         i,
                                                         mensaje
                                                     ) === classes.leftFirst
                                                         ? 1
-                                                        : 6,
+                                                        : 1,
                                                 paddingBottom:
                                                     primerUltimoMensaje(
                                                         i,
