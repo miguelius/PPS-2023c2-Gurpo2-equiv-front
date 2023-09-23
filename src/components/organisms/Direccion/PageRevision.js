@@ -104,7 +104,7 @@ const PageRevision = ({ socket }) => {
             progress: undefined
         });
         setTimeout(() => {
-            window.location = '/direccion/solicitudes';
+            window.location = urlUsuario();
         }, 1000);
     };
 
@@ -326,11 +326,10 @@ const PageRevision = ({ socket }) => {
     const urlUsuario = () => {
         if (rol === 'directivo') {
             return '/direccion/solicitudes';
-        }
-        if (rol === 'alumno') {
-            return '/usuario/equivalencias';
-        } else {
+        } else if (rol === 'superusuario') {
             return '/superusuario/solicitudes';
+        } else {
+            return '/usuario/equivalencias';
         }
     };
 
@@ -338,7 +337,6 @@ const PageRevision = ({ socket }) => {
         <>
             <Grid container direction="column">
                 <Grid item container xs={12}>
-                    {/*rolUsuario()*/}
                     <Header name="Instituciones" paginaPrincipal="/" />
                 </Grid>
 
