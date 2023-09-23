@@ -18,6 +18,7 @@ import PageDireccionDashboard from './components/organisms/Direccion/PageDirecci
 import PageSuperUsuario from './components/PageSuperUsuario';
 import socketIO from 'socket.io-client';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+
 const socket = socketIO.connect('http://localhost:3001');
 
 function App() {
