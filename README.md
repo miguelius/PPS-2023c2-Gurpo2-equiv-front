@@ -1,3 +1,45 @@
+# Proyecto EQUIVALENCIAS - version 2.0 \_ 2023-09-26
+
+> Este repositorio es un fork de un proyecto para la materia PPS [Practica Profesional Supervisada] Link: (https://github.com/DesApp-2023c1-Grupo-2/PPS-2023c2-Gurpo2-equiv-front).
+> El original es uno repositorio [Materia desarrollo de aplicaciones] (https://github.com/unahur-desapp/equivalencias-front-end).
+>
+> A continuación, como se distribuyen los directorios.
+
+```shell
+.
+├── public                  # Index, favicon y otros archivos comunes
+└── src
+    ├── components          # Componentes de React - versión "sin Recoil"
+    ├── config              # Ruta base a la API
+    └── services            # funciones de acceso a un backend
+
+```
+# Instalar las dependencias Node del proyecto.
+
+```shell
+npm install
+```
+
+```shell
+# instalacion de dependencias complementarias.
+
+npm install @mui/material @emotion/react @emotion/styled
+npm install mui-image
+npm install @material-ui/core@^4.11.2 react@^17.0.0
+npm install bcryptjs
+npm install crypto-browserify
+npm install @mui/lab@5.0.0-alpha.88
+```
+
+# Usuarios y contraseñas para loguearse
+
+```shell
+    DNI      PASS    USUARIO    ROL
+30563652    prueba    Enzo     alumno
+20569859    12345    Anthony   directivo
+26777239    unahur    Super    superusuario
+```
+
 # Repositorio semilla: aplicación React :seedling:
 
 > Este repositorio es un fork de [otro que está en la organización surprograma](https://github.com/surprograma/react-recoil-app-seed).  
@@ -31,7 +73,7 @@ Vas a necesitar un IDE o al menos un editor de texto que coloree la sintaxis. Re
 
 Para ejecutar el código es necesario tener NodeJS en su versión 14 (`lts/fermium`). Para instalarlo recomendamos utilizar el manejador de versiones [`nvm`](https://github.com/nvm-sh/nvm), aunque también podés hacerlo manualmente siguiendo las instrucciones adecuadas para tu sistema operativo.
 
-El ejemplo viene preparado para ser ejecutado junto a una API, que puede crearse desde [este repositorio](https://github.com/unahur-desapp/nodejs-api-seed).
+El ejemplo viene preparado para ser ejecutado junto a una API, que puede crearse desde [este repositorio](https://github.com/unahur-desapp/nodejs-api-seed)
 
 ## :ballot_box_with_check: Configuración inicial del proyecto
 
@@ -42,7 +84,9 @@ Asumiendo que ya configuraste todos los prerrequisitos, estos son los comandos q
 cp .env.example .env
 
 # Instala las dependencias Node del proyecto.
+
 npm install
+
 ```
 
 ## Usando el repo para armar mi app
