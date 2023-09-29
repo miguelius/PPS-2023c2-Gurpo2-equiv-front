@@ -1,3 +1,4 @@
+import { config } from '../../config/config';
 import { Button, Grid, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FileUploader } from '../atoms/Input/InputMUI';
@@ -14,6 +15,8 @@ import {
 } from '../../services/archivos_services';
 
 const rol = JSON.parse(localStorage.getItem('rol'));
+
+const baseUrl = baseUrl
 
 const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
     const [nombreArchivo, setNombreArchivo] = useState(nArchivo);
@@ -68,7 +71,7 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
         formdata.append('filename', file.name);
         console.log('Nombre del archivo' + file.name);
 
-        fetch('http://localhost:3001/api/archivos/', {
+        fetch(config.baseUrl + '/api/archivos/', {
             method: 'POST',
             body: formdata
         })
@@ -91,7 +94,7 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
     };
 
     const handleDeleteFile = (f) => {
-        fetch('http://localhost:3001/api/archivos/' + f, {
+        fetch(config.baseUrl + '/api/archivos/' + f, {
             method: 'DELETE'
         })
             .then((res) => res.text())
@@ -179,7 +182,7 @@ const ArchivoEquivalencia = ({ estado, nArchivo, materiaAprobada }) => {
                                             <Link
                                                 //key={file}
                                                 href={
-                                                    'http://localhost:3001/api/archivos/' +
+                                                    config.baseUrl + '/api/archivos/' +
                                                     file
                                                 }
                                                 target="_blank"

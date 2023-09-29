@@ -1,13 +1,15 @@
+import { config } from '../config/config';
+
 // Constantes Back
 const SERVICES_CONFIG = {
-    baseUrl: 'http://localhost',
-    port: ':3001',
-    path: '/api/archivos'
+    baseUrl: config.apiUrl,
+    path: '/api/archivos',
+    url: () => `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.path}`
 };
 
 //call
 export async function postArchivos(body) {
-    const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}`;
+    const endpoint = SERVICES_CONFIG.url();
     const response = await fetch(endpoint, {
         method: 'POST',
         body: body
@@ -16,7 +18,7 @@ export async function postArchivos(body) {
 }
 
 export async function getArchivos(nombreArchivo) {
-    const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}/${nombreArchivo}`;
+    const endpoint = `${SERVICES_CONFIG.url()}/${nombreArchivo}`;
     const response = await fetch(endpoint, {
         method: 'GET'
     });
@@ -24,11 +26,11 @@ export async function getArchivos(nombreArchivo) {
 }
 
 export function getLinkArchivos(nombreArchivo) {
-    return `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}/${nombreArchivo}`;
+    return `${SERVICES_CONFIG.url()}/${nombreArchivo}`;
 }
 
 export async function deleteArchivos(nombreArchivo) {
-    const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}/${nombreArchivo}`;
+    const endpoint = `${SERVICES_CONFIG.url()}/${nombreArchivo}`;
     const response = await fetch(endpoint, {
         method: 'DELETE'
     });

@@ -1,3 +1,4 @@
+import { config } from '../../config/config';
 import { Button, Grid, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FileUploader } from '../atoms/Input/InputMUI';
@@ -30,7 +31,7 @@ const ArchivoAltaEquivalencia = ({
             return;
         }
 
-        fetch('http://localhost:3001/api/archivos/f/' + nombreArchivo, {
+        fetch(config.apiUrl + '/api/archivos/f/' + nombreArchivo, {
             method: 'GET'
         })
             .then((res) => res.json())
@@ -152,7 +153,7 @@ const ArchivoAltaEquivalencia = ({
                                     >
                                         <Link
                                             href={
-                                                'http://localhost:3001/api/archivos/' +
+                                                config.apiUrl + '/api/archivos/' +
                                                 nombreArchivo
                                             }
                                             target="_blank"

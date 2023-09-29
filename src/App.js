@@ -1,3 +1,4 @@
+import { config } from './config/config';
 import PageIniciarSesion from './components/organisms/IniciarSesion/PageIniciarSesion';
 import { PageCreateForm } from './components/molecules/PageCreateForm';
 import { PageRevision } from './components/organisms/Direccion/PageRevision';
@@ -19,7 +20,7 @@ import PageSuperUsuario from './components/PageSuperUsuario';
 import socketIO from 'socket.io-client';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
-const socket = socketIO.connect('http://localhost:3001');
+const socket = socketIO.connect(config.apiUrl);
 
 function App() {
     const rol = JSON.parse(localStorage.getItem('rol'));

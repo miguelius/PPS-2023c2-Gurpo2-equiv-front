@@ -1,4 +1,4 @@
 export const config = {
-    apiUrl: 'http://localhost:3001/api'
+    apiUrl: process.env.REACT_APP_API_URL || '/api'
     // apiUrl: 'https://unahur-equivalencias-backend.herokuapp.com/api'
 };
