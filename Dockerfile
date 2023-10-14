@@ -9,5 +9,6 @@ RUN npm run build
 
 FROM nginx
 COPY --from=build-stage /app/build/ /usr/share/nginx/html
+COPY --from=build-stage /app/10-variables.conf.template /etc/nginx/templates/10-variables.conf.template
 COPY --from=build-stage /app/nginx.conf /etc/nginx/conf.d/default.conf
 

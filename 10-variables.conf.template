@@ -1,0 +1,4 @@
+map $host $backend {
+  default "$BACKEND_HOST";
+}
+
