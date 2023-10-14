@@ -1,4 +1,4 @@
-map $host $backend {
+map $host $backend_host {
   default "$BACKEND_HOST";
 }
 
